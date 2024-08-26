@@ -1,0 +1,10 @@
+version: '1'
+services:
+  web:
+    container_name: FRONTENDAPP
+    hostname: frontend_app
+    ports:
+      - "3000:3000"		
+    image: frontend_app
+    environment:
+      - API_URL=${API_URL}
