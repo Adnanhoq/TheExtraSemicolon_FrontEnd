@@ -17,17 +17,15 @@ export const postLoginForm = async (req: express.Request, res: express.Response)
     }
 }
 
-export const logout = async (req: express.Request, res: express.Response): Promise<void> => {
-
+export const postLogout = async (req: express.Request, res: express.Response): Promise<void> => {
     if(req.session) {
         req.session.destroy(err => {
             if (err) {
                 res.status(400).send("Unable to log out")
             } else {
-                res.send('Logout successful')
+                res.redirect('/login');
             }
         });
-        res.redirect('/login');
     }
     
 } 
