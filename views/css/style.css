@@ -27,9 +27,38 @@ body {
     color: #6f7cc1;
 }
 
+.login-container {
+  width: 30%;
+}
+
+.login-form {
+  & > * {
+    margin-top: 20px;
+  }
+}
+
+.login-input {
+  width: 100%;
+  font-size: 22px;
+  border-radius: 12px;
+}
+
+.login-button {
+  background-color: #64bb4c;
+  border: 2px solid;
+  border-color: #252D4F;
+  font-size: 22px;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 12px;
+  color: white;
+}
+
 /* --- Footer Styling --- */
 footer {
     padding-inline: 4.5rem;
+    background-color: white;
 }
 
 /* --- Scroller --- */
