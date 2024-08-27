@@ -15,4 +15,4 @@ jobs:
     - name: Run pally
     - run: | 
       npm install -g pa11y-ci
-      pa11y-ci
+      pa11y-ci --config ./awsPa11y.json
