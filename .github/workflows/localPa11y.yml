@@ -26,5 +26,5 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm install -g pa11y-ci
-    - run: npm run dev
+    - run: npm build
     - run: pa11y-ci --config ./localPa11y.json
