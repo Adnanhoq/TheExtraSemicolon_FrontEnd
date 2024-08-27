@@ -19,7 +19,8 @@ export const getLogout = async (req: express.Request, res: express.Response): Pr
     if(req.session) {
         req.session.destroy(err => {
             if (err) {
-                res.status(400).send("Unable to log out");
+                res.locals.errormessage = "Unable to log out";
+                res.render('/login');
             } else {
                 res.redirect('/login');
             }
