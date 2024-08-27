@@ -1,6 +1,4 @@
 
-// export const API_URL = process.env.API_URL
-
 export type Config = {
     API_URL: string
    }
