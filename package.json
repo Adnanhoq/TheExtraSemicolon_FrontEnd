@@ -32,14 +32,14 @@
     "@types/pbkdf2": "^3.1.2",
     "@types/sinon": "^17.0.3",
     "axios-mock-adapter": "^1.21.4",
+    "chai": "^4.3.7",
+    "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "mocha": "^10.7.3",
-    "chai": "^4.3.7",
     "nodemon": "^3.1.0",
     "sinon": "^18.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
-    "typescript-eslint": "^7.6.0",
-    "dotenv": "^16.4.5"
+    "typescript-eslint": "^7.6.0"
   }
 }

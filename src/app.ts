@@ -6,6 +6,7 @@ import { getAllDatabases } from "./controllers/TestController";
 
 import { getLoginForm, getLogout, postLoginForm } from "./controllers/AuthController";
 import { getIndexPage } from "./controllers/HomeController";
+import { unauthenticatedRouter } from "./routes/unauthenticatedRouter";
 const app = express();
 
 nunjucks.configure('views', {
@@ -35,12 +36,9 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
-app.get('/', getIndexPage);
-app.get('/login', getLoginForm);
-app.post('/login', postLoginForm);
-app.get('/logout', getLogout);
+app.use('/', unauthenticatedRouter);
 
 app.get('/', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('index.njk');
 });
-app.get('/test', getAllDatabases);
+
