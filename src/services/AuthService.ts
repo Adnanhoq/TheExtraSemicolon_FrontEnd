@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import { LoginRequest } from "../models/LoginRequest";
+import type { LoginRequest } from "../models/LoginRequest";
 import { pbkdf2Sync } from "crypto";
 import { validateLogin } from "../validators/LoginValidator";
 
