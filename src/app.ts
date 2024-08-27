@@ -2,6 +2,7 @@ import express from "express";
 import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
+import { getAllDatabases } from "./controllers/TestController";
 
 import { getLoginForm, getLogout, postLoginForm } from "./controllers/AuthController";
 import { getIndexPage } from "./controllers/HomeController";
@@ -42,3 +43,4 @@ app.get('/logout', getLogout);
 app.get('/', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('index.njk');
 });
+app.get('/test', getAllDatabases);
