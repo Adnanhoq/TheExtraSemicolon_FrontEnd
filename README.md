@@ -5,9 +5,15 @@
 2. Start the application with `npm start` or `npm run dev` to reload the server when changes are made
 3. To check that your application is running enter url http://localhost:3000
 
-## Backend
-1. Follow the steps to run the backend for this application <a href="https://github.com/shaunganley/java-dropwizard-flyway-starter" target="_blank">here</a>
+## Run Linter in your VSCode application
+1. `npm run linter`
 
-## Frontend
-docker build --build-arg https://5tmqdqfjni.eu-west-1.awsapprunner.com -t frontendapp:0.1 .
-docker run -p 3000:3000 5tmqdqfjni.eu-west-1.awsapprunner.com/employee_demo:the_extra_semicolon_fe
+## Backend
+1. Follow the steps to run the backend for this application <a href="https://github.com/sdagn1/TheExtraSemicolon_BackEnd" target="_blank">here</a>
+2. You will need this backend running in order to access the APIs from the frontend
+
+## Run the frontend application in Docker
+1. Run the follow commands to run the docker for the front end
+`docker build --build-arg https://5tmqdqfjni.eu-west-1.awsapprunner.com -t 5tmqdqfjni.eu-west-1.awsapprunner.com/employee_demo:the_extra_semicolon_fe .`
+`docker run -p 3000:3000 5tmqdqfjni.eu-west-1.awsapprunner.com/employee_demo:the_extra_semicolon_fe`
+2. The commands above will the build the application and then run it. Check the application here: <a href="https://5tmqdqfjni.eu-west-1.awsapprunner.com" target="_blank">here</a>
