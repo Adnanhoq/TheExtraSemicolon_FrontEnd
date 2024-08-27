@@ -13,6 +13,10 @@ export const getToken = async (loginRequest: LoginRequest): Promise<string> => {
         return response.data;
     } catch (e) {
         console.log(e);
-        throw new Error(e.response.data);
+
+        if (axios.isAxiosError(e)) {
+            throw new Error(e.response.data);
+        }
+        throw new Error(e.message);
     }
 }
