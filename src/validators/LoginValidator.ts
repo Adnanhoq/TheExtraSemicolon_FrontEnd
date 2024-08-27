@@ -1,4 +1,4 @@
-export const validateLogin = (email: String, password: String) => {
+export const validateLogin = (email: string, password: string) => {
 
     if(email.length == 0 || email.length > 64) {
         throw new Error("Email is not valid");
