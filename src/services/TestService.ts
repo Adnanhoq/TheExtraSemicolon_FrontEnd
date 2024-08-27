@@ -5,7 +5,7 @@ import 'dotenv/config';
 export const getDatabases = async (): Promise<string[]> => {
     try {
           console.log(API_URL);
-        const response: AxiosResponse = await axios.get(API_URL+"/api/test");
+        const response: AxiosResponse = await axios.get(API_URL);
 
         return response.data;
     } catch (e) {
