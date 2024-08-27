@@ -1,6 +1,6 @@
 export const validateLogin = (email: string, password: string) => {
 
-    if(email.length == 0 || email.length > 64) {
+    if(email.length == 0 || email.length > 255) {
         throw new Error("Email is not valid");
     }
 
