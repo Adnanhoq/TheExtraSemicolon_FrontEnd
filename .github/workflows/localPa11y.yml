@@ -26,4 +26,4 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm install -g pa11y-ci
-    - run: npm start & npx wait-on localhost:3000 & pa11y-ci --config ./localPa11y.json
+    - run: npm start & npx wait-on https://localhost:3000 & pa11y-ci --config ./localPa11y.json
