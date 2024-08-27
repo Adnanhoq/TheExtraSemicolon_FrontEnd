@@ -3,7 +3,8 @@ import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
 
-import { getLoginForm, postLoginForm, postLogout } from "./controllers/AuthController";
+import { getLoginForm, getLogout, postLoginForm } from "./controllers/AuthController";
+import { getIndexPage } from "./controllers/HomeController";
 const app = express();
 
 nunjucks.configure('views', {
@@ -33,10 +34,10 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
-
+app.get('/', getIndexPage);
 app.get('/login', getLoginForm);
 app.post('/login', postLoginForm);
-app.post('/logout', postLogout);
+app.get('/logout', getLogout);
 
 app.get('/', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('index.njk');
