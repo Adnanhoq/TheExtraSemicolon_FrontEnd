@@ -1,5 +1,5 @@
 import {assert, expect} from 'chai';
-import { LoginRequest } from "../../../src/models/LoginRequest";
+import type { LoginRequest } from "../../../src/models/LoginRequest";
 import { validateLogin } from "../../../src/validators/LoginValidator";
 import { log } from 'console';
 
