@@ -5,6 +5,15 @@ import { log } from 'console';
 
 describe('LoginValidator', function () {
     describe('validateLoginRequest', function () {
+        const emailTestCases: [string, string,string][] = [
+            ['', 'Email is not valid length', 'too short'],
+            ['test@kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaainos.com', 'Email is not valid length', 'too long'],
+            ['test','Email is not valid format', 'invalid format']
+        ];
+        const passwordTestCases: [string, string, string][] = [
+            ['', 'Password is not valid', 'too short'],
+            ['paaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasword', 'Password is not valid', 'too long']
+        ];
         it('it should not throw exception when errors', () => {
             const loginRequest: LoginRequest = {
                 email: "admin@kainos.com",
@@ -17,74 +26,29 @@ describe('LoginValidator', function () {
                 assert.fail("Expected no error message");
             }
         }),
-        it('it should return error when email too short', () => {
-            const loginRequest: LoginRequest = {
-                email: "",
-                password: "admin"
-            }
-            try {
-                validateLogin(loginRequest.email, loginRequest.password);
-            } catch (e) {
-                expect(e.message).to.equal("Email is not valid length");
-                return;
-            }
-            assert.fail("Expected error message");
-        }),
-        it('it should return error when email too long', () => {
-            const loginRequest: LoginRequest = {
-                email: "test@kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaainos.com",
-                password: "admin"
-            }
 
-            try {
-                validateLogin(loginRequest.email, loginRequest.password);
-            } catch (e) {
-                expect(e.message).to.equal("Email is not valid length");
-                return;
-            }
-            assert.fail("Expected error message");
-        }),
-        it('it should return error when email invalid format', () => {
-            const loginRequest: LoginRequest = {
-                email: "test",
-                password: "admin"
-            }
 
-            try {
-                validateLogin(loginRequest.email, loginRequest.password);
-            } catch (e) {
-                expect(e.message).to.equal("Email is not valid format");
-                return;
-            }
-            assert.fail("Expected error message");
+        emailTestCases.forEach(([email, expectedError, description]) => {
+            it(`it should return error ${expectedError} when email is ${description}`, function() {
+                try {
+                    validateLogin(email, "");
+                } catch (e) {
+                    expect(e.message).to.equal(expectedError);
+                    return;
+                }
+                assert.fail("Expected error message");
+            })
         }),
-        it('it should return error when password too short', () => {
-            const loginRequest: LoginRequest = {
-                email: "admin@kainos.com",
-                password: ""
-            }
-
-            try {
-                validateLogin(loginRequest.email, loginRequest.password);
-            } catch (e) {
-                expect(e.message).to.equal("Password is not valid");
-                return;
-            }
-            assert.fail("Expected error message");
-        }),
-        it('it should return error when password too long', () => {
-            const loginRequest: LoginRequest = {
-                email: "admin@kainos.com",
-                password: "paaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasword"
-            }
-
-            try {
-                validateLogin(loginRequest.email, loginRequest.password);
-            } catch (e) {
-                expect(e.message).to.equal("Password is not valid");
-                return;
-            }
-            assert.fail("Expected error message");
+        passwordTestCases.forEach(([password, expectedError, description]) => {
+            it(`it should return error ${expectedError} when password is ${description}`, function() {
+                try {
+                    validateLogin("admin@kainos.com", password);
+                } catch (e) {
+                    expect(e.message).to.equal(expectedError);
+                    return;
+                }
+                assert.fail("Expected error message");
+            })
         })
     })
 })
