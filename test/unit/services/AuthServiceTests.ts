@@ -3,6 +3,7 @@ import {assert, expect} from 'chai';
 import type { LoginRequest } from "../../../src/models/LoginRequest"
 import MockAdapter from "axios-mock-adapter";
 import { getToken } from "../../../src/services/AuthService";
+import { log } from "console";
 
 const mock = new MockAdapter(axios);
 
@@ -10,6 +11,15 @@ const URL = "http://localhost:8080/api/auth/login";
 
 describe('AuthService', function () {
     describe('getToken', function () {
+        const emailTestCases: [string, string,string][] = [
+            ['', 'Email is not valid length', 'too short'],
+            ['test@kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaainos.com', 'Email is not valid length', 'too long'],
+            ['test','Email is not valid format', 'invalid format']
+        ];
+        const passwordTestCases: [string, string, string][] = [
+            ['', 'Password is not valid', 'too short'],
+            ['paaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasword', 'Password is not valid', 'too long']
+        ];
         it('should return token when valid request', async () => {
             const loginRequest: LoginRequest = {
                 email: "admin@kainos.com",
@@ -24,70 +34,37 @@ describe('AuthService', function () {
                 assert.fail("Expected no error message");
             }
         }),
-        it('should return error when email invalid format', async () => {
-            const loginRequest: LoginRequest = {
-                email: "test",
-                password: "admin"
-            }
-            try {
-                await getToken(loginRequest);
-            } catch (e) {
-                expect(e.message).to.equal("Email is not valid format");
-                return;
-            }
-            assert.fail("Expected error message");
+
+        emailTestCases.forEach(([email, expectedError, description]) => {
+            it(`it should return error ${expectedError} when email is ${description}`, async () => {
+                const loginRequest: LoginRequest = {
+                    email: email,
+                    password: ""
+                }
+                try {
+                    await getToken(loginRequest);
+                } catch (e) {
+                    expect(e.message).to.equal(expectedError);
+                    return;
+                }
+                assert.fail("Expected error message");
+            })
         }),
-        it('should return error when email too short', async () => {
-            const loginRequest: LoginRequest = {
-                email: "",
-                password: "admin"
-            }
-            try {
-                await getToken(loginRequest);
-            } catch (e) {
-                expect(e.message).to.equal("Email is not valid length");
-                return;
-            }
-            assert.fail("Expected error message");
-        }),
-        it('should return error when email too long', async () => {
-            const loginRequest: LoginRequest = {
-                email: "test@kaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaainos.com",
-                password: "admin"
-            }
-            try {
-                await getToken(loginRequest);
-            } catch (e) {
-                expect(e.message).to.equal("Email is not valid length");
-                return;
-            }
-            assert.fail("Expected error message");
-        }),
-        it('should return error when password too short', async () => {
-            const loginRequest: LoginRequest = {
-                email: "admin@kainos.com",
-                password: ""
-            }
-            try {
-                await getToken(loginRequest);
-            } catch (e) {
-                expect(e.message).to.equal("Password is not valid");
-                return;
-            }
-            assert.fail("Expected error message");
-        }),
-        it('should return error when password too long', async () => {
-            const loginRequest: LoginRequest = {
-                email: "admin@kainos.com",
-                password: "paaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaapaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaswordpaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaswordpaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaswordaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaasword"
-            }
-            try {
-                await getToken(loginRequest);
-            } catch (e) {
-                expect(e.message).to.equal("Password is not valid");
-                return;
-            }
-            assert.fail("Expected error message");
+
+        passwordTestCases.forEach(([password, expectedError, description]) => {
+            it(`it should return error ${expectedError} when email is ${description}`, async () => {
+                const loginRequest: LoginRequest = {
+                    email: "admin@kainos.com",
+                    password: password
+                }
+                try {
+                    await getToken(loginRequest);
+                } catch (e) {
+                    expect(e.message).to.equal(expectedError);
+                    return;
+                }
+                assert.fail("Expected error message");
+            })
         }),
         it('should return error when 400 received', async () => {
             const loginRequest: LoginRequest = {
