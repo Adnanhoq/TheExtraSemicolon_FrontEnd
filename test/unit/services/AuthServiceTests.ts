@@ -3,11 +3,11 @@ import {assert, expect} from 'chai';
 import type { LoginRequest } from "../../../src/models/LoginRequest"
 import MockAdapter from "axios-mock-adapter";
 import { getToken } from "../../../src/services/AuthService";
-import { log } from "console";
+import { config } from "../../../src/config";
 
 const mock = new MockAdapter(axios);
 
-const URL = "http://localhost:8080/api/auth/login";
+const URL = config.API_URL + "/api/auth/login";
 
 describe('AuthService', function () {
     describe('getToken', function () {
@@ -89,6 +89,7 @@ describe('AuthService', function () {
                 email: "admin@kainos.com",
                 password: "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
             }
+            console.log(URL);
             
             mock.onPost(URL, loginRequest).reply(500, "Service Failed");
             loginRequest.password = "admin";
