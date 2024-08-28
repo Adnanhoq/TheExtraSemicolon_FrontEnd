@@ -7,7 +7,7 @@ import { config } from "../../../src/config";
 
 const mock = new MockAdapter(axios);
 
-const URL = config.API_URL + "/api/auth/login";
+const URL = config.API_URL + "auth/login";
 
 describe('AuthService', function () {
     describe('getToken', function () {
