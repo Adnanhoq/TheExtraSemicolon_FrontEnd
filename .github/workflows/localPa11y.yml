@@ -28,10 +28,19 @@ jobs:
     - run: npm install -g pa11y-ci
     - run: npm install wait-on
     - run: npm start & npx wait-on http://localhost:3000
-    - run: pa11y-ci --config ./localPa11y.json | tee $pa11y_output
+    - run: pa11y-ci --config ./localPa11y.json | tee pa11y_output.txt
+        
+    - name: Read pa11y_output file.
+      id: pa11y_output
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: ./pa11y_output.txt
+
+    - name: Output pa11y results for debugging
+      run: cat pa11y_output.txt
     
     - name: Output pa11y results variable content
-      run: echo $pa11y_output
+      run: echo "${{ steps.pa11y_output.outputs.content }}"
 
     - name: Check for pa11y failures.
       if: contains(steps.pa11y_output.outputs.content, 'Errors in')
