@@ -3,6 +3,7 @@ import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
 import { getAllDatabases } from "./controllers/TestController";
+import { getSingleJobRole } from "./controllers/JobRoleController";
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.use(express.static("views"));
 // Specifying folder from where to fetch images
 app.use('/assets', express.static('./assets')); 
 
+app.use('/css', express.static('views/css'));
+
 app.use(session({ secret: 'SUPER_SECRET', cookie: { maxAge: 28800000 }}));
 
 declare module "express-session" {
@@ -36,5 +39,6 @@ app.listen(3000, () => {
 app.get('/', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('index.njk');
 });
+app.get('/job-roles/:id', getSingleJobRole);
 
 app.get('/test', getAllDatabases);
