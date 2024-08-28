@@ -8,7 +8,7 @@ export const URL: string = "/api/job-roles/";
 
 export const getJobRoles = async (): Promise<JobRoleResponse[]> => {
     try{
-        const response: AxiosResponse = await axios.get(URL);
+        const response: AxiosResponse = await axios.get('http://localhost:8080/api/job-roles/');
         return response.data;
     } catch (e) {
         console.log(e);
@@ -18,7 +18,7 @@ export const getJobRoles = async (): Promise<JobRoleResponse[]> => {
 
 export const getJobRoleById = async (id: String): Promise<JobRole> => {
     try {
-        const response: AxiosResponse = await axios.get(URL + id);
+        const response: AxiosResponse = await axios.get('http://localhost:8080/api/job-roles/' + id);
         
         return response.data;
     } catch (e) {
