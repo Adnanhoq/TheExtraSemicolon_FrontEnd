@@ -1,6 +1,7 @@
 
 export type Config = {
     API_URL: string
+    
    }
    
    export const config: Config  = {
