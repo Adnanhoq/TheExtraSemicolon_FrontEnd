@@ -15,4 +15,16 @@ jobs:
     - name: Run pally
     - run: | 
       npm install -g pa11y-ci
-      pa11y-ci --config ./awsPa11y.json
+      pa11y-ci --config ./awsPa11y.json 2>&1 | tee pa11y_output.txt
+        
+    - name: Read pa11y_output file.
+      id: pa11y_output
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: ./pa11y_output.txt
+
+    - name: Check for pa11y failures.
+      if: contains(steps.pa11y_output.outputs.content, 'Error in')
+      run: |
+        echo "::error::The site is failing accessibility tests. Please review the comment in the pull request or the pa11y-ci step in the workflow for details."
+        exit 1
