@@ -1,8 +1,8 @@
 {
     "defaults": {
-    "chromeLaunchConfig": {
-      "ignoreHTTPSErrors": true,
-      "args": ["--disable-dev-shm-usage", "--no-sandbox"]
+        "chromeLaunchConfig": {
+            "ignoreHTTPSErrors": true,
+            "args": ["--disable-dev-shm-usage", "--no-sandbox"]
     }
 },
     "urls": [

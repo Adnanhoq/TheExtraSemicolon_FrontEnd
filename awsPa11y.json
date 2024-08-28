@@ -1,4 +1,10 @@
 {
+    "defaults": {
+        "chromeLaunchConfig": {
+            "ignoreHTTPSErrors": true,
+            "args": ["--disable-dev-shm-usage", "--no-sandbox"]
+    }
+},
     "urls": [
         "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/"
     ]
