@@ -1,5 +1,5 @@
 
-export type Config = {
+export interface Config {
     API_URL: string
    }
    

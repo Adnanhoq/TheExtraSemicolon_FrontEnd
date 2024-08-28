@@ -1,20 +1,17 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import googleLint from "eslint-config-google";
+import tseslint from 'typescript-eslint';
 
-
-export default [
-  {files: ["**/*.{js,mjs,cjs,ts}"]},
-  {languageOptions: { globals: {...globals.browser, ...globals.node} }},
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
+export default tseslint.config(
+  ...tseslint.configs.strictTypeChecked,
+  ...tseslint.configs.stylisticTypeChecked,
   {
-    plugins: {
-      googleLint
-    }
+    languageOptions: {
+      parserOptions: {
+        project: "./tsconfig.json", 
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
   },
   {
-    ignores: ["dist/", "node_modules/"]
+    ignores: ["dist/", "node_modules/", "eslint.config.mjs"]
   }
-];
+);
