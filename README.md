@@ -31,3 +31,6 @@
 2. To run the ui tests, run `npm run test-ui`
 3. To run the accessibility tests, run `pa11y-ci`
 These tests should all pass
+
+## Link to the AWS 
+To see the frontend on cloud, go to: https://fqq3vg4qpt.eu-west-1.awsapprunner.com
