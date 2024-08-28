@@ -40,7 +40,7 @@ jobs:
         uses: thollander/actions-comment-pull-request@master
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          message: '<details>```${{ steps.pa11y_output.outputs.content }}```</details>'
+          message: '${{ steps.pa11y_output.outputs.content }}'
 
     - name: Check for pa11y failures.
       if: contains(steps.pa11y_output.outputs.content, 'errno 2')
