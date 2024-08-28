@@ -7,7 +7,8 @@
     "start": "tsc && node -r dotenv/config dist/app.js",
     "dev": "nodemon -r dotenv/config src/app.ts",
     "linter": "npx eslint .",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --require ts-node/register test/unit/**/*.ts",
+    "test-ui": "mocha --require ts-node/register --timeout 10000 test/ui/**/*.ts",
     "build": "tsc --build"
   },
   "keywords": [],
@@ -23,15 +24,23 @@
   "devDependencies": {
     "@eslint/js": "^9.0.0",
     "@types/axios": "^0.14.0",
+    "@types/chai": "^4.3.19",
     "@types/express": "^4.17.21",
     "@types/express-session": "^1.18.0",
+    "@types/jest": "^29.5.12",
+    "@types/mocha": "^10.0.7",
     "@types/node": "^20.16.1",
     "@types/nunjucks": "^3.2.6",
+    "axios-mock-adapter": "^2.0.0",
+    "chai": "^4.5.0",
+    "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "mocha": "^10.7.3",
     "nodemon": "^3.1.0",
+    "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5",
-    "typescript-eslint": "^7.6.0",
-    "dotenv": "^16.4.5"
+    "typescript": "^5.5.4",
+    "typescript-eslint": "^7.6.0"
   }
 }
