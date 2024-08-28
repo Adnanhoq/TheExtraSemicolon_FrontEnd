@@ -22,7 +22,6 @@ describe('LoginValidator', function () {
                 email: "",
                 password: "admin"
             }
-            console.log(loginRequest.email);
             try {
                 validateLogin(loginRequest.email, loginRequest.password);
             } catch (e) {
