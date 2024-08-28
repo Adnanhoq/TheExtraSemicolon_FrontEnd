@@ -1,17 +1,12 @@
+// @ts-check
+
+import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  ...tseslint.configs.strictTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
+  eslint.configs.recommended,
+  ...tseslint.configs.recommended,
   {
-    languageOptions: {
-      parserOptions: {
-        project: "./tsconfig.json", 
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-  },
-  {
-    ignores: ["dist/", "node_modules/", "eslint.config.mjs"]
+    ignores: ["dist/", "node_modules/"]
   }
 );

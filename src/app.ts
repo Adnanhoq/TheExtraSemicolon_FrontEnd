@@ -33,8 +33,8 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
-app.get('/', (req: express.Request, res: express.Response) => {
+app.get('/', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('index.njk');
 });
 
-app.get('/test', (() => getAllDatabases));
+app.get('/test', getAllDatabases);
