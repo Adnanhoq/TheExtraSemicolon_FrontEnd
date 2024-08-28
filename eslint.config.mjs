@@ -13,5 +13,8 @@ export default [
     plugins: {
       googleLint
     }
+  },
+  {
+    ignores: ["dist/", "node_modules/"]
   }
 ];
