@@ -2,10 +2,6 @@ import express from "express";
 import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
-import { getAllDatabases } from "./controllers/TestController";
-
-import { getLoginForm, getLogout, postLoginForm } from "./controllers/AuthController";
-import { getIndexPage } from "./controllers/HomeController";
 import { unauthenticatedRouter } from "./routes/unauthenticatedRouter";
 const app = express();
 
