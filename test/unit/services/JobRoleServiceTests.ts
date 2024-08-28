@@ -34,12 +34,11 @@ describe('JobRoleService', function () {
       it('should return all Job Roles from response', async () => {
         const data = [jobRoleResponse];
 
-        mock.onGet(URL).reply(200, data);
+        mock.onGet(URL + "5").reply(200, data);
 
         const results = await getJobRoles();
 
         results[0].closingDate = new Date(results[0].closingDate);
-      
         expect(results[0]).to.deep.equal(jobRoleResponse);
       })
 
@@ -57,7 +56,7 @@ describe('JobRoleService', function () {
 
     describe('getJobRoleById', function () {
       it('should return a job role with all fields given an id', async () => {
-        const data = [jobRoleResponse];
+        const data = [getJobRoleByIdResponse];
 
         mock.onGet(URL).reply(200, data);
 
@@ -65,7 +64,7 @@ describe('JobRoleService', function () {
 
         results[0].closingDate = new Date(results[0].closingDate);
       
-        expect(results[0]).to.deep.equal(jobRoleResponse);
+        expect(results[0]).to.deep.equal(getJobRoleByIdResponse);
       })
     })
 
