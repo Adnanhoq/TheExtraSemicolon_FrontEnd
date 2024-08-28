@@ -22,7 +22,7 @@ export const getLogout = async (req: express.Request, res: express.Response): Pr
                 res.locals.errormessage = "Unable to log out";
                 res.render('/login');
             } else {
-                res.redirect('/login');
+                res.redirect('/');
             }
         });
     }

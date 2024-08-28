@@ -92,15 +92,34 @@ describe('AuthService', function () {
         it('should return error when 400 received', async () => {
             const loginRequest: LoginRequest = {
                 email: "admin@kainos.com",
-                password: "admin"
+                password: "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
             }
-            mock.onPost(URL, loginRequest).reply(400);
+            
+            mock.onPost(URL, loginRequest).reply(400, "Invalid Data Format");
+            loginRequest.password = "admin";
             try {
                 await getToken(loginRequest);
 
             } catch (e) {
-                console.log(e);
                 expect(e.message).to.equal("Invalid Data Format");
+                return;
+            }
+            assert.fail("Expected error message");
+        }),
+
+        it('should return error when 500 received', async () => {
+            const loginRequest: LoginRequest = {
+                email: "admin@kainos.com",
+                password: "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
+            }
+            
+            mock.onPost(URL, loginRequest).reply(500, "Service Failed");
+            loginRequest.password = "admin";
+            try {
+                await getToken(loginRequest);
+
+            } catch (e) {
+                expect(e.message).to.equal("Service Failed");
                 return;
             }
             assert.fail("Expected error message");
