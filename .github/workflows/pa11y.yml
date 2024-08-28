@@ -1,4 +1,4 @@
-name: pa11yci
+name: AWS Accessibiliy Test CI
 
 on:
   workflow_dispatch:
@@ -26,5 +26,5 @@ jobs:
     - name: Check for pa11y failures.
       if: contains(steps.pa11y_output.outputs.content, 'Errors in')
       run: |
-        echo "::error::The site is failing accessibility tests. Please review the comment in the pull request or the pa11y-ci step in the workflow for details."
+        echo "::error::The site is failing accessibility tests."
         exit 1
