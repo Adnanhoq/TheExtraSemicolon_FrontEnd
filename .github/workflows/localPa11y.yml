@@ -31,7 +31,7 @@ jobs:
     - run: pa11y-ci --config ./localPa11y.json | tee $pa11y_output
     
     - name: Output pa11y results variable content
-      run: echo "${{ pa11y_output }}"
+      run: echo $pa11y_output
 
     - name: Check for pa11y failures.
       if: contains(steps.pa11y_output.outputs.content, 'Errors in')
