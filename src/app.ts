@@ -3,13 +3,17 @@ import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
 import { getAllDatabases } from "./controllers/TestController";
+import { getAllJobRoles } from "./controllers/JobRoleController";
+import { dateFilter } from "./filters/DateFilter";
 
 const app = express();
 
-nunjucks.configure('views', {
+const env = nunjucks.configure('views', {
     autoescape: true,
     express: app
 });
+
+env.addFilter('date', dateFilter);
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -38,3 +42,4 @@ app.get('/', async (req: express.Request, res: express.Response): Promise<void> 
 });
 
 app.get('/test', getAllDatabases);
+app.get('/jobRoles', getAllJobRoles);
