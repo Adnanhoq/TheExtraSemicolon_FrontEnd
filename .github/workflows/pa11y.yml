@@ -13,9 +13,8 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Run pally
-    - run: | 
-      npm install -g pa11y-ci
-      pa11y-ci --config ./awsPa11y.json 2>&1 | tee pa11y_output.txt
+    - run: npm install -g pa11y-ci
+    - run: pa11y-ci --config ./awsPa11y.json 2>&1 | tee pa11y_output.txt
         
     - name: Read pa11y_output file.
       id: pa11y_output
