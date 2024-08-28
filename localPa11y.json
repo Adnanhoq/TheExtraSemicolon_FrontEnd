@@ -1,4 +1,10 @@
 {
+    "defaults": {
+    "chromeLaunchConfig": {
+      "ignoreHTTPSErrors": true,
+      "args": ["--disable-dev-shm-usage", "--no-sandbox"]
+    }
+},
     "urls": [
         "http://localhost:3000/"
     ]
