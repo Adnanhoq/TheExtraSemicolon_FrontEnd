@@ -6,9 +6,9 @@
 <body>
     <h1>Upload your CV</h1>
     <p>Format must be either PDF, DOC or DOX</p>
-    <form action="/upload" method="post">
+    <form action="/upload" method="post" enctype="multipart/form-data">
         <label for="file">Upload your CV:</label>
-        <input type="file" id="file" name="file" accept=".doc,.docx,.pdf">
+        <input type="file" id="file" name="file">
         <input type="submit">     
     </form>
 </body>

@@ -5,7 +5,7 @@ import session from "express-session";
 import multer from "multer";
 
 import { getAllDatabases } from "./controllers/TestController";
-import { Upload } from "./controllers/BucketController";
+import { postUpload } from "./controllers/BucketController";
 import { multerConfig } from "./multerConfig";
 
 
@@ -44,7 +44,7 @@ app.get('/', async (req: express.Request, res: express.Response): Promise<void> 
 });
 
 app.get('/test', getAllDatabases);
-app.post('/upload', Upload)
+app.post('/upload', postUpload)
 app.get('/upload', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('upload.html');
 });

@@ -52,6 +52,7 @@ export const checkBucket = async (s3: S3, bucket:string ) => {
       }
 
   } catch (error) {
+    console.log(error);
   return {success:false, message: "Unable to access this file", data: {}};
   }
   }

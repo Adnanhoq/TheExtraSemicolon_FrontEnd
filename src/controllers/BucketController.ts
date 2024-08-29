@@ -2,6 +2,7 @@ import { S3 } from 'aws-sdk';
 import express from "express";
 import {checkBucket, uploadToS3 } from '../services/BucketService'
 import config from "../config";
+import { blob } from 'stream/consumers';
 
 /**
 
@@ -16,7 +17,7 @@ import config from "../config";
     }
 }
 
-    export const Upload = async (req: express.Request, res: express.Response) => {
+    export const postUpload = async (req: express.Request, res: express.Response) => {
       try{
         const s3 = new S3({
           accessKeyId: config.AWS_ACCESS_KEY_ID,
@@ -26,10 +27,11 @@ import config from "../config";
         // Initialize bucket
         await initBucket(s3);
     
-    
-        console.log("file string object", req.file)
-    
+        console.log("file string object", req.file);
+
+        
         const uplaodRes = await uploadToS3(s3, req.file);
+        console.log(req.file);
     
         if (uplaodRes.success) {
           console.log(uplaodRes.message);
