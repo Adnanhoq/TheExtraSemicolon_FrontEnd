@@ -33,7 +33,3 @@ app.listen(3000, () => {
 });
 
 app.use('/', unauthenticatedRouter);
-
-app.get('/', (req: express.Request, res: express.Response) =>  {
-  res.render('index.njk');
-});

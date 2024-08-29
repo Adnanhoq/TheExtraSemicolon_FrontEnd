@@ -1,7 +1,7 @@
 import express from "express";
 import { getToken } from "../services/AuthService";
 
-export const getLoginForm = async (req: express.Request, res: express.Response): Promise<void> => {
+export const getLoginForm = (req: express.Request, res: express.Response) => {
     res.render('loginForm.njk', { token: req.session.token});
 }
 
@@ -15,7 +15,7 @@ export const postLoginForm = async (req: express.Request, res: express.Response)
     }
 }
 
-export const getLogout = async (req: express.Request, res: express.Response): Promise<void> => {
+export const getLogout = (req: express.Request, res: express.Response) => {
     if(req.session) {
         req.session.destroy(err => {
             if (err) {
