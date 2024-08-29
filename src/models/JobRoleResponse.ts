@@ -65,8 +65,9 @@ enum Capability {
 
 export type JobRoleResponse = {
     roleId: number,
-    roleName: String,
+    roleName: string,
     locations: Locations,
+    locations2: Locations,
     capability: Capability,
     band: JobBands,
     closingDate: Date
