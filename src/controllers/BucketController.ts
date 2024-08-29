@@ -32,18 +32,14 @@ import config from "../config";
         const uplaodRes = await uploadToS3(s3, req.file);
     
         if (uplaodRes.success) {
-          console.log(uplaodRes.message)
+          console.log(uplaodRes.message);
+          res.redirect('/apply-succesful');
         } else {
           console.log(uplaodRes.message)
-        }
-        res.redirect('/apply-successful')
+        }       
       } catch (e){
         console.log(e);
         res.render('/upload');
-
       }
-    
-        
-    
     }
     
