@@ -27,17 +27,17 @@ import { blob } from 'stream/consumers';
         // Initialize bucket
         await initBucket(s3);
     
-        console.log("file string object", req.url);
+        console.log("file string object", req.files);
 
         
-        const uplaodRes = await uploadToS3(s3, req.file);
+        const uploadRes = await uploadToS3(s3, req.file);
         console.log(req.file);
     
-        if (uplaodRes.success) {
-          console.log(uplaodRes.message);
+        if (uploadRes.success) {
+          console.log(uploadRes.message);
           res.redirect('/apply-succesful');
         } else {
-          console.log(uplaodRes.message)
+          console.log(uploadRes.message)
         }       
       } catch (e){
         console.log(e);
