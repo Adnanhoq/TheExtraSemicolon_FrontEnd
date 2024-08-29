@@ -10,7 +10,7 @@ export const postLoginForm = async (req: express.Request, res: express.Response)
         req.session.token = await getToken(req.body);
         res.redirect('/');
     } catch (e) {
-        res.locals.errormessage = e.message;
+        res.locals.errormessage = (e as Error).message;
         res.render('loginForm.njk', req.body);
     }
 }

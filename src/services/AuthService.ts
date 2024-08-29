@@ -21,6 +21,6 @@ export const getToken = async (loginRequest: LoginRequest): Promise<string> => {
 
             throw new Error(e.response.data);
         }
-        throw new Error(e.message);
+        throw new Error((e as Error).message);
     }
 }
