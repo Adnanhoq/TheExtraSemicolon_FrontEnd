@@ -34,7 +34,6 @@ app.listen(3000, () => {
 
 app.use('/', unauthenticatedRouter);
 
-app.get('/', async (req: express.Request, res: express.Response): Promise<void> => {
+app.get('/', (req: express.Request, res: express.Response) =>  {
   res.render('index.njk');
 });
-
