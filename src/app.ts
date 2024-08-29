@@ -42,4 +42,4 @@ app.get('/', async (req: express.Request, res: express.Response): Promise<void> 
 });
 
 app.get('/test', getAllDatabases);
-app.get('/jobRoles', getAllJobRoles);
+app.get('/job-roles', getAllJobRoles);
