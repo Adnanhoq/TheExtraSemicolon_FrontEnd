@@ -27,7 +27,7 @@ import { blob } from 'stream/consumers';
         // Initialize bucket
         await initBucket(s3);
     
-        console.log("file string object", req.file);
+        console.log("file string object", req.url);
 
         
         const uplaodRes = await uploadToS3(s3, req.file);
