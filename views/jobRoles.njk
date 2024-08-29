@@ -16,7 +16,7 @@
             <h1>Job Roles List</h1>
             <div class="row">
                 {% for role in jobRole | sort(attribute='roleId') %}
-                    <div class="col-md-4 mb-4">
+                    <div class="jobCard col-md-4 mb-4">
                         <div class="card w-100 h-100">
                             <div class="card-body">
                                 <h5 class="card-title">{{ role.roleName }}</h5>
