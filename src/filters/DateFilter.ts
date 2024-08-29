@@ -1,3 +1,3 @@
 export const dateFilter = (unixTimestamp: number): String => {
-    return new Date(unixTimestamp).toDateString();
+    return new Date(unixTimestamp).toLocaleDateString();
 }
