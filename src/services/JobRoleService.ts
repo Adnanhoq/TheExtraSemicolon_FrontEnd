@@ -2,7 +2,7 @@ import config from "../config";
 import axios, { AxiosResponse } from "axios";
 import { JobRoleResponse } from "../models/JobRoleResponse";
 
-export const URL: string = "/api/job-roles/";
+export const URL: string = "/job-roles/";
 
 export const getJobRoles = async (): Promise<JobRoleResponse[]> => {
     try{
