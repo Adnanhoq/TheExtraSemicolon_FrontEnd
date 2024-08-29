@@ -3,6 +3,7 @@ import express from "express";
 import {checkBucket, uploadToS3 } from '../services/BucketService'
 import config from "../config";
 import { blob } from 'stream/consumers';
+import  multer from 'multer';
 
 /**
 
@@ -27,7 +28,9 @@ import { blob } from 'stream/consumers';
         // Initialize bucket
         await initBucket(s3);
     
-        console.log("file string object", req.url);
+        console.log("file string object", req.file);
+        const upload = multer({dest: 'uploads/'});
+        upload.single 
 
         
         const uplaodRes = await uploadToS3(s3, req.file);
