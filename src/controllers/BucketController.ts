@@ -9,18 +9,18 @@ import config from "../config";
 - @returns {void}
 */
   export const initBucket = async (s3: S3) => {
-  const bucketStatus = await checkBucket(s3, config.bucket_name);
+  const bucketStatus = await checkBucket(s3, config.BUCKET_NAME);
 
   if( !bucketStatus.success ) { // check if the bucket don't exist
     console.log("Bucket does not exist");
     }
 }
 
-    export const Upload = async (req: express.Request, res: express.Request) => {
-    
+    export const Upload = async (req: express.Request, res: express.Response) => {
+      try{
         const s3 = new S3({
-          accessKeyId: config.aws_access_key_id,
-          secretAccessKey: config.aws_secret_access_key,
+          accessKeyId: config.AWS_ACCESS_KEY_ID,
+          secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
         });
     
         // Initialize bucket
@@ -36,6 +36,14 @@ import config from "../config";
         } else {
           console.log(uplaodRes.message)
         }
+        res.redirect('/apply-successful')
+      } catch (e){
+        console.log(e);
+        res.render('/upload');
+
+      }
+    
+        
     
     }
     

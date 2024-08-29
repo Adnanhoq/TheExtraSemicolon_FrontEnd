@@ -45,4 +45,9 @@ app.get('/', async (req: express.Request, res: express.Response): Promise<void> 
 
 app.get('/test', getAllDatabases);
 app.post('/upload', Upload)
-app.get
+app.get('/upload', async (req: express.Request, res: express.Response): Promise<void> => {
+  res.render('upload.html');
+});
+app.get('/upload-success', async (req: express.Request, res: express.Response): Promise<void> => {
+  res.render('apply-succesful.html');
+});

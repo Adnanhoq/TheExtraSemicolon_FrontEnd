@@ -36,7 +36,7 @@ export const checkBucket = async (s3: S3, bucket:string ) => {
     const fileContent = fs.readFileSync(fileData!.path);
 
       const params = {
-        Bucket: config.bucket_name,
+        Bucket: config.BUCKET_NAME,
         Key: fileData!.originalname,
         Body: fileContent
       };
