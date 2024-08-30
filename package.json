@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc && node -r dotenv/config dist/app.js",
+    "start": "tsc && node -r dotenv/config dist/src/app.js",
     "dev": "nodemon -r dotenv/config src/app.ts",
     "linter": "npx eslint .",
     "test": "mocha --require ts-node/register test/unit/**/*.ts",
