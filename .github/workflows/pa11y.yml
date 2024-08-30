@@ -1,0 +1,34 @@
+name: AWS Accessibiliy Test CI
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm ci
+    - run: npm install -g pa11y-ci
+    - run: pa11y-ci --config ./awsPa11y.json 2>&1 | tee pa11y_output.txt
+        
+    - name: Read pa11y_output file.
+      id: pa11y_output
+      uses: juliangruber/read-file-action@v1
+      with:
+        path: ./pa11y_output.txt
+
+    - name: Check for pa11y failures.
+      if: contains(steps.pa11y_output.outputs.content, 'Errors in')
+      run: |
+        echo "::error::The site is failing accessibility tests."
+        exit 1
