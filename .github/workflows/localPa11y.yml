@@ -27,7 +27,7 @@ jobs:
     - run: npm ci
     - run: npm install -g pa11y-ci
     - run: npm install wait-on
-    - run: npm start & npx wait-on -t 100s http://localhost:3000
+    - run: npm start & npx wait-on -t 60s http://localhost:3000
     - run: pa11y-ci --config ./localPa11y.json 2>&1 | tee pa11y_output.txt
         
     - name: Read pa11y_output file.
