@@ -2,7 +2,7 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { expect } from 'chai';
 import { JobRoleResponse } from "../../../src/models/JobRoleResponse";
-import { getJobRoles, URL } from '../../../src/services/JobRoleService';
+import { getJobRoles, JOBROLEURL } from '../../../src/services/JobRoleService';
 
 
 const jobRoleResponse: JobRoleResponse = {
@@ -22,7 +22,7 @@ describe('JobRoleService', function () {
       it('should return all Job Roles from response', async () => {
         const data = [jobRoleResponse];
 
-        mock.onGet(URL).reply(200, data);
+        mock.onGet(JOBROLEURL).reply(200, data);
 
         const results = await getJobRoles();
 
@@ -32,14 +32,19 @@ describe('JobRoleService', function () {
       })
 
       it('should throw exception when 500 error returned from axios', async () => {
-        mock.onGet(URL).reply(500);
+        mock.onGet(JOBROLEURL).reply(500);
 
         try {
           await getJobRoles();
-        } catch (e) {
-          expect(e.message).to.equal('Failed to get job roles');
+      } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('Failed to get job roles');
+          } else {
+              // Handle unexpected error types
+              console.error('Unexpected error', e);
+          }
           return;
-        }
+      }
       })
     })
 });
