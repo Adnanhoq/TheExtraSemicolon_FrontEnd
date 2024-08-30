@@ -8,7 +8,9 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "./dist",
-        "types": ["node", "express", "multer"]
+        "types": ["node", "express", "multer"],
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
     },
     "include": [
         "src/**/*",
