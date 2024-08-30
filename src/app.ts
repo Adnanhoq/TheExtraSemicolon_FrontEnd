@@ -44,7 +44,7 @@ app.get('/', async (req: express.Request, res: express.Response): Promise<void> 
 });
 
 app.get('/test', getAllDatabases);
-app.post('/upload',postUpload)
+app.post('/upload',upload.single('file'), postUpload)
 app.get('/upload', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('upload.html');
 });
