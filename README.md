@@ -1,4 +1,4 @@
-# nodejs-express-axios-starter
+# The Extra Semicolon FrontEnd Application Set Up
 
 ## Copy env
 1. Copy '.env.example' 
