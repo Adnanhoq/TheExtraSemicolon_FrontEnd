@@ -1,4 +1,4 @@
-import express, { RequestHandler } from 'express';
+import express from 'express';
 import { getIndexPage } from '../controllers/HomeController';
 import { getLoginForm, postLoginForm, getLogout } from '../controllers/AuthController';
 import { getAllDatabases } from '../controllers/TestController';
