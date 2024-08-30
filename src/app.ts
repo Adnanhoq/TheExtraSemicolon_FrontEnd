@@ -48,7 +48,6 @@ app.get('/test', (req, res, next) => {
   });
 });
 
-
 app.get('/job-roles', (req, res, next) => {
   getAllJobRoles(req, res).catch((err: unknown) => {
     next(err);
