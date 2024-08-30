@@ -37,4 +37,8 @@ app.get('/', (req: express.Request, res: express.Response) =>  {
   res.render('index.njk');
 });
 
-app.get('/test', (() => getAllDatabases));
+app.get('/test', (req, res, next) => {
+  getAllDatabases(req, res).catch((err:unknown) => {
+    next(err);
+  });
+})
