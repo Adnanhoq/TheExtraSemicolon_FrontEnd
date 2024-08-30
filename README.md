@@ -1,4 +1,4 @@
-# nodejs-express-axios-starter
+# The Extra Semicolon FrontEnd Application Set Up
 
 ## How to start the application
 1. Run `npm install` to install application dependencies
