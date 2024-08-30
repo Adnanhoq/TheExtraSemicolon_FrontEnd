@@ -28,13 +28,10 @@ import  multer from 'multer';
         // Initialize bucket
         await initBucket(s3);
     
-<<<<<<< HEAD
-        console.log("file string object", req.files);
-=======
+
         console.log("file string object", req.file);
         const upload = multer({dest: 'uploads/'});
         upload.single 
->>>>>>> 5798b944009f03a6765beb2ad19ef602020ec1ad
 
         
         const uploadRes = await uploadToS3(s3, req.file);
