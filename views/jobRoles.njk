@@ -19,7 +19,7 @@
                 {% for role in jobRole | sort(attribute='roleId') %}
                     <div class="col-md-4 mb-4">
                     <a href = "./jobRoleDetail" target="_blank" class="jobCard">
-                        <div class="card">
+                        <div class="card w-100 h-100">
                             <div class="card-body">
                                 <h5 class="card-title">{{ role.roleName }}</h5>
                                 <p class="card-text"><strong>Locations:</strong> {{ role.locations }}</p>

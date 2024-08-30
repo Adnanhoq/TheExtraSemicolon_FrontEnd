@@ -11,30 +11,43 @@
 <body>
 {% include "components/navbar.njk" %}
 
-
-    <div class="d-flex justify-content-center align-items-center mt-4">
-        <div class="d-flex justify-content-center flex-column">
-            <h1 class="mt-2 text-center">Support Technician</h1>
-            <div class="d-flex flex-column">
-                <p class="text-center">Position Level: {{ jobRole.band }}</p>
-                <p class="text-center">Locations: {{ jobRole.locations }}</p>
-                <a class="text-center" href="{{ jobRole.linkToJobSpec }}">Link To Job Spec</a>
-                <div>
-                    <p class="text-center mt-2">Status (Is Position Open?): {{ jobRole.status }}</p>
-                    <p class="text-center">Closing Date: {{ jobRole.closingDate }}</p>
+    {% if errormessage %}
+        <h3>{{ errormessage }}</h3>
+    {% else %}
+        <div class="d-flex justify-content-center align-items-center mt-4 pb-4 mb-4">
+            <div class="d-flex justify-content-center flex-column">
+                <h1 class="mt-2 text-center">{{ jobRole.roleName }}</h1>
+                <div class="d-flex flex-column">
+                <div class="d-flex flex-row justify-content-center gap-4">
+                    <p class="text-center">Position Level: {{ jobRole.band }}</p>
+                    <p class="text-center">|</p>
+                    <a class="text-center" href="{{ jobRole.linkToJobSpec }}">Link To Job Spec</a>
+                </div>
+                    <p class="text-center">Locations: {{ jobRole.locations }}</p>
+                    <div class="d-flex justify-content-center align-items-center gap-4">
+                        <p class="text-center">Status: {{ 'Open' if jobRole.status else 'Closed' }}</p>
+                        <p class="text-center">|</p>
+                        <p class="text-center">Closing Date: {{ jobRole.closingDate | date }}</p>
+                    </div>
+                </div>
+                <div class="w-50 mx-auto ">
+                    <p>{{ jobRole.description }}</p>
+                </div>
+                <div class="w-50 mx-auto mb-4">
+                <h4>Responsibilities</h4>
+                    <ul>
+                        {% for responsibility in responsibilities %}
+                        <li>
+                            {{ responsibility }}
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
             </div>
-            <div class="w-50 mx-auto text-center">
-                <p>{{ jobRole.description }}</p>
-            </div>
-            <div class="w-50 mx-auto text-center">
-            <h4>Responsibilities</h4>
-                <p>
-                    {{ jobRole.responsibilities }}
-                </p>
-            </div>
         </div>
-    </div>
+    {% endif %}
+
+    {% include "components/footer.njk" %}
 
 </body>
 </html>

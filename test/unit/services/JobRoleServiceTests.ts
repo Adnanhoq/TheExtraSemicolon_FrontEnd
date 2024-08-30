@@ -2,7 +2,7 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { expect } from 'chai';
 import { JobRoleResponse } from "../../../src/models/JobRoleResponse";
-import { getJobRoles, URL } from '../../../src/services/JobRoleService';
+import { getJobRoleById, getJobRoles, URL } from '../../../src/services/JobRoleService';
 import { JobRole } from "../../../src/models/JobRole";
 
 
@@ -24,7 +24,9 @@ const getJobRoleByIdResponse: JobRole = {
   locations: "Birmingham",
   capability: "Engineering",
   band: "Manager",
-  closingDate: new Date() 
+  closingDate: new Date(),
+  status: true,
+  positionsAvailable: 1
 }
 
 const mock = new MockAdapter(axios);
@@ -34,7 +36,7 @@ describe('JobRoleService', function () {
       it('should return all Job Roles from response', async () => {
         const data = [jobRoleResponse];
 
-        mock.onGet(URL + "5").reply(200, data);
+        mock.onGet(URL).reply(200, data);
 
         const results = await getJobRoles();
 
@@ -56,16 +58,41 @@ describe('JobRoleService', function () {
 
     describe('getJobRoleById', function () {
       it('should return a job role with all fields given an id', async () => {
-        const data = [getJobRoleByIdResponse];
+        const data = getJobRoleByIdResponse;
+        
 
-        mock.onGet(URL).reply(200, data);
+        mock.onGet(URL + '5').reply(200, data);
 
-        const results = await getJobRoles();
+        const results = await getJobRoleById('5');
+        
 
-        results[0].closingDate = new Date(results[0].closingDate);
+        results.closingDate = new Date(results.closingDate);
       
-        expect(results[0]).to.deep.equal(getJobRoleByIdResponse);
+        expect(results).to.deep.equal(getJobRoleByIdResponse);
       })
+
+      it('should throw exception when 500 error returned from axios', async () => {
+        mock.onGet(URL + '5').reply(500);
+
+        try {
+          await getJobRoleById('5');
+        } catch (e) {
+          expect(e.message).to.equal('Failed to get Job Role');
+          return;
+        }
+      })
+
+      it('should throw exception when 404 error returned from axios', async () => {
+        mock.onGet(URL + '555555').reply(404);
+
+        try {
+          await getJobRoleById('555555');
+        } catch (e) {
+          expect(e.message).to.equal('Failed to get Job Role');
+          return;
+        }
+      })
+
     })
 
 });
