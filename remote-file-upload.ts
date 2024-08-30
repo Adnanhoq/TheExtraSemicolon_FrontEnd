@@ -18,7 +18,7 @@ export class RemoteFileUpload implements FileUpload {
       const uploadedFiles = await this.fileUploader.upload(files);
   
       if (!uploadedFiles) {
-        throw new FileUploadError();
+        throw new Error();
       }
   
       return uploadedFiles as UploadedFile[];
