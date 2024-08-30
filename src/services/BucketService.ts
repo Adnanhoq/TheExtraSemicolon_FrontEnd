@@ -1,8 +1,10 @@
 import { S3 } from "aws-sdk";
 import fs from "fs";
 import config from "../config";
+import multer from "multer";
+import aws from "aws-sdk";
 
-
+aws.
 /**
  * Checks if an S3 bucket exists.
  * 
@@ -57,5 +59,10 @@ export const checkBucket = async (s3: S3, bucket:string ) => {
   return {success:false, message: "Unable to access this file", data: {}};
   }
   }
+
+  export const upload = multer({
+    storage:
+    
+  })
 
 

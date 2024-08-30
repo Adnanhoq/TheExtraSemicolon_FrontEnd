@@ -28,8 +28,9 @@ import  multer from 'multer';
         // Initialize bucket
         await initBucket(s3);
     
-        console.log(r)
+      
         console.log("file string object", req.file);
+        console.log(req.file.filename);
         if (req.file == null){
           console.log("File is not defined")
         }
