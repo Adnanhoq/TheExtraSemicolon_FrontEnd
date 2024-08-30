@@ -12,8 +12,8 @@
     },
     "include": [
         "src/**/*",
-        "test/**/*",
         "./.env",
+        "test/**/*",
     ],
     "exclude": [
         "./node_modules/**/*",

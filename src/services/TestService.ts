@@ -6,10 +6,8 @@ export const getDatabases = async (): Promise<string[]> => {
         console.log(config.API_URL);
         const response: AxiosResponse<string[]> = await axios.get(config.API_URL+"test");
 
-
         return response.data;
     } catch (e) {
-        console.log(e);
         throw new Error('Failed to get databases');
     }
 }
