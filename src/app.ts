@@ -37,4 +37,5 @@ app.get('/', (req: express.Request, res: express.Response) =>  {
   res.render('index.njk');
 });
 
+/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
 app.get('/test',getAllDatabases);
