@@ -3,9 +3,12 @@ import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
 import { getAllDatabases } from "./controllers/TestController";
-import { multerCong}
+import { multerConfig} from "./multerConfig";
+import multer from "multer";
+import { uploadCSV } from "./services/FileUploadService";
 
 const app = express();
+const upload = multer(multerConfig);
 
 nunjucks.configure('views', {
     autoescape: true,
@@ -39,3 +42,7 @@ app.get('/', (req: express.Request, res: express.Response) =>  {
 });
 
 app.get('/test', (() => getAllDatabases));
+app.post('/uploadCSV',upload.single('file'), uploadCSV)
+app.get('/uploadCSV', async (req: express.Request, res: express.Response): Promise<void> => {
+  res.render('csvFileUpload.html');
+});
