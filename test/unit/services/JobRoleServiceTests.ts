@@ -3,14 +3,17 @@ import MockAdapter from "axios-mock-adapter";
 import { expect } from 'chai';
 import { JobRoleResponse } from "../../../src/models/JobRoleResponse";
 import { getJobRoles, JOBROLEURL } from '../../../src/services/JobRoleService';
+import { Location } from "../../../src/enums/Location";
+import { Capability } from "../../../src/enums/Capability";
+import { JobBand } from "../../../src/enums/JobBand";
 
 
 const jobRoleResponse: JobRoleResponse = {
     roleId: 1,
     roleName: "Technical Architect",
-    locations: "Birmingham",
-    capability: "Engineering",
-    band: "Manager",
+    locations: Location.Birmingham,
+    capability: Capability.Engineering,
+    band: JobBand.Manager,
     closingDate: new Date(1580782960)
 }
 
