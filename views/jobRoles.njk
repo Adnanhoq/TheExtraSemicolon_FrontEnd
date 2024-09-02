@@ -10,26 +10,30 @@
     {% endblock %}
 
 {% block content %}
-    <div class="container">
 
-        <div class="mainBody">
-            <h1>Job Roles List</h1>
-            <div class="row">
-                {% for role in jobRole | sort(attribute='roleId') %}
-                    <div class="jobCard col-md-4 mb-4">
-                        <div class="card w-100 h-100">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ role.roleName }}</h5>
-                                <p class="card-text"><strong>Locations:</strong> {{ role.formattedLocations }}</p>
-                                <p class="card-text"><strong>Capability:</strong> {{ role.capability }}</p>
-                                <p class="card-text"><strong>Band:</strong> {{ role.band }}</p>
-                                <p class="card-text"><strong>Closing Date:</strong> {{ role.closingDate | date }}</p>
+    {% if errormessage %}
+        <h3>{{ errormessage }}</h3>
+    {% else %}
+        <div class="container">
+
+            <div class="mainBody">
+                <h1>Job Roles List</h1>
+                <div class="row">
+                    {% for role in jobRole | sort(attribute='roleId') %}
+                        <div class="jobCard col-md-4 mb-4">
+                            <div class="card w-100 h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ role.roleName }}</h5>
+                                    <p class="card-text"><strong>Locations:</strong> {{ role.formattedLocations }}</p>
+                                    <p class="card-text"><strong>Capability:</strong> {{ role.capability }}</p>
+                                    <p class="card-text"><strong>Band:</strong> {{ role.band }}</p>
+                                    <p class="card-text"><strong>Closing Date:</strong> {{ role.closingDate | date }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
         </div>
-
-    </div>
+    {% endif %}
 {% endblock %}

@@ -41,16 +41,9 @@ app.get('/', (req: express.Request, res: express.Response) =>  {
   res.render('index.njk');
 });
 
+/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
+app.get('/test',getAllDatabases);
 
-app.get('/test', (req, res, next) => {
-  getAllDatabases(req, res).catch((err: unknown) => {
-    next(err);
-  });
-});
-
-app.get('/job-roles', (req, res, next) => {
-  getAllJobRoles(req, res).catch((err: unknown) => {
-    next(err);
-  });
-});
+/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
+app.get('/job-roles',getAllJobRoles);
 
