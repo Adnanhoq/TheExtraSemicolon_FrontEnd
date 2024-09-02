@@ -2,7 +2,7 @@ import config from "../config";
 import axios, { AxiosResponse } from "axios";
 import { JobRoleResponse } from "../models/JobRoleResponse";
 
-const JOBROLEURL = "/job-roles/";
+const JOBROLEURL = "job-roles/";
 export const URL = config.API_URL + JOBROLEURL;
 
 

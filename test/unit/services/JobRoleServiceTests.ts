@@ -1,3 +1,4 @@
+import config from "../../../src/config";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { expect } from 'chai';
@@ -26,7 +27,7 @@ describe('JobRoleService', function () {
       it('should return all Job Roles from response', async () => {
         const data = [jobRoleResponse];
 
-        mock.onGet(URL).reply(200, data);
+        mock.onGet(`${config.API_URL}job-roles`).reply(200, data);
 
         const results = await getJobRoles();
 
@@ -36,7 +37,7 @@ describe('JobRoleService', function () {
       })
 
       it('should throw exception when 500 error returned from axios', async () => {
-        mock.onGet(URL).reply(500);
+        mock.onGet(`${config.API_URL}job-roles`).reply(500);
 
         try {
           await getJobRoles();
@@ -50,7 +51,7 @@ describe('JobRoleService', function () {
       }
       })
       it('should throw exception when 404 error returned from axios', async () => {
-        mock.onGet(URL).reply(404);
+        mock.onGet(`${config.API_URL}job-roles`).reply(404);
 
         try {
           await getJobRoles();
