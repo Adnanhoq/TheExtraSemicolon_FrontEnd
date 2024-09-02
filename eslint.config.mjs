@@ -10,6 +10,9 @@ export default tseslint.config(
         tsconfigRootDir: import.meta.dirname,
       },
     },
+    rules: {
+      "@typescript-eslint/no-misused-promises": "off"
+    }
   },
   {
     ignores: ["dist/", "node_modules/", "eslint.config.mjs"]
