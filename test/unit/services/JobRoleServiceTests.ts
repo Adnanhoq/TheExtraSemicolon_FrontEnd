@@ -42,9 +42,8 @@ describe('JobRoleService', function () {
           await getJobRoles();
       } catch (e: unknown) {
           if (e instanceof Error) {
-              expect(e.message).to.equal('Failed to get job roles');
+              expect(e.message).to.equal('No job roles are open');
           } else {
-              // Handle unexpected error types
               console.error('Unexpected error', e);
           }
           return;
@@ -57,9 +56,8 @@ describe('JobRoleService', function () {
           await getJobRoles();
       } catch (e: unknown) {
           if (e instanceof Error) {
-              expect(e.message).to.equal('Failed to get job roles');
+              expect(e.message).to.equal('No job roles are open');
           } else {
-              // Handle unexpected error types
               console.error('Unexpected error', e);
           }
           return;
