@@ -24,18 +24,15 @@ import  multer from 'multer';
           secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
         });
     
-        // Initialize bucket
+        // Bucket initilization
         await initBucket(s3);
-    
-      
-        console.log("file string object", req.file);
+
         if (req.file == null){
           console.log("File is not defined")
         }
 
         const upload = multer({dest: 'uploads/'});
         upload.single 
-
         
         const uploadRes = await uploadToS3(s3, req.file);
         console.log(req.file);

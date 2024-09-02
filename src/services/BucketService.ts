@@ -17,7 +17,7 @@ export const checkBucket = async (s3: S3, bucket:string ) => {
     try{
         const res = await s3.headBucket({Bucket:bucket}).promise()
 
-        console.log("Bucket already exists", res.$response.data);
+        //console.log("Bucket already exists", res.$response.data);
 
         return {success: true, message: "Bucket already exists", data: {}};
     } catch (error) {
@@ -34,9 +34,7 @@ export const checkBucket = async (s3: S3, bucket:string ) => {
     @returns {Promise<{success: boolean; message: string; data: object | string;}>} The result of the upload operation.
  */
   export const uploadToS3 = async (s3: S3, fileData: Express.Multer.File) => {
-    //console.log(fileData.file);
   try {
-    //const fileContent = fs.readFileSync(fileData!.path);
     if (!fileData) {
       throw new Error('No file data provided');
     }
