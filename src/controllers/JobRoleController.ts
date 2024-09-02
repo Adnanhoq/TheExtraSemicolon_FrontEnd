@@ -22,7 +22,7 @@ export const getSingleJobRole = async (req: express.Request, res: express.Respon
         
         res.render('jobRoleDetail.njk', { jobRole: jobRole, responsibilities: jobResponsibilitiesSplit });
     } catch (e) {
-        res.locals.errormessage = e.message;
+        res.locals.errormessage = (e as Error).message;
         res.render('jobRoleDetail.njk');
     }
 }

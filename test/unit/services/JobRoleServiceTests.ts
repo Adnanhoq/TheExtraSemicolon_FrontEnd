@@ -2,7 +2,7 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { expect } from 'chai';
 import { JobRoleResponse } from "../../../src/models/JobRoleResponse";
-import { getJobRoleById, getJobRoles, JOBROLEURL } from '../../../src/services/JobRoleService';
+import { getJobRoleById, getJobRoles, URL } from '../../../src/services/JobRoleService';
 import { JobRole } from "../../../src/models/JobRole";
 import { Location } from "../../../src/enums/Location";
 import { Capability } from "../../../src/enums/Capability";
@@ -20,7 +20,7 @@ const jobRoleResponse: JobRoleResponse = {
 }
 
 const getJobRoleByIdResponse: JobRole = {
-  roleId: 1,
+  roleId: 5,
   roleName: "Technical Architect",
   description: "Test description for the role",
   linkToJobSpec: "examplelink.co.uk",
@@ -40,7 +40,7 @@ describe('JobRoleService', function () {
       it('should return all Job Roles from response', async () => {
         const data = [jobRoleResponse];
         
-        mock.onGet(JOBROLEURL).reply(200, data);
+        mock.onGet(URL).reply(200, data);
 
         const results = await getJobRoles();
         
@@ -50,13 +50,13 @@ describe('JobRoleService', function () {
       })
 
       it('should throw exception when 500 error returned from axios', async () => {
-        mock.onGet(JOBROLEURL).reply(500);
+        mock.onGet(URL).reply(500);
 
         try {
           await getJobRoles();
       } catch (e: unknown) {
           if (e instanceof Error) {
-              expect(e.message).to.equal('Failed to get job roles');
+              expect(e.message).to.equal('No job roles are open');
           } else {
               // Handle unexpected error types
               console.error('Unexpected error', e);
@@ -65,13 +65,13 @@ describe('JobRoleService', function () {
       }
       })
       it('should throw exception when 404 error returned from axios', async () => {
-        mock.onGet(JOBROLEURL).reply(404);
+        mock.onGet(URL).reply(404);
 
         try {
           await getJobRoles();
       } catch (e: unknown) {
           if (e instanceof Error) {
-              expect(e.message).to.equal('Failed to get job roles');
+              expect(e.message).to.equal('No job roles are open');
           } else {
               // Handle unexpected error types
               console.error('Unexpected error', e);
