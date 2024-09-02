@@ -9,7 +9,7 @@ export default tseslint.config(
         project: "./tsconfig.json", 
         tsconfigRootDir: import.meta.dirname,
       },
-    },
+    }
   },
   {
     ignores: ["dist/", "node_modules/", "eslint.config.mjs", "test/"]
