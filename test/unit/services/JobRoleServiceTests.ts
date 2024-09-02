@@ -46,5 +46,20 @@ describe('JobRoleService', function () {
           return;
       }
       })
+      it('should throw exception when 404 error returned from axios', async () => {
+        mock.onGet(JOBROLEURL).reply(404);
+
+        try {
+          await getJobRoles();
+      } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('Failed to get job roles');
+          } else {
+              // Handle unexpected error types
+              console.error('Unexpected error', e);
+          }
+          return;
+      }
+      })
     })
 });
