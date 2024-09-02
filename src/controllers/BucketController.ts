@@ -2,7 +2,6 @@ import { S3 } from 'aws-sdk';
 import express from "express";
 import {checkBucket, uploadToS3 } from '../services/BucketService'
 import config from "../config";
-import { blob } from 'stream/consumers';
 import  multer from 'multer';
 
 /**
@@ -43,7 +42,7 @@ import  multer from 'multer';
     
         if (uploadRes.success) {
           console.log(uploadRes.message);
-          res.redirect('/apply-succesful');
+          res.redirect('/upload-success');
         } else {
           console.log(uploadRes.message)
         }       

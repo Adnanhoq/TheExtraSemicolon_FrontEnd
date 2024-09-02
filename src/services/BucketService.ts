@@ -36,12 +36,17 @@ export const checkBucket = async (s3: S3, bucket:string ) => {
   export const uploadToS3 = async (s3: S3, fileData: Express.Multer.File) => {
     //console.log(fileData.file);
   try {
-    const fileContent = fs.readFileSync(fileData!.path);
+    //const fileContent = fs.readFileSync(fileData!.path);
+    if (!fileData) {
+      throw new Error('No file data provided');
+    }
+    const fileContent = fileData.buffer;
 
       const params = {
         Bucket: config.BUCKET_NAME,
         Key: fileData!.originalname,
-        Body: fileContent
+        Body: fileContent,
+        ContentType: fileData.mimetype
       };
 
       try {
