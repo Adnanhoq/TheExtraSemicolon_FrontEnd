@@ -30,7 +30,6 @@ import  multer from 'multer';
     
       
         console.log("file string object", req.file);
-        console.log(req.file.filename);
         if (req.file == null){
           console.log("File is not defined")
         }

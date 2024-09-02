@@ -33,7 +33,8 @@ export const checkBucket = async (s3: S3, bucket:string ) => {
     @param {File} fileData
     @returns {Promise<{success: boolean; message: string; data: object | string;}>} The result of the upload operation.
  */
-  export const uploadToS3 = async (s3: S3, fileData?: Express.Multer.File) => {
+  export const uploadToS3 = async (s3: S3, fileData: Express.Multer.File) => {
+    //console.log(fileData.file);
   try {
     const fileContent = fs.readFileSync(fileData!.path);
 
