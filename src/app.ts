@@ -2,14 +2,10 @@ import express from "express";
 import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
-<<<<<<< HEAD
 import { getAllDatabases } from "./controllers/TestController";
 import { getAllJobRoles } from "./controllers/JobRoleController";
 import { dateFilter } from "./filters/DateFilter";
-
-=======
 import { unauthenticatedRouter } from "./routes/unauthenticatedRouter";
->>>>>>> main
 const app = express();
 
 const env = nunjucks.configure('views', {
