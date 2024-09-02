@@ -20,6 +20,11 @@ export const getToken = async (loginRequest: LoginRequest): Promise<string> => {
 
             throw new Error(e.response.data as string);
         }
+
+        if ((e as Error).message == '') {
+            throw new Error('Something went wrong during log in');
+        }
+
         throw new Error((e as Error).message);
     }
 }
