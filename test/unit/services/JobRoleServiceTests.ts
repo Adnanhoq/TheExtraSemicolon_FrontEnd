@@ -3,7 +3,7 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { expect } from 'chai';
 import { JobRoleResponse } from "../../../src/models/JobRoleResponse";
-import { getJobRoles, URL } from '../../../src/services/JobRoleService';
+import { getJobRoles } from '../../../src/services/JobRoleService';
 import { Location } from "../../../src/enums/Location";
 import { Capability } from "../../../src/enums/Capability";
 import { JobBand } from "../../../src/enums/JobBand";
