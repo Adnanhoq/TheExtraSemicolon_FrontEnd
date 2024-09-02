@@ -14,7 +14,8 @@ const jobRoleResponse: JobRoleResponse = {
     locations: Location.Birmingham,
     capability: Capability.Engineering,
     band: JobBand.Manager,
-    closingDate: new Date(1580782960)
+    closingDate: new Date(1580782960),
+    formattedLocations: "Birmingham"
 }
 
 

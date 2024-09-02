@@ -9,4 +9,5 @@ export interface JobRoleResponse {
     capability: Capability;
     band: JobBand;
     closingDate: Date;
+    formattedLocations: string;
 }
