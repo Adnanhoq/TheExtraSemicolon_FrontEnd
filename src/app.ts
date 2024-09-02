@@ -5,7 +5,7 @@ import session from "express-session";
 import { getAllDatabases } from "./controllers/TestController";
 import { getAllJobRoles } from "./controllers/JobRoleController";
 import { dateFilter } from "./filters/DateFilter";
-import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter";
+import { unauthenticatedRouter } from "./routes/unauthenticatedRouter";
 import { userRouter } from "./routes/UserRouter";
 const app = express();
 
