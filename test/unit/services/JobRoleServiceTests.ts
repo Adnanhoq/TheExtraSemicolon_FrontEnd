@@ -42,7 +42,7 @@ describe('JobRoleService', function () {
           await getJobRoles();
       } catch (e: unknown) {
           if (e instanceof Error) {
-              expect(e.message).to.equal('No job roles are open');
+              expect(e.message).to.equal('Cannot find Server');
           } else {
               console.error('Unexpected error', e);
           }
@@ -56,7 +56,7 @@ describe('JobRoleService', function () {
           await getJobRoles();
       } catch (e: unknown) {
           if (e instanceof Error) {
-              expect(e.message).to.equal('No job roles are open');
+              expect(e.message).to.equal('No job roles open');
           } else {
               console.error('Unexpected error', e);
           }

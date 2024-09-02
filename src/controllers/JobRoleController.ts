@@ -9,7 +9,7 @@ export const getAllJobRoles = async (req: express.Request, res: express.Response
 
     } catch (e) {
         res.locals.errormessage = (e as Error).message;
-        res.render('jobRoles.njk');
+        res.render('errorPage.njk', {error: e as Error});
     }
     
 }
