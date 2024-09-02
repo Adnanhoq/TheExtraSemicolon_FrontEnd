@@ -4,15 +4,19 @@ import { expect } from 'chai';
 import { JobRoleResponse } from "../../../src/models/JobRoleResponse";
 import { getJobRoleById, getJobRoles, JOBROLEURL } from '../../../src/services/JobRoleService';
 import { JobRole } from "../../../src/models/JobRole";
+import { Location } from "../../../src/enums/Location";
+import { Capability } from "../../../src/enums/Capability";
+import { JobBand } from "../../../src/enums/JobBand";
 
 
 const jobRoleResponse: JobRoleResponse = {
   roleId: 1,
   roleName: "Technical Architect",
-  locations: "Birmingham",
-  capability: "Engineering",
-  band: "Manager",
-  closingDate: new Date()
+  locations: Location.Birmingham,
+  capability: Capability.Engineering,
+  band: JobBand.Manager,
+  closingDate: new Date(),
+  formattedLocations: "Birmingham"
 }
 
 const getJobRoleByIdResponse: JobRole = {
@@ -21,9 +25,9 @@ const getJobRoleByIdResponse: JobRole = {
   description: "Test description for the role",
   linkToJobSpec: "examplelink.co.uk",
   responsibilities: "One, two, three, ninety-nine",
-  locations: "Birmingham",
-  capability: "Engineering",
-  band: "Manager",
+  locations: Location.Birmingham,
+  capability: Capability.Engineering,
+  band: JobBand.Manager,
   closingDate: new Date(),
   status: true,
   positionsAvailable: 1
@@ -35,10 +39,11 @@ describe('JobRoleService', function () {
     describe('getAllJobRoles', function () {
       it('should return all Job Roles from response', async () => {
         const data = [jobRoleResponse];
-
+        
         mock.onGet(JOBROLEURL).reply(200, data);
 
         const results = await getJobRoles();
+        
 
         results[0].closingDate = new Date(results[0].closingDate);
         expect(results[0]).to.deep.equal(jobRoleResponse);
