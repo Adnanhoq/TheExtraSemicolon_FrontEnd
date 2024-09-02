@@ -55,6 +55,10 @@ body {
   color: white;
 }
 
+.error-message {
+  color: #d8000c;
+}
+
 /* --- Footer Styling --- */
 footer {
     padding-inline: 4.5rem;
