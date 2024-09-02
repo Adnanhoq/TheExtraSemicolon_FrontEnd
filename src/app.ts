@@ -5,7 +5,8 @@ import session from "express-session";
 import { getAllDatabases } from "./controllers/TestController";
 import { getAllJobRoles } from "./controllers/JobRoleController";
 import { dateFilter } from "./filters/DateFilter";
-import { unauthenticatedRouter } from "./routes/unauthenticatedRouter";
+import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter";
+import { userRouter } from "./routes/UserRouter";
 const app = express();
 
 const env = nunjucks.configure('views', {
@@ -37,13 +38,7 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
+app.get('/',userRouter);
 
-/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
-app.get('/test',getAllDatabases);
-
-/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
-app.get('/job-roles',getAllJobRoles);
-
-/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
 app.use('/', unauthenticatedRouter);
 
