@@ -5,11 +5,23 @@
 </head>
 <body>
     <h1>Upload your CV</h1>
-    <p>Format must be either PDF, DOC or DOX</p>
-    <form action="/upload" method="post" enctype="multipart/form-data">
+    <p>Format must be either PDF, DOC or DOCX</p>
+
+
+    <form class="form" action="/upload" method="post" enctype="multipart/form-data">
+        <h3><label for="name">
+            Name:
+        </label></h3>
+        <input id="name" name="name" value="{{name}}" type="text">
+
+        <h3><label for="name">
+            Email:
+        </label></h3>
+        <input id="email" name="email" value="{{email}}" type="text">
+        <br></br>
         <label for="file">Upload your CV:</label>
         <input type="file" id="file" name="file">
-        <input type="submit">     
+        <button id="submit">Submit</button>
     </form>
 </body>
 </html>

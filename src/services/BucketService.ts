@@ -3,6 +3,7 @@ import fs from "fs";
 import config from "../config";
 import multer from "multer";
 import aws from "aws-sdk";
+import axios, { AxiosResponse } from "axios";
 
 /**
  * Checks if an S3 bucket exists.
@@ -48,6 +49,7 @@ export const checkBucket = async (s3: S3, bucket:string ) => {
       };
 
       try {
+        // Introduce api call here to api/upload/apply - look at createProduct method
         const res = await s3.upload(params).promise();
 
         console.log("File Uploaded Successfully", res.Location);
@@ -62,6 +64,19 @@ export const checkBucket = async (s3: S3, bucket:string ) => {
   return {success:false, message: "Unable to access this file", data: {}};
   }
   }
+
+//   export const createApplication = async (application: ApplicationRequest): Promise<Number> => {
+//     try {
+//         const response: AxiosResponse = await axios.post("http://localhost:8080/api/upload/apply", application);
+
+//         return response.data;
+//     } catch (e) {
+//         console.log(e);
+//         throw new Error(e.response.data);
+//     }
+
+    
+// }
 
 
 
