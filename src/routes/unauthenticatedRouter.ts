@@ -7,14 +7,8 @@ export const unauthenticatedRouter = express.Router();
 
 unauthenticatedRouter.get('/', getIndexPage);
 unauthenticatedRouter.get('/login', getLoginForm);
-unauthenticatedRouter.post('/login', (req, res, next) => {
-    postLoginForm(req, res).catch((err:unknown) => {
-        next(err);
-    });
-});
+/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
+unauthenticatedRouter.post('/login', postLoginForm);
 unauthenticatedRouter.get('/logout', getLogout);
-unauthenticatedRouter.get('/test', (req, res, next) => {
-    getAllDatabases(req, res).catch((err:unknown) => {
-        next(err);
-    });
-});
+/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
+unauthenticatedRouter.get('/test', getAllDatabases);
