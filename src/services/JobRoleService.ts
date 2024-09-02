@@ -2,13 +2,13 @@ import config from "../config";
 import axios, { AxiosResponse } from "axios";
 import { JobRoleResponse } from "../models/JobRoleResponse";
 
-export const JOBROLEURL = "/job-roles/";
-const URL = config.API_URL + JOBROLEURL;
+const JOBROLEURL = "/job-roles/";
+export const URL = config.API_URL + JOBROLEURL;
 
 
 export const getJobRoles = async (): Promise<JobRoleResponse[]> => {
     try{
-        const response: AxiosResponse<JobRoleResponse[]> = await axios.get(URL);
+        const response: AxiosResponse<JobRoleResponse[]> = await axios.get(`${config.API_URL}job-roles`);
         return response.data;
     } catch (e) {
         console.log(e);

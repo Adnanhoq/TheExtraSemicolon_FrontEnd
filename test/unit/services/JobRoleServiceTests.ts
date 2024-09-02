@@ -2,7 +2,7 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { expect } from 'chai';
 import { JobRoleResponse } from "../../../src/models/JobRoleResponse";
-import { getJobRoles, JOBROLEURL } from '../../../src/services/JobRoleService';
+import { getJobRoles, URL } from '../../../src/services/JobRoleService';
 import { Location } from "../../../src/enums/Location";
 import { Capability } from "../../../src/enums/Capability";
 import { JobBand } from "../../../src/enums/JobBand";
@@ -26,7 +26,7 @@ describe('JobRoleService', function () {
       it('should return all Job Roles from response', async () => {
         const data = [jobRoleResponse];
 
-        mock.onGet(JOBROLEURL).reply(200, data);
+        mock.onGet(URL).reply(200, data);
 
         const results = await getJobRoles();
 
@@ -36,7 +36,7 @@ describe('JobRoleService', function () {
       })
 
       it('should throw exception when 500 error returned from axios', async () => {
-        mock.onGet(JOBROLEURL).reply(500);
+        mock.onGet(URL).reply(500);
 
         try {
           await getJobRoles();
@@ -50,7 +50,7 @@ describe('JobRoleService', function () {
       }
       })
       it('should throw exception when 404 error returned from axios', async () => {
-        mock.onGet(JOBROLEURL).reply(404);
+        mock.onGet(URL).reply(404);
 
         try {
           await getJobRoles();
