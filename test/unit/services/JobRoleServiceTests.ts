@@ -10,13 +10,13 @@ import { JobBand } from "../../../src/enums/JobBand";
 
 
 const jobRoleResponse: JobRoleResponse = {
-  roleId: 1,
-  roleName: "Technical Architect",
-  locations: Location.Birmingham,
-  capability: Capability.Engineering,
-  band: JobBand.Manager,
-  closingDate: new Date(),
-  formattedLocations: "Birmingham"
+    roleId: 1,
+    roleName: "Technical Architect",
+    locations: Location.Birmingham,
+    capability: Capability.Engineering,
+    band: JobBand.Manager,
+    closingDate: new Date(1580782960),
+    formattedLocations: "Birmingham"
 }
 
 const getJobRoleByIdResponse: JobRole = {
@@ -51,6 +51,21 @@ describe('JobRoleService', function () {
 
       it('should throw exception when 500 error returned from axios', async () => {
         mock.onGet(JOBROLEURL).reply(500);
+
+        try {
+          await getJobRoles();
+      } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('Failed to get job roles');
+          } else {
+              // Handle unexpected error types
+              console.error('Unexpected error', e);
+          }
+          return;
+      }
+      })
+      it('should throw exception when 404 error returned from axios', async () => {
+        mock.onGet(JOBROLEURL).reply(404);
 
         try {
           await getJobRoles();
