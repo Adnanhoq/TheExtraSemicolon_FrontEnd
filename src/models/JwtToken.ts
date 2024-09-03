@@ -3,6 +3,6 @@ export enum UserRole {
     User = 2
 }
 
-export type JwtToken = {
+export interface JwtToken {
     Role: UserRole
 }

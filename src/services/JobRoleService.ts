@@ -1,11 +1,12 @@
 import config from "../config";
 import axios, { AxiosResponse } from "axios";
 import { JobRoleResponse } from "../models/JobRoleResponse";
+import { getHeader } from "./AuthUtil";
 
 
-export const getJobRoles = async (): Promise<JobRoleResponse[]> => {
+export const getJobRoles = async (token: string): Promise<JobRoleResponse[]> => {
     try{
-        const response: AxiosResponse<JobRoleResponse[]> = await axios.get(`${config.API_URL}job-roles`);
+        const response: AxiosResponse<JobRoleResponse[]> = await axios.get(`${config.API_URL}job-roles`, getHeader(token));
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
