@@ -31,5 +31,6 @@ export enum Location {
     Homeworker_USA = 'Homeworker - USA',
     Indianapolis = 'Indianapolis',
     London = 'London',
-    Toronto = 'Toronto'
+    Toronto = 'Toronto',
+    Missing = 'Missing Location'
 }

@@ -12,5 +12,6 @@ export enum Capability {
     Organisational_Strategy_and_Planning = 'Organisational Strategy and Planning',
     People = 'People',
     Commercial_and_Financial_Management = 'Commercial and Financial Management',
-    Business_Services_Support = 'Business Services Support'
+    Business_Services_Support = 'Business Services Support',
+    Missing = 'Missing Capability'
 }
