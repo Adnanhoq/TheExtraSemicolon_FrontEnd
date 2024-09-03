@@ -6,6 +6,7 @@ import { getAllDatabases } from "./controllers/TestController";
 import { multerConfig} from "./multerConfig";
 import multer from "multer";
 import { uploadCSV } from "./services/FileUploadService";
+import { postCSVUpload } from "./controllers/FileUploadController";
 
 const app = express();
 const upload = multer(multerConfig);
@@ -42,7 +43,7 @@ app.get('/', (req: express.Request, res: express.Response) =>  {
 });
 
 app.get('/test', (() => getAllDatabases));
-app.post('/uploadCSV',upload.single('file'), uploadCSV)
+app.post('/uploadCSV',upload.single('file'), postCSVUpload)
 app.get('/uploadCSV', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('csvFileUpload.html');
 });

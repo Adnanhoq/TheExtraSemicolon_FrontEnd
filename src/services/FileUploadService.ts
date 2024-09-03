@@ -10,7 +10,7 @@ export const uploadCSV = async (fileData?: Express.Multer.File) => {
         if (!fileData) {
             throw new Error('No file data provided');
           }
-          console.log(fileData);
+          console.log(fileData.filename);
           
         //   const response: AxiosResponse = await axios.post("http://localhost:8080/api/csvUpload", fileData) //This url does not exist at the minute - just a placeholder
         //   return response.data;
