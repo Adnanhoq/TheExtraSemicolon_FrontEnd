@@ -8,6 +8,7 @@
     "urls": [
         "http://localhost:3000/",
         "http://localhost:3000/job-roles",
-        "http://localhost:3000/job-roles/2"
+        "http://localhost:3000/job-roles/2",
+        "http://localhost:3000/login"
     ]
 }
