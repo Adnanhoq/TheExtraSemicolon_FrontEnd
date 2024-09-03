@@ -6,7 +6,8 @@ import { getAllDatabases } from "./controllers/TestController";
 import { getSingleJobRole } from "./controllers/JobRoleController";
 import { getAllJobRoles } from "./controllers/JobRoleController";
 import { dateFilter } from "./filters/DateFilter";
-
+import { unauthenticatedRouter } from "./routes/unauthenticatedRouter";
+import { userRouter } from "./routes/UserRouter";
 const app = express();
 
 const env = nunjucks.configure('views', {
@@ -26,7 +27,7 @@ app.use(express.static("views"));
 // Specifying folder from where to fetch images
 app.use('/assets', express.static('./assets')); 
 
-app.use(session({ secret: 'SUPER_SECRET', cookie: { maxAge: 28800000 }}));
+app.use(session({ name:'kainos-job-roles', secret: 'SUPER_SECRET', cookie: { maxAge: 28800000 }}));
 
 declare module "express-session" {
   interface SessionData {
@@ -38,16 +39,7 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
-app.get('/', (req: express.Request, res: express.Response) =>  {
-  res.render('index.njk');
-});
 
-/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
-app.get('/job-roles/:id', getSingleJobRole);
 
-/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
-app.get('/test', getAllDatabases);
-
-/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
-app.get('/job-roles', getAllJobRoles);
-
+app.use('/', unauthenticatedRouter);
+app.use('/', userRouter);
