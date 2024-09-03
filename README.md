@@ -1,4 +1,4 @@
-# nodejs-express-axios-starter
+# The Extra Semicolon FrontEnd Application Set Up
 
 ## Copy env
 1. Copy '.env.example' 
@@ -34,3 +34,10 @@ These tests should all pass
 
 ## Link to the AWS 
 To see the frontend on cloud, go to: https://fqq3vg4qpt.eu-west-1.awsapprunner.com
+
+## User Credentials
+
+| Email | Password | Role |
+| ----- | -------- | ---- |
+| admin@kainos.com | admin | admin |
+| user@kainos.com | user | user
