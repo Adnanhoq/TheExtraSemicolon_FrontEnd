@@ -3,7 +3,7 @@ import { getToken } from "../services/AuthService";
 import { LoginRequest } from "../models/LoginRequest";
 
 export const getLoginForm = (req: express.Request, res: express.Response) => {
-    res.render('loginForm.njk', { token: req.session.token});
+    res.render('loginForm.njk', { token: req.session.token, role: res.locals.role});
 }
 
 export const postLoginForm = async (req: express.Request, res: express.Response): Promise<void> => {
