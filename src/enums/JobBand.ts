@@ -6,6 +6,5 @@ export enum JobBand {
     Senior_Associate = 'Senior Associate',
     Associate = 'Associate',
     Trainee = 'Trainee',
-    Apprentice = 'Apprentice',
-    Missing = 'Missing Job Band'
+    Apprentice = 'Apprentice'
 }
