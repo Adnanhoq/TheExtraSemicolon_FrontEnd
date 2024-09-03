@@ -1,8 +1,8 @@
 export type Config = {
-    API_URL: string,
-    AWS_ACCESS_KEY_ID: string,
-    AWS_SECRET_ACCESS_KEY: string,
-    BUCKET_NAME: string
+    API_URL: string | undefined,
+    AWS_ACCESS_KEY_ID: string | undefined,
+    AWS_SECRET_ACCESS_KEY: string | undefined,
+    BUCKET_NAME: string | undefined
    }
    
    export const config: Config  = {
@@ -11,6 +11,8 @@ export type Config = {
        AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
        BUCKET_NAME: process.env.S3_BUCKET
    }
+
+export default config
 // export interface Config {
 
 //     API_URL: string

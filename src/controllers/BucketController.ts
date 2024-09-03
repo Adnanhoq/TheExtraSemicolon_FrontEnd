@@ -37,7 +37,7 @@ import { Application } from 'aws-sdk/clients/workspaces';
         const upload = multer({dest: 'uploads/'});
         upload.single 
         
-        const uploadRes = await uploadToS3(s3, req.file);
+        const uploadRes = await uploadToS3(s3, (req.file as Express.Multer.File));
         console.log(req.file);
     
         if (uploadRes.success) {

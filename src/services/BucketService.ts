@@ -15,8 +15,13 @@ import { Application } from "../models/application";
  - @returns {Promise<{success: boolean; message: string; data: object;}>} The result of the check operation.
  */
 
-export const checkBucket = async (s3: S3, bucket:string ) => { // This may not be needed as bucket will always exist
+export const checkBucket = async (s3: S3, bucket:string | undefined) => { // This may not be needed as bucket will always exist
     try{
+      if (bucket == undefined) 
+      {
+        console.log("Error, bucket is undefined")
+        return {success: false, message: "Error, bucket is undefined"}
+      }
         const res = await s3.headBucket({Bucket:bucket}).promise()
 
         //console.log("Bucket already exists", res.$response.data);
@@ -41,14 +46,17 @@ export const checkBucket = async (s3: S3, bucket:string ) => { // This may not b
       throw new Error('No file data provided');
     }
     const fileContent = fileData.buffer;
-
+    if (config.BUCKET_NAME == undefined)
+    {
+      console.log("Error, bucket is undefined")
+    }
       const params = {
-        Bucket: config.BUCKET_NAME,
+        Bucket: config.BUCKET_NAME ?? '',
         Key: fileData!.originalname,
         Body: fileContent,
         ContentType: fileData.mimetype
       };
-
+      
       try {
         const res = await s3.upload(params).promise();
 
@@ -67,13 +75,11 @@ export const checkBucket = async (s3: S3, bucket:string ) => { // This may not b
 
   export const createApplication = async (application: Application): Promise<void> => {
     try {
-      console.log(application);
+      console.log("in first part of createapplication");
         const response: AxiosResponse = await axios.post("http://localhost:8080/api/upload/apply", application);
-
         return response.data;
     } catch (e) {
       console.log("in createApplication");
-      console.log(application);
         console.log(e);
         throw new Error(e.response.data);
     }
