@@ -41,6 +41,3 @@ app.use('/',userRouter);
 
 /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
 app.use('/', unauthenticatedRouter);
-/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
-app.use('/', userRouter);
-
