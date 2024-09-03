@@ -29,16 +29,6 @@
                         </div>
                     {% endfor %}
                 </div>
-
-                <div>
-                    {% if pagination.page > 1 %}
-                        <a href="?page={{ pagination.page - 1 }}&limit={{ pagination.limit }}">Previous</a>
-                    {% endif %}
-                    {% if pagination.page < pagination.pages %}
-                        <a href="?page={{ pagination.page + 1 }}&limit={{ pagination.limit }}">Next</a>
-                    {% endif %}
-                </div>
-                
             </div>
         </div>
 {% endblock %}
