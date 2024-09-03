@@ -5,10 +5,13 @@ import { getAllDatabases } from '../controllers/TestController';
 
 export const unauthenticatedRouter = express.Router();
 
+/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
 unauthenticatedRouter.get('/', getIndexPage);
+/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
 unauthenticatedRouter.get('/login', getLoginForm);
 /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
 unauthenticatedRouter.post('/login', postLoginForm);
+/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
 unauthenticatedRouter.get('/logout', getLogout);
 /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
 unauthenticatedRouter.get('/test', getAllDatabases);

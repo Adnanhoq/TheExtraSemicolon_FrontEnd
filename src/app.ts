@@ -36,8 +36,8 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
-/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
 app.use('/',userRouter);
 
-/* eslint-disable-next-line @typescript-eslint/no-misused-promises */
+
 app.use('/', unauthenticatedRouter);
+app.use('/', userRouter);
