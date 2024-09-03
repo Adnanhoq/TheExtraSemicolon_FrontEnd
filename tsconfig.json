@@ -11,6 +11,7 @@
         "types": ["node", "express", "multer"],
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
+        "strictNullChecks": true
     },
     "include": [
         "src/**/*",

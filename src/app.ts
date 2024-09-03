@@ -7,7 +7,7 @@ import multer from "multer";
 import { getAllDatabases } from "./controllers/TestController";
 import { postUpload } from "./controllers/BucketController";
 import { multerConfig } from "./multerConfig";
-
+import { unauthenticatedRouter } from "./routes/unauthenticatedRouter";
 
 const app = express();
 const upload = multer(multerConfig);
@@ -27,7 +27,7 @@ app.use(express.static("views"));
 // Specifying folder from where to fetch images
 app.use('/assets', express.static('./assets')); 
 
-app.use(session({ secret: 'SUPER_SECRET', cookie: { maxAge: 28800000 }}));
+app.use(session({ name:'kainos-job-roles', secret: 'SUPER_SECRET', cookie: { maxAge: 28800000 }}));
 
 declare module "express-session" {
   interface SessionData {
@@ -39,10 +39,6 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
-app.get('/', async (req: express.Request, res: express.Response): Promise<void> => {
-  res.render('index.njk');
-});
-
 app.get('/test', getAllDatabases);
 app.post('/upload',upload.single('file'), postUpload)
 app.get('/upload', async (req: express.Request, res: express.Response): Promise<void> => {
@@ -52,3 +48,5 @@ app.get('/upload', async (req: express.Request, res: express.Response): Promise<
 app.get('/upload-success', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('apply-succesful.html');
 });
+
+app.use('/', unauthenticatedRouter);
