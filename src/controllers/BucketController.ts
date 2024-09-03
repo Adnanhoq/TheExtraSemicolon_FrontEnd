@@ -45,8 +45,8 @@ import { Application } from 'aws-sdk/clients/workspaces';
           // Call createApplication function from bucketService here
 
           let ApplicationReq = { // Test application object - this works
-            email: "test3@gmail.com",
-            roleId: 7,
+            email: "user@kainos.com",
+            roleId: 2,
             s3Link: "awslink",
           }
 

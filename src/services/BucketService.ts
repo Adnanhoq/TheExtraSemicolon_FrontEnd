@@ -49,6 +49,7 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
     if (config.BUCKET_NAME == undefined)
     {
       console.log("Error, bucket is undefined")
+      return {success: false, message: "Error, bucket is undefined"}
     }
       const params = {
         Bucket: config.BUCKET_NAME ?? '',
@@ -75,11 +76,9 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
 
   export const createApplication = async (application: Application): Promise<void> => {
     try {
-      console.log("in first part of createapplication");
         const response: AxiosResponse = await axios.post("http://localhost:8080/api/upload/apply", application);
         return response.data;
     } catch (e) {
-      console.log("in createApplication");
         console.log(e);
         throw new Error(e.response.data);
     }
