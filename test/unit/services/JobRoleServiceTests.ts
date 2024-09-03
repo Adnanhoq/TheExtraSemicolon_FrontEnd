@@ -85,7 +85,7 @@ describe('JobRoleService', function () {
         const data = getJobRoleByIdResponse;
         
 
-        mock.onGet(URL + '5').reply(200, data);
+        mock.onGet(`${config.API_URL}job-roles/` + '5').reply(200, data);
 
         const results = await getJobRoleById('5');
         
@@ -96,7 +96,7 @@ describe('JobRoleService', function () {
       })
 
       it('should throw exception when 500 error returned from axios', async () => {
-        mock.onGet(URL + '5').reply(500);
+        mock.onGet(`${config.API_URL}job-roles/` + '5').reply(500);
 
         try {
           await getJobRoleById('5');
@@ -107,7 +107,7 @@ describe('JobRoleService', function () {
       })
 
       it('should throw exception when 404 error returned from axios', async () => {
-        mock.onGet(URL + '555555').reply(404);
+        mock.onGet(`${config.API_URL}job-roles/` + '5').reply(404);
 
         try {
           await getJobRoleById('555555');
