@@ -9,7 +9,7 @@ export const allowRoles = (allowRoles: UserRole[]) => {
             res.redirect('/login');
         }
 
-        const decodedToken: JwtToken = jwtDecode(req.session.token);
+        const decodedToken: JwtToken = jwtDecode(req.session.token ?? '');
         if (!allowRoles.includes(decodedToken.Role)) {
             return res.status(403).send('User role not authorised for this action');
         }

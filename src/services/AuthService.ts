@@ -12,7 +12,6 @@ export const getToken = async (loginRequest: LoginRequest): Promise<string> => {
         const response: AxiosResponse = await axios.post(config.API_URL+"auth/login", loginRequest);
         return response.data as string;
     } catch (e) {
-        console.log(e);
         if (axios.isAxiosError(e) && e.response != undefined) {
             if (e.response.status == 404 || e.response.status == 500) {
                 throw new Error('Something went wrong during log in'); 
