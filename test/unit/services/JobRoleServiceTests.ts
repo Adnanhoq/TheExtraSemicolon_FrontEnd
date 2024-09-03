@@ -3,7 +3,7 @@ import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import { expect } from 'chai';
 import { JobRoleResponse } from "../../../src/models/JobRoleResponse";
-import { getJobRoleById, getJobRoles, URL } from '../../../src/services/JobRoleService';
+import { getJobRoleById, getJobRoles } from '../../../src/services/JobRoleService';
 import { JobRole } from "../../../src/models/JobRole";
 import { Location } from "../../../src/enums/Location";
 import { Capability } from "../../../src/enums/Capability";
@@ -34,9 +34,13 @@ const getJobRoleByIdResponse: JobRole = {
   positionsAvailable: 1
 }
 
-const mock = new MockAdapter(axios);
+let mock: MockAdapter;
 
 describe('JobRoleService', function () {
+    this.beforeEach(() => {
+        mock = new MockAdapter(axios);
+    });
+
     describe('getAllJobRoles', function () {
       it('should return all Job Roles from response', async () => {
         const data = [jobRoleResponse];
@@ -57,7 +61,7 @@ describe('JobRoleService', function () {
           await getJobRoles();
       } catch (e: unknown) {
           if (e instanceof Error) {
-              expect(e.message).to.equal('Cannot find Server');
+              expect(e.message).to.equal('Server Error');
           } else {
               console.error('Unexpected error', e);
           }

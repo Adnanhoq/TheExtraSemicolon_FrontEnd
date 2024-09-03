@@ -39,7 +39,9 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
+app.use('/',userRouter);
 
 
 app.use('/', unauthenticatedRouter);
 app.use('/', userRouter);
+
