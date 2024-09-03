@@ -2,8 +2,6 @@ import express from "express";
 import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
-import { getAllDatabases } from "./controllers/TestController";
-import { getAllJobRoles } from "./controllers/JobRoleController";
 import { dateFilter } from "./filters/DateFilter";
 import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter";
 import { userRouter } from "./routes/UserRouter";
