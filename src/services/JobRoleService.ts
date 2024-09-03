@@ -3,9 +3,11 @@ import axios, { AxiosResponse } from "axios";
 import { JobRoleResponse } from "../models/JobRoleResponse";
 
 
-export const getJobRoles = async (): Promise<JobRoleResponse[]> => {
+export const getJobRoles = async (page: number, limit: number): Promise<{ jobRoles: JobRoleResponse[], total: number }> => {
     try{
-        const response: AxiosResponse<JobRoleResponse[]> = await axios.get(`${config.API_URL}job-roles`);
+    const response: AxiosResponse<{ jobRoles: JobRoleResponse[], total:number }> = await axios.get(`${config.API_URL}job-roles`, {
+        params: { page,limit }
+    });
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
