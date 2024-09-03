@@ -18,3 +18,5 @@ export const allowRoles = (allowRoles: UserRole[]) => {
         next();
     }
 }
+// Set res.locals.role = 1
+// Look into middleware that runs between requests.
