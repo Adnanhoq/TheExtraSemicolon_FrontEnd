@@ -40,6 +40,7 @@ import  multer from 'multer';
         console.log(req.file);
     
         if (uploadRes.success) {
+          // Call createApplication function from bucketService here
           console.log(uploadRes.message);
           res.redirect('/upload-success');
         } else {

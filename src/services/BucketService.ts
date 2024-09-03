@@ -4,6 +4,7 @@ import config from "../config";
 import multer from "multer";
 import aws from "aws-sdk";
 import axios, { AxiosResponse } from "axios";
+import { Application } from "../models/application";
 
 /**
  * Checks if an S3 bucket exists.
@@ -14,7 +15,7 @@ import axios, { AxiosResponse } from "axios";
  - @returns {Promise<{success: boolean; message: string; data: object;}>} The result of the check operation.
  */
 
-export const checkBucket = async (s3: S3, bucket:string ) => {
+export const checkBucket = async (s3: S3, bucket:string ) => { // This may not be needed as bucket will always exist
     try{
         const res = await s3.headBucket({Bucket:bucket}).promise()
 
@@ -49,7 +50,6 @@ export const checkBucket = async (s3: S3, bucket:string ) => {
       };
 
       try {
-        // Introduce api call here to api/upload/apply - look at createProduct method
         const res = await s3.upload(params).promise();
 
         console.log("File Uploaded Successfully", res.Location);
@@ -65,18 +65,18 @@ export const checkBucket = async (s3: S3, bucket:string ) => {
   }
   }
 
-//   export const createApplication = async (application: ApplicationRequest): Promise<Number> => {
-//     try {
-//         const response: AxiosResponse = await axios.post("http://localhost:8080/api/upload/apply", application);
+  export const createApplication = async (application: Application): Promise<Number> => {
+    try {
+        const response: AxiosResponse = await axios.post("http://localhost:8080/api/upload/apply", application);
 
-//         return response.data;
-//     } catch (e) {
-//         console.log(e);
-//         throw new Error(e.response.data);
-//     }
+        return response.data;
+    } catch (e) {
+        console.log(e);
+        throw new Error(e.response.data);
+    }
 
     
-// }
+}
 
 
 
