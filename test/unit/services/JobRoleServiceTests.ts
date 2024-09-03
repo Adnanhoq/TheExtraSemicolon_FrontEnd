@@ -20,9 +20,13 @@ const jobRoleResponse: JobRoleResponse = {
 }
 
 
-const mock = new MockAdapter(axios);
+let mock: MockAdapter;
 
 describe('JobRoleService', function () {
+    this.beforeEach(() => {
+        mock = new MockAdapter(axios);
+    });
+
     describe('getAllJobRoles', function () {
       it('should return all Job Roles from response', async () => {
         const data = [jobRoleResponse];
