@@ -1,8 +1,9 @@
 import { S3 } from 'aws-sdk';
 import express from "express";
-import {checkBucket, uploadToS3 } from '../services/BucketService'
+import {checkBucket, createApplication, uploadToS3 } from '../services/BucketService'
 import config from "../config";
 import  multer from 'multer';
+import { Application } from 'aws-sdk/clients/workspaces';
 
 /**
 
@@ -40,7 +41,18 @@ import  multer from 'multer';
         console.log(req.file);
     
         if (uploadRes.success) {
+          // Create application object here
           // Call createApplication function from bucketService here
+
+          let ApplicationReq = { // Test application object - this works
+            email: "test3@gmail.com",
+            roleId: 7,
+            s3Link: "awslink",
+          }
+
+
+          await createApplication(ApplicationReq);
+
           console.log(uploadRes.message);
           res.redirect('/upload-success');
         } else {

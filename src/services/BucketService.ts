@@ -65,12 +65,15 @@ export const checkBucket = async (s3: S3, bucket:string ) => { // This may not b
   }
   }
 
-  export const createApplication = async (application: Application): Promise<Number> => {
+  export const createApplication = async (application: Application): Promise<void> => {
     try {
+      console.log(application);
         const response: AxiosResponse = await axios.post("http://localhost:8080/api/upload/apply", application);
 
         return response.data;
     } catch (e) {
+      console.log("in createApplication");
+      console.log(application);
         console.log(e);
         throw new Error(e.response.data);
     }

@@ -1,5 +1,5 @@
 export interface Application {
     email: string;
-    roleid: number;
-    s3link: string;
+    roleId: number;
+    s3Link: string;
   }
