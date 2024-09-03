@@ -3,7 +3,7 @@ import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
 import { dateFilter } from "./filters/DateFilter";
-import { unauthenticatedRouter } from "./routes/unauthenticatedRouter";
+import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter";
 import { userRouter } from "./routes/UserRouter";
 const app = express();
 
@@ -36,7 +36,7 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
-app.use('/',userRouter);
+app.use('/', userRouter);
 
 
 app.use('/', unauthenticatedRouter);
