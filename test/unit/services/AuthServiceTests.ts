@@ -91,13 +91,31 @@ describe('AuthService', function () {
             }
             console.log(URL);
             
-            mock.onPost(URL, loginRequest).reply(500, "Service Failed");
+            mock.onPost(URL, loginRequest).reply(500, "");
             loginRequest.password = "admin";
             try {
                 await getToken(loginRequest);
 
             } catch (e) {
-                expect(e.message).to.equal("Service Failed");
+                expect(e.message).to.equal("Something went wrong during log in");
+                return;
+            }
+            assert.fail("Expected error message");
+        }),
+        it('should return error when 404 received', async () => {
+            const loginRequest: LoginRequest = {
+                email: "admin@kainos.com",
+                password: "wlSNgEn5dCBM59jnbeH+txKWn36Vt6QScELcAa5ZBNduqSY16JAl2hqeGsZrmpG0kdb9+ILMoCJVB3er8ZoCJI9o26IM83UfnJtTT3p7cRgOUxsU0iMHgkI9KdQpDim6"
+            }
+            console.log(URL);
+            
+            mock.onPost(URL, loginRequest).reply(404, "");
+            loginRequest.password = "admin";
+            try {
+                await getToken(loginRequest);
+
+            } catch (e) {
+                expect(e.message).to.equal("Something went wrong during log in");
                 return;
             }
             assert.fail("Expected error message");

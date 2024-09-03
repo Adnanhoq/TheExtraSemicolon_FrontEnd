@@ -1,5 +1,5 @@
 import express from "express";
 
-export const getIndexPage = async (req: express.Request, res: express.Response): Promise<void> => {
+export const getIndexPage = (req: express.Request, res: express.Response) => {
     res.render('index.njk', { token: req.session.token});
 }

@@ -20,7 +20,7 @@ app.use(express.static("views"));
 // Specifying folder from where to fetch images
 app.use('/assets', express.static('./assets')); 
 
-app.use(session({ secret: 'SUPER_SECRET', cookie: { maxAge: 28800000 }}));
+app.use(session({ name:'kainos-job-roles', secret: 'SUPER_SECRET', cookie: { maxAge: 28800000 }}));
 
 declare module "express-session" {
   interface SessionData {
@@ -33,8 +33,3 @@ app.listen(3000, () => {
 });
 
 app.use('/', unauthenticatedRouter);
-
-app.get('/', async (req: express.Request, res: express.Response): Promise<void> => {
-  res.render('index.njk');
-});
-
