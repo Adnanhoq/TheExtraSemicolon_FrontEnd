@@ -1,22 +1,40 @@
 import axios, { AxiosResponse } from "axios";
 import multer from "multer";
 import express from "express";
+import { S3 } from "aws-sdk";
+
+import config from "../config";
 
 
 
-
-export const uploadCSV = async (fileData?: Express.Multer.File) => {
-    try{
-        if (!fileData) {
-            throw new Error('No file data provided');
-          }
-          console.log(fileData.filename);
-          
-        //   const response: AxiosResponse = await axios.post("http://localhost:8080/api/csvUpload", fileData) //This url does not exist at the minute - just a placeholder
-        //   return response.data;
-
+export const uploadToS3 = async (s3: S3, fileData?: Express.Multer.File) => {
+    try {
+      //const fileContent = fs.readFileSync(fileData!.path);
+      if (!fileData) {
+        throw new Error('No file data provided');
+      }
+      const fileContent = fileData.buffer;
+      console.log(fileContent);
+  
+        const params = {
+          Bucket: config.BUCKET_NAME || 'academy-job-portal-cvs',
+          Key: fileData!.originalname,
+          Body: fileContent,
+          ContentType: fileData.mimetype
+        };
+  
+        try {
+          const res = await s3.upload(params).promise();
+  
+          console.log("File Uploaded Successfully", res.Location);
+  
+          return {success: true, message: "File Uploaded with Successful", data: res.Location};
+        } catch (error) {
+          return {success: false, message: "Unable to Upload the file", data: error};
+        }
+  
     } catch (error) {
     console.log(error);
-    return {success: false, message: "Unable to Upload the file", data: error};
+    return {success:false, message: "Unable to access this file", data: {}};
     }
-}
+    }

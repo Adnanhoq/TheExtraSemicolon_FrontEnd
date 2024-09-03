@@ -3,9 +3,9 @@ import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
 import { getAllDatabases } from "./controllers/TestController";
+
 import { multerConfig} from "./multerConfig";
 import multer from "multer";
-import { uploadCSV } from "./services/FileUploadService";
 import { postCSVUpload } from "./controllers/FileUploadController";
 
 const app = express();
@@ -42,8 +42,9 @@ app.get('/', (req: express.Request, res: express.Response) =>  {
   res.render('index.njk');
 });
 
+
 app.get('/test', (() => getAllDatabases));
-app.post('/uploadCSV',upload.single('file'), postCSVUpload)
+app.post('/uploadCSV',upload.single('file'), postCSVUpload);
 app.get('/uploadCSV', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('csvFileUpload.html');
 });

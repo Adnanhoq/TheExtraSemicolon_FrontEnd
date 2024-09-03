@@ -14,6 +14,7 @@
   "author": "Shaun Ganley <shaung@kainos.com>",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.1687.0",
     "axios": "^1.7.5",
     "body-parser": "^1.20.2",
     "express": "^4.19.2",

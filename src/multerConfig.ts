@@ -9,9 +9,8 @@ export const multerConfig = {
     fileSize: 5 * 1024 * 1024, // limit file size to 5MB
   },
 
-    fileFilter: (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
-        // Accept only PDF, DOC, and DOCX files
-        if (file.mimetype === "roles/csv"){
+    fileFilter: (req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {       
+        if (file.mimetype === "text/csv"){
             return cb(null, true); // Accept the file
         }
         // Reject other file types
