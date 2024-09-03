@@ -12,5 +12,5 @@ export type Config = {
        BUCKET_NAME: process.env.S3_BUCKET
    };
    
-   export default config
+   export default config;
 
