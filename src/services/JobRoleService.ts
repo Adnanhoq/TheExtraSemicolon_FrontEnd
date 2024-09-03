@@ -10,7 +10,7 @@ export const getJobRoles = async (): Promise<JobRoleResponse[]> => {
     } catch (error) {
         if (axios.isAxiosError(error)) {
             if (error.response?.status === 404) {
-                throw new Error('No Job roles open');
+                throw new Error('No job roles open');
             }
             throw new Error('Server Error');
         } else {
