@@ -17,7 +17,6 @@ export const getSingleJobRole = async (req: express.Request, res: express.Respon
     try {
         const jobRole = await getJobRoleById(req.params.id);
         
-        // This is why I love JavaScript
         const jobResponsibilitiesSplit = jobRole.responsibilities.split("•").filter(responsibility => responsibility.trim() !== '');
         
         res.render('jobRoleDetail.njk', { jobRole: jobRole, responsibilities: jobResponsibilitiesSplit });

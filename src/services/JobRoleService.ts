@@ -1,4 +1,4 @@
-import axios, {AxiosResponse} from "axios"
+import axios, {type AxiosResponse} from "axios"
 import { JobRole } from "../models/JobRole"
 import config from "../config";
 import { JobRoleResponse } from "../models/JobRoleResponse";
