@@ -14,8 +14,8 @@ export const uploadToS3 = async (s3: S3, fileData?: Express.Multer.File) => {
         throw new Error('No file data provided');
       }
       const fileContent = fileData.buffer;
-      console.log(fileContent);
-      console.log(fileContent.toString());
+     // console.log(fileContent);
+      //console.log(fileContent.toString());
   
         const params = {
           Bucket: config.BUCKET_NAME || 'academy-job-portal-cvs',

@@ -12,16 +12,18 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
       accessKeyId: config.AWS_ACCESS_KEY_ID,
       secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
     });
-    console.log(req);
-    console.log("Received file:", req.file);
+    //console.log(req);
+    console.log("Received file:", req.file?.path);
 
   
     console.log("file string object", req.file);
     if (req.file == null){
       console.log("File is not defined")
     } else {
-      console.log(req.file);
-      validateFileUpload(req.file);
+      //console.log(req.file);
+      const filePath = req.file.path;
+      validateFileUpload(filePath);
+      console.log ("File stream testing ended");
 
       const uploadRes = await uploadToS3(s3, req.file);
       
