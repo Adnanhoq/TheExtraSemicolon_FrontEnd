@@ -1,6 +1,6 @@
 import { S3 } from 'aws-sdk';
 import express from "express";
-import {checkBucket, createApplication, uploadToS3 } from '../services/BucketService'
+import {checkBucket, createApplication, uploadToS3 } from '../services/ApplicationService'
 import config from "../config";
 import  multer from 'multer';
 import { Application } from 'aws-sdk/clients/workspaces';
@@ -15,7 +15,7 @@ import { jwtDecode } from 'jwt-decode';
   export const initBucket = async (s3: S3) => {
   const bucketStatus = await checkBucket(s3, config.BUCKET_NAME);
 
-  if( !bucketStatus.success ) { // check if the bucket don't exist
+  if( !bucketStatus.success ) { // Check the bucket's existance
     console.log("Bucket does not exist");
     }
 }
@@ -27,7 +27,7 @@ import { jwtDecode } from 'jwt-decode';
           secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
         });
     
-        // Bucket initilization
+        // Bucket initilization - I know I spelt it wrong
         await initBucket(s3);
 
         console.log(req.body.name)
@@ -38,19 +38,14 @@ import { jwtDecode } from 'jwt-decode';
 
         const upload = multer({dest: 'uploads/'});
         upload.single 
-        //console.log("hereeeeeeeee" + req.session)
         const uploadResult = await uploadToS3(s3, (req.file as Express.Multer.File));
         
-        //console.log(req.file);
         if (uploadResult.success) {
-          // Create application object here
           const decodedToken: JwtToken = jwtDecode(req.session.token ?? '');
-          console.log(decodedToken);
 
           let ApplicationReq = { // Test application object - this works
-            email: "user@kainos.com", // Need to extract from session jwt token
+            email: decodedToken.sub, 
             roleId: 15, // Needs to come from zohaibs roleId which is currently in testing
-            s3Link: uploadResult.data,
           }
 
           await createApplication(ApplicationReq);

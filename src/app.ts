@@ -5,11 +5,10 @@ import session from "express-session";
 import multer from "multer";
 
 import { getAllDatabases } from "./controllers/TestController";
-import { postUpload } from "./controllers/BucketController";
+import { postUpload } from "./controllers/ApplicationController";
 import { multerConfig } from "./multerConfig";
-import { unauthenticatedRouter } from "./routes/unauthenticatedRouter";
 import { dateFilter } from "./filters/DateFilter";
-import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter";
+import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter"; 
 import { userRouter } from "./routes/UserRouter";
 const app = express();
 const upload = multer(multerConfig);

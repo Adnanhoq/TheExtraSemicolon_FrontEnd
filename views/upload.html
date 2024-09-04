@@ -7,21 +7,16 @@
     <h1>Upload your CV</h1>
     <p>Format must be either PDF, DOC or DOCX</p>
 
-
-    <form class="form" action="/upload" method="post" enctype="multipart/form-data">
-        <h3><label for="name">
-            Name:
-        </label></h3>
-        <input id="name" name="name" value="{{name}}" type="text">
-
-        <h3><label for="name">
-            Email:
-        </label></h3>
-        <input id="email" name="email" value="{{email}}" type="text">
-        <br></br>
-        <label for="file">Upload your CV:</label>
-        <input type="file" id="file" name="file">
-        <button id="submit">Submit</button>
-    </form>
+    <form action="/submit" method="POST" target="messageFrame">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <input type="submit" value="Submit">
+      </form>
+      
+      <iframe name="messageFrame" style="display:none;"></iframe>
+      <div>
+        <p>Thank you for your submission!</p>
+      </div>
+      
 </body>
 </html>

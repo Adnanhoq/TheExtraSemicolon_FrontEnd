@@ -51,10 +51,11 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
       console.log("Error, bucket is undefined")
       return {success: false, message: "Error, bucket is undefined"}
     }
-    console.log(fileData!.originalname)
+    const folderData = "the_extra_semicolon/" + fileData!.originalname
+    console.log(folderData)
       const params = {
         Bucket: config.BUCKET_NAME ?? '',
-        Key: fileData!.originalname,
+        Key: folderData,
         Body: fileContent,
         ContentType: fileData.mimetype
       };
