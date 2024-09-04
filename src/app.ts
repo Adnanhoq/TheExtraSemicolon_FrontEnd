@@ -5,7 +5,7 @@ import session from "express-session";
 import { dateFilter } from "./filters/DateFilter";
 import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter";
 import { userRouter } from "./routes/UserRouter";
-import { setRoleInLocals } from "./middleware/AuthNavbarMiddleware";
+import { setRoleInLocals } from "./middleware/SetLocalRoleMiddleware";
 
 const app = express();
 
