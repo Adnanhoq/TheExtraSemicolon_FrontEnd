@@ -30,10 +30,10 @@
                         </form>
                     </div>
                 </div>
-
-                <div class="row">
+                
+                <div class="row ">
                     {% for role in jobRoles | sort(attribute='roleId') %}
-                        <div class="jobCard col-md-4 mb-4">
+                        <a href="job-roles/{{role.roleId}}" class="jobCard col-md-4 mb-4">
                             <div class="card w-100 h-100">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ role.roleName }}</h5>
@@ -43,7 +43,7 @@
                                     <p class="card-text"><strong>Closing Date:</strong> {{ role.closingDate | date }}</p>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     {% endfor %}
                 </div>
 

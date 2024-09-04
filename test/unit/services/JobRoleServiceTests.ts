@@ -4,7 +4,8 @@ import MockAdapter from "axios-mock-adapter";
 import { expect } from 'chai';
 import { JobRoleResponse } from "../../../src/models/JobRoleResponse";
 import { JobRoleResponseWrapper } from "../../../src/models/JobRoleResponseWrapper";
-import { getJobRoles } from '../../../src/services/JobRoleService';
+import { getJobRoleById, getJobRoles } from '../../../src/services/JobRoleService';
+import { JobRole } from "../../../src/models/JobRole";
 import { Location } from "../../../src/enums/Location";
 import { Capability } from "../../../src/enums/Capability";
 import { JobBand } from "../../../src/enums/JobBand";
@@ -30,6 +31,19 @@ const jobRoleResponseWrapper: JobRoleResponseWrapper = {
     }
   };
 
+const getJobRoleByIdResponse: JobRole = {
+  roleId: 5,
+  roleName: "Technical Architect",
+  description: "Test description for the role",
+  linkToJobSpec: "examplelink.co.uk",
+  responsibilities: "One, two, three, ninety-nine",
+  locations: Location.Birmingham,
+  capability: Capability.Engineering,
+  band: JobBand.Manager,
+  closingDate: new Date(),
+  status: true,
+  positionsAvailable: 1
+}
 
 let mock: MockAdapter;
 
@@ -48,8 +62,6 @@ describe('JobRoleService', function () {
         const { jobRoles, pagination } = results;
 
         jobRoles[0].closingDate = new Date(jobRoles[0].closingDate);
-        console.log("here");
-        console.log(results);
 
         expect(results).to.deep.equal(jobRoleResponseWrapper);
       })
@@ -83,4 +95,44 @@ describe('JobRoleService', function () {
       }
       })
     })
+
+    describe('getJobRoleById', function () {
+      it('should return a job role with all fields given an id', async () => {
+        const data = getJobRoleByIdResponse;
+        
+
+        mock.onGet(`${config.API_URL}job-roles/` + '5').reply(200, data);
+
+        const results = await getJobRoleById('5');
+        
+
+        results.closingDate = new Date(results.closingDate);
+      
+        expect(results).to.deep.equal(getJobRoleByIdResponse);
+      })
+
+      it('should throw exception when 500 error returned from axios', async () => {
+        mock.onGet(`${config.API_URL}job-roles/` + '5').reply(500);
+
+        try {
+          await getJobRoleById('5');
+        } catch (e) {
+          expect(e.message).to.equal('Failed to get Job Role');
+          return;
+        }
+      })
+
+      it('should throw exception when 404 error returned from axios', async () => {
+        mock.onGet(`${config.API_URL}job-roles/` + '5').reply(404);
+
+        try {
+          await getJobRoleById('555555');
+        } catch (e) {
+          expect(e.message).to.equal('Failed to get Job Role');
+          return;
+        }
+      })
+
+    })
+
 });
