@@ -33,7 +33,7 @@ describe('JobRoleService', function () {
 
         mock.onGet(`${config.API_URL}job-roles`).reply(200, data);
 
-        const results = await getJobRoles();
+        const results = await getJobRoles(1,10);
 
         results[0].closingDate = new Date(results[0].closingDate);
 
@@ -44,7 +44,7 @@ describe('JobRoleService', function () {
         mock.onGet(`${config.API_URL}job-roles`).reply(500);
 
         try {
-          await getJobRoles();
+          await getJobRoles(1,10);
       } catch (e: unknown) {
           if (e instanceof Error) {
               expect(e.message).to.equal('Server Error');
@@ -58,7 +58,7 @@ describe('JobRoleService', function () {
         mock.onGet(`${config.API_URL}job-roles`).reply(404);
 
         try {
-          await getJobRoles();
+          await getJobRoles(1,10);
       } catch (e: unknown) {
           if (e instanceof Error) {
               expect(e.message).to.equal('No job roles open');

@@ -6,6 +6,8 @@
     }
 },
     "urls": [
-        "http://localhost:3000/"
+        "http://localhost:3000/",
+        "http://localhost:3000/job-roles",
+        "http://localhost:3000/job-roles?limit=25&page=1"
     ]
 }

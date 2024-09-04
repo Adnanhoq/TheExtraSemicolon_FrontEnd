@@ -15,7 +15,7 @@
             <div class="mainBody">
                 <h1>Job Roles List</h1>
                 <div class="row">
-                    {% for role in jobRole | sort(attribute='roleId') %}
+                    {% for role in jobRoles | sort(attribute='roleId') %}
                         <div class="jobCard col-md-4 mb-4">
                             <div class="card w-100 h-100">
                                 <div class="card-body">
@@ -29,6 +29,39 @@
                         </div>
                     {% endfor %}
                 </div>
+
+                <div class="pagination mb-5 d-flex flex-row justify-content-center">
+                    <div class="d-flex flex-row gap-5 align-items-center m-3">
+                        <p>Page {{ pagination.page }} of {{ pagination.pages }}</p>
+                        <p>Total Job Roles: {{ pagination.total }}</p>
+                        <div class="d-flex align-items-center gap-1">
+                        <p>Items per Page: </p>
+                            <form method="GET" action="" class="mb-3">
+                                <select name="limit" onchange="this.form.submit()">
+                                <option value="10" {% if pagination.limit == 10 %}selected{% endif %}>10</option>
+                                <option value="25" {% if pagination.limit == 25 %}selected{% endif %}>25</option>
+                                <option value="50" {% if pagination.limit == 50 %}selected{% endif %}>50</option>
+                                <option value="100" {% if pagination.limit == 100 %}selected{% endif %}>100</option>
+                                </select>
+                                <input type="hidden" name="page" value="1">
+                            </form>
+                        </div>
+                        <nav>
+                            <ul class="pagination">
+                                {% if pagination.page > 1 %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ pagination.page - 1 }}&limit={{ pagination.limit }}">Previous</a></li>
+                                {% endif %}
+                                {% for i in 1..pagination.pages %}
+                                    <li class="page-item {% if i == pagination.page %}active{% endif %}"><a class="page-link" href="?page={{ i }}&limit={{ pagination.limit }}">{{ i }}</a></li>
+                                {% endfor %}
+                                {% if pagination.page < pagination.pages %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ pagination.page + 1 }}&limit={{ pagination.limit }}">Next</a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
             </div>
         </div>
 {% endblock %}

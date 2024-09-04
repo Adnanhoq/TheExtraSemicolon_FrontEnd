@@ -1,11 +1,11 @@
 import config from "../config";
 import axios, { AxiosResponse } from "axios";
-import { JobRoleResponse } from "../models/JobRoleResponse";
+import { JobRoleResponseWrapper } from "../models/JobRoleResponseWrapper";
 
 
-export const getJobRoles = async (): Promise<JobRoleResponse[]> => {
+export const getJobRoles = async (page: number, limit: number): Promise<JobRoleResponseWrapper> => {
     try{
-        const response: AxiosResponse<JobRoleResponse[]> = await axios.get(`${config.API_URL}job-roles`);
+        const response: AxiosResponse<JobRoleResponseWrapper> = await axios.get(`${config.API_URL}job-roles?page=${String(page)}&limit=${String(limit)}`);
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
