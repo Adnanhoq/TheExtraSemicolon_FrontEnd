@@ -1,5 +1,5 @@
 const { resolve } = require("path");
-const { Builder } = require('selenium-webdriver');
+const { Builder, By } = require('selenium-webdriver');
 const HomePage = require("../../../../src/POM/HomePage");
 const { get } = require("http");
 const { assert } = require("console");
@@ -46,12 +46,14 @@ async function CheckForRoles() {
         await sleep(2000);
         console.log(await driver.getTitle());
 
-        let role = await this.driver.findElement(By.xpath('/html/body/div/div/h1'));
-        let role_text = await role.getText();
+        let role = await driver.findElement(By.css('h5'));
+        let role_title = await role.getText();
 
-        assert(role_text == 'Job Roles List');
+        assert(role_title == 'Technology Leader');
 
-        console.log(role_text);
+        await sleep(4000);
+        console.log(role_title);
+        console.log('Test passed, Role is present');
 
     } catch (error){
         console.log('error: ', error);
@@ -60,8 +62,6 @@ async function CheckForRoles() {
     }
     
 }    
-
-
 
 
 function sleep(ms){
