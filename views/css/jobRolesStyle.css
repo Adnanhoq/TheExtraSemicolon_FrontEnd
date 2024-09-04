@@ -8,6 +8,7 @@ h1{
 }
 
 .jobCard:hover .card{
+    cursor: pointer;
     transform: scale(1.1);
     transition: transform 0.3s ease;
     filter: contrast(0.9);
