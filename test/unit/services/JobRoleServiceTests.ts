@@ -31,11 +31,11 @@ describe('JobRoleService', function () {
       it('should return all Job Roles from response', async () => {
         const data = [jobRoleResponse];
 
-        mock.onGet(`${config.API_URL}job-roles`).reply(200, data);
+        mock.onGet(`${config.API_URL}job-roles?page=1&limit=10`).reply(200, data);
 
         const results = await getJobRoles(1,10);
 
-        results[0].closingDate = new Date(results[0].closingDate);
+        results[0].jobRoles = new Date(results[0].closingDate);
 
         expect(results[0]).to.deep.equal(jobRoleResponse);
       })
