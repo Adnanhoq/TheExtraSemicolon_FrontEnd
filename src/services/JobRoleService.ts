@@ -1,5 +1,6 @@
+import axios, {type AxiosResponse} from "axios"
+import { JobRole } from "../models/JobRole"
 import config from "../config";
-import axios, { AxiosResponse } from "axios";
 import { JobRoleResponse } from "../models/JobRoleResponse";
 import { getHeader } from "./AuthUtil";
 
@@ -17,5 +18,16 @@ export const getJobRoles = async (token: string): Promise<JobRoleResponse[]> => 
         } else {
             throw new Error('An unexpected error occurred');
         }
+    }
+}
+
+export const getJobRoleById = async (id: string): Promise<JobRole> => {
+    try {
+        const response: AxiosResponse<JobRole> = await axios.get(`${config.API_URL}job-roles/` + id);
+        
+        return response.data;
+    } catch (e) {
+        console.log(e as Error);
+        throw new Error('Failed to get Job Role')
     }
 }

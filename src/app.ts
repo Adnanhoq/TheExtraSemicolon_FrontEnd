@@ -42,4 +42,3 @@ app.use(setRoleInLocals);
 app.use('/', userRouter);
 
 app.use('/', unauthenticatedRouter);
-
