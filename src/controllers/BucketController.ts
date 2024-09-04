@@ -36,27 +36,25 @@ import { Application } from 'aws-sdk/clients/workspaces';
 
         const upload = multer({dest: 'uploads/'});
         upload.single 
+        //console.log("hereeeeeeeee" + req.session)
+        const uploadResult = await uploadToS3(s3, (req.file as Express.Multer.File));
         
-        const uploadRes = await uploadToS3(s3, (req.file as Express.Multer.File));
-        console.log(req.file);
-    
-        if (uploadRes.success) {
+        //console.log(req.file);
+        if (uploadResult.success) {
           // Create application object here
-          // Call createApplication function from bucketService here
 
           let ApplicationReq = { // Test application object - this works
-            email: "user@kainos.com",
-            roleId: 2,
-            s3Link: "awslink",
+            email: "user@kainos.com", // Need to extract from session jwt token
+            roleId: 15, // Needs to come from zohaibs roleId which is currently in testing
+            s3Link: uploadResult.data,
           }
-
 
           await createApplication(ApplicationReq);
 
-          console.log(uploadRes.message);
+          console.log(uploadResult.message);
           res.redirect('/upload-success');
         } else {
-          console.log(uploadRes.message)
+          console.log(uploadResult.message)
         }       
       } catch (e){
         console.log(e);

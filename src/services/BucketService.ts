@@ -61,7 +61,7 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
       try {
         const res = await s3.upload(params).promise();
 
-        console.log("File Uploaded Successfully", res.Location);
+        //console.log("File Uploaded Successfully", res.Location);
 
         return {success: true, message: "File Uploaded with Successful", data: res.Location};
       } catch (error) {
