@@ -1,49 +1,56 @@
 import { S3 } from 'aws-sdk';
 import express from "express";
-import {uploadToS3 } from '../services/FileUploadService'
+import { uploadToS3 } from '../services/FileUploadService'
 import config from "../config";
-import  multer from 'multer';
+import multer from 'multer';
 import { validateFileUpload } from '../validators/FileUploadValidator';
 
 
 export const postCSVUpload = async (req: express.Request, res: express.Response) => {
-  try{
+  try {
     const s3 = new S3({
       accessKeyId: config.AWS_ACCESS_KEY_ID,
       secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
     });
     //console.log(req);
     const file = req.file;
-    console.log("Received file:", file?.path);
-
-  
-    console.log("file string object", file);
-    if (file == null){
+    if (file == null) {
       console.log("File is not defined")
     } else {
       console.log(file);
       const filePath = file.path;
-      validateFileUpload(filePath);
-      console.log ("File stream testing ended");
+      try {
+        const validationErrors = await validateFileUpload(filePath);
+        
+        if (validationErrors.length > 0) {
+          console.log("Validation errors found:", validationErrors);
+          return res.status(400).json({ success: false, message: "Validation failed.", errors: validationErrors });
+        }
 
-      const uploadRes = await uploadToS3(s3, file);
+        const uploadRes = await uploadToS3(s3, file);
+
+
+        if (uploadRes.success) {
+          console.log(uploadRes.message);
+          res.redirect('/upload-success');
+        } else {
+          console.log(uploadRes.message)
+        }
+      } catch (validationErrors) {
+        console.log("Validation failed:", validationErrors);
+        return res.status(400).json({ success: false, message: "Validation failed.", errors: validationErrors });
+      }
+
       
-
-      if (uploadRes.success) {
-        console.log(uploadRes.message);
-        res.redirect('/upload-success');
-      } else {
-      console.log(uploadRes.message)
-      } 
     }
 
     // const upload = multer({dest: 'uploads/'});
     // upload.single 
-    
 
-    
-          
-  } catch (e){
+
+
+
+  } catch (e) {
     console.log(e);
     res.render('/upload');
   }
