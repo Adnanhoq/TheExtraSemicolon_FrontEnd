@@ -30,10 +30,10 @@ describe('JobRoleService', function () {
     describe('getAllJobRoles', function () {
       it('should return all Job Roles from response', async () => {
         const data = [jobRoleResponse];
-
+        const token: string = 'token';
         mock.onGet(`${config.API_URL}job-roles`).reply(200, data);
-
-        const results = await getJobRoles('');
+        
+        const results = await getJobRoles(token);
 
         results[0].closingDate = new Date(results[0].closingDate);
 
@@ -41,10 +41,11 @@ describe('JobRoleService', function () {
       })
 
       it('should throw exception when 500 error returned from axios', async () => {
+        const token: string = 'token';
         mock.onGet(`${config.API_URL}job-roles`).reply(500);
 
         try {
-          await getJobRoles('');
+          await getJobRoles(token);
       } catch (e: unknown) {
           if (e instanceof Error) {
               expect(e.message).to.equal('Server Error');
@@ -55,10 +56,11 @@ describe('JobRoleService', function () {
       }
       })
       it('should throw exception when 404 error returned from axios', async () => {
+        const token: string = 'token';
         mock.onGet(`${config.API_URL}job-roles`).reply(404);
 
         try {
-          await getJobRoles('');
+          await getJobRoles(token);
       } catch (e: unknown) {
           if (e instanceof Error) {
               expect(e.message).to.equal('No job roles open');
