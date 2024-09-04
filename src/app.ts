@@ -8,14 +8,18 @@ import { getAllDatabases } from "./controllers/TestController";
 import { postUpload } from "./controllers/BucketController";
 import { multerConfig } from "./multerConfig";
 import { unauthenticatedRouter } from "./routes/unauthenticatedRouter";
-
+import { dateFilter } from "./filters/DateFilter";
+import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter";
+import { userRouter } from "./routes/UserRouter";
 const app = express();
 const upload = multer(multerConfig);
 
-nunjucks.configure('views', {
+const env = nunjucks.configure('views', {
     autoescape: true,
     express: app
 });
+
+env.addFilter('date', dateFilter);
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -49,4 +53,7 @@ app.get('/upload-success', async (req: express.Request, res: express.Response): 
   res.render('apply-succesful.html');
 });
 
+app.use('/',userRouter);
+
 app.use('/', unauthenticatedRouter);
+

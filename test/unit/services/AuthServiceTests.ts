@@ -5,11 +5,16 @@ import MockAdapter from "axios-mock-adapter";
 import { getToken } from "../../../src/services/AuthService";
 import { config } from "../../../src/config";
 
-const mock = new MockAdapter(axios);
+let mock: MockAdapter;
 
 const URL = config.API_URL + "auth/login";
 
 describe('AuthService', function () {
+
+    this.beforeEach(() => {
+        mock = new MockAdapter(axios);
+    });
+
     describe('getToken', function () {
         const emailTestCases: [string, string,string][] = [
             ['', 'No email entered', 'too short'],
