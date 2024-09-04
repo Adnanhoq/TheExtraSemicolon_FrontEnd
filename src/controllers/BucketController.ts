@@ -4,6 +4,8 @@ import {checkBucket, createApplication, uploadToS3 } from '../services/BucketSer
 import config from "../config";
 import  multer from 'multer';
 import { Application } from 'aws-sdk/clients/workspaces';
+import { JwtToken } from '../models/JwtToken';
+import { jwtDecode } from 'jwt-decode';
 
 /**
 
@@ -42,6 +44,8 @@ import { Application } from 'aws-sdk/clients/workspaces';
         //console.log(req.file);
         if (uploadResult.success) {
           // Create application object here
+          const decodedToken: JwtToken = jwtDecode(req.session.token ?? '');
+          console.log(decodedToken);
 
           let ApplicationReq = { // Test application object - this works
             email: "user@kainos.com", // Need to extract from session jwt token
