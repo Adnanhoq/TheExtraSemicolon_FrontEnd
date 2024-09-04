@@ -12,6 +12,9 @@ export const getJobRoles = async (page: number, limit: number): Promise<JobRoleR
             if (error.response?.status === 404) {
                 throw new Error('No job roles open');
             }
+            else if (error.response?.status === 500) {
+                throw new Error('Server Error');
+            }
             throw new Error('Server Error');
         } else {
             throw new Error('An unexpected error occurred');
