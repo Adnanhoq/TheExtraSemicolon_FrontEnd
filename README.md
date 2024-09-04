@@ -32,6 +32,20 @@
 3. To run the accessibility tests, run `pa11y-ci`
 These tests should all pass
 
+## Run Performance Testing for Job Roles Page (Ensure backend and frontend are both running)
+1. Download and install JMeter at this link [text](https://jmeter.apache.org/download_jmeter.cgi)
+2. Click and drag the .jmx files in the performanceTesting file to your machine.
+3. In the terminal, run 'jmeter', this should open the Jmeter GUI
+4. Navigate to File -> Open, then locate the .jmx files
+5. If testing locally, open jobListPerformanceTest_LocalHost; If testing on AWS, open jobListPerformanceTest_AWS.
+6. Click the first green play button, this should run all threads sequentially. For each of the .jmx files, this will take around 10 minutes
+7. After tests have run, expand each of the threads in the left hand menu and view Results Tree to confirm all have run successfully (A green shield should be visible)
+8. Open the excel file found in performanceTesting.
+9. On both 'Summary Report' and 'Aggregate Report' in JMeter, either:
+    a) click 'Save Table Data' to save a .csv file, and copy and paste the relevant data into the excel spreadsheet. (Be sure not to copy the totals row and to paste values only)
+    b) Manually enter the data into the excel spreadsheet
+10. Review your results.
+
 ## Link to the AWS 
 To see the frontend on cloud, go to: https://fqq3vg4qpt.eu-west-1.awsapprunner.com
 
