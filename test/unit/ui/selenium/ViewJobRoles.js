@@ -44,6 +44,7 @@ async function CheckForRoles() {
 
         await homepage.jobRolePage();
         await sleep(2000);
+        console.log(await driver.getCurrentUrl());
         console.log(await driver.getTitle());
 
         let role = await driver.findElement(By.css('h5'));
