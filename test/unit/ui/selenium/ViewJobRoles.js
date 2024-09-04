@@ -1,3 +1,4 @@
+const { resolve } = require("path");
 const HomePage = require("../../../../src/POM/HomePage");
 
 async function ViewJobRoles() {
@@ -5,7 +6,7 @@ async function ViewJobRoles() {
     let driver = await new Builder().forBrowser('chrome').build();
 
     try {
-        
+
         const homepage = new HomePage(driver);
 
         await homepage.mainPage();
@@ -16,4 +17,9 @@ async function ViewJobRoles() {
     } finally {
         await driver.quit()
     }
+    
 }
+
+function sleep(ms){
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
