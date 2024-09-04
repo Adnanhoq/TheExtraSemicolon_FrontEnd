@@ -35,15 +35,16 @@
                         <p>Page {{ pagination.page }} of {{ pagination.pages }}</p>
                         <p>Total Job Roles: {{ pagination.total }}</p>
                         <div class="d-flex align-items-center gap-1">
-                        <p>Items per Page: </p>
-                            <form method="GET" action="" class="mb-3">
-                                <select name="limit" onchange="this.form.submit()">
+                        <p>Items per page</p>
+                            <form method="GET" action="" label="aria-label" class="mb-3">
+                                <label for="itemsPerPage" style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; clip: rect(0, 0, 0, 0); overflow: hidden;">Items per Page</label>
+                                <select id="itemsPerPage" name="limit" onchange="this.form.submit()">
                                 <option value="10" {% if pagination.limit == 10 %}selected{% endif %}>10</option>
                                 <option value="25" {% if pagination.limit == 25 %}selected{% endif %}>25</option>
                                 <option value="50" {% if pagination.limit == 50 %}selected{% endif %}>50</option>
                                 <option value="100" {% if pagination.limit == 100 %}selected{% endif %}>100</option>
                                 </select>
-                                <input type="hidden" name="page" value="1">
+                                <button type="submit" style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; clip: rect(0, 0, 0, 0); overflow: hidden;">Submit</button>
                             </form>
                         </div>
                         <nav>
