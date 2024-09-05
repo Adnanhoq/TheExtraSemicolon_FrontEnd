@@ -10,12 +10,23 @@
 
 {% block content %}
 
+
+<div class="d-flex justify-content-center">
+  <div>
+
+{% if errormessage %}
+<h3 class="error-message">{{ errormessage }}</h3>
+{% endif %}
+
     <h1>Upload your CV</h1>
     <p>Format must be either PDF, DOC or DOCX</p>
-    <form class="form" action="/upload" method="post" enctype="multipart/form-data">
+    <form class="form" action="/apply/{{id}}" method="post" enctype="multipart/form-data">
         <label for="file">Upload your CV:</label>
         <input type="file" id="file" name="file">
         <button id="submit">Submit</button>
     </form>
+
+  </div>
+  </div>
 
 {% endblock %}

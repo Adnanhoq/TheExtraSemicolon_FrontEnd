@@ -3,11 +3,8 @@ import express from "express";
 import {checkBucket, createApplication, uploadToS3 } from '../services/ApplicationService'
 import config from "../config";
 import  multer from 'multer';
-import { Application } from 'aws-sdk/clients/workspaces';
 import { JwtToken } from '../models/JwtToken';
 import { jwtDecode } from 'jwt-decode';
-import axios from 'axios';
-import { getJobRoleById } from '../services/JobRoleService';
 
 /**
 
@@ -23,7 +20,7 @@ import { getJobRoleById } from '../services/JobRoleService';
 }
 
   export const getUploadForm = async (req: express.Request, res: express.Response) => {
-    res.render('upload.njk');
+    res.render('apply.njk', {id: req.params.id});
   }
 
     export const postUpload = async (req: express.Request, res: express.Response) => {
@@ -49,7 +46,7 @@ import { getJobRoleById } from '../services/JobRoleService';
           const decodedToken: JwtToken = jwtDecode(req.session.token ?? '');
           let ApplicationReq = { // Test application object - this works
             email: decodedToken.sub, 
-            roleId: Number('req.params.id'), // Needs to come from zohaibs roleId which is currently in testing
+            roleId: Number('req.params.id'),
           }
 
           await createApplication(ApplicationReq);
@@ -61,7 +58,8 @@ import { getJobRoleById } from '../services/JobRoleService';
         }       
       } catch (e){
         console.log(e);
-        res.render('upload.njk', {error: e as Error});
+        res.locals.errormessage = e.message;
+        res.render('apply.njk', {id: req.params.id});
       }
     }
     

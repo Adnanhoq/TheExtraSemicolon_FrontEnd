@@ -76,8 +76,8 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
 
   export const createApplication = async (application: Application): Promise<void> => {
     try {
-        const response: AxiosResponse = await axios.post("http://localhost:8080/api/upload/apply", application); // This will need to be changed to config url from the env variables
-        return response.data;
+        //const response: AxiosResponse = await axios.post("http://localhost:8080/api/upload/apply", application); // This will need to be changed to config url from the env variables
+        //return response.data;
     } catch (e) {
         console.log(e);
         throw new Error(e.response.data);

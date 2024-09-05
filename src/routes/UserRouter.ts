@@ -14,8 +14,8 @@ userRouter.get('/job-roles/:id', getSingleJobRole);
 
 userRouter.get('/job-roles', getAllJobRoles);
 
-userRouter.post('/job-roles/:id/apply',upload.single('file'), postUpload)
-userRouter.get('/job-roles/:id/apply', getUploadForm);
+userRouter.post('/apply/:id',upload.single('file'), postUpload)
+userRouter.get('/apply/:id', getUploadForm);
 
 userRouter.get('/upload-success', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('apply-succesful.html');
