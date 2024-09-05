@@ -71,5 +71,5 @@ function sleep(ms){
 
 
 
-//ViewJobRoles();
-CheckForRoles();
+ViewJobRoles();
+//CheckForRoles();
