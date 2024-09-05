@@ -18,11 +18,13 @@
 <h3 class="error-message">{{ errormessage }}</h3>
 {% endif %}
 
-    <h1>Upload your CV</h1>
-    <p>Format must be either PDF, DOC or DOCX</p>
+    <h3>Applying for Role:</h3>
+    
     <form class="form" action="/apply/{{id}}" method="post" enctype="multipart/form-data">
         <label for="file">Upload your CV:</label>
         <input type="file" id="file" name="file">
+        <p>Format must be either PDF, DOC or DOCX</p>
+        <br>
         <button id="submit">Submit</button>
     </form>
 
