@@ -65,6 +65,42 @@ describe('JobRoleService', function () {
 
         expect(results).to.deep.equal(jobRoleResponseWrapper);
       })
+      it('should return all Job Roles from response', async () => {
+        const data = jobRoleResponseWrapper;
+
+        mock.onGet(`${config.API_URL}job-roles?page=1&limit=25`).reply(200, data);
+
+        const results = await getJobRoles(1,25);
+        const { jobRoles, pagination } = results;
+
+        jobRoles[0].closingDate = new Date(jobRoles[0].closingDate);
+
+        expect(results).to.deep.equal(jobRoleResponseWrapper);
+      })
+      it('should return all Job Roles from response', async () => {
+        const data = jobRoleResponseWrapper;
+
+        mock.onGet(`${config.API_URL}job-roles?page=1&limit=50`).reply(200, data);
+
+        const results = await getJobRoles(1,50);
+        const { jobRoles, pagination } = results;
+
+        jobRoles[0].closingDate = new Date(jobRoles[0].closingDate);
+
+        expect(results).to.deep.equal(jobRoleResponseWrapper);
+      })
+      it('should return all Job Roles from response', async () => {
+        const data = jobRoleResponseWrapper;
+
+        mock.onGet(`${config.API_URL}job-roles?page=1&limit=100`).reply(200, data);
+
+        const results = await getJobRoles(1,100);
+        const { jobRoles, pagination } = results;
+
+        jobRoles[0].closingDate = new Date(jobRoles[0].closingDate);
+
+        expect(results).to.deep.equal(jobRoleResponseWrapper);
+      })
 
       it('should throw exception when 500 error returned from axios', async () => {
         mock.onGet(`${config.API_URL}job-roles?page=1&limit=10`).reply(500);
@@ -80,11 +116,95 @@ describe('JobRoleService', function () {
           return;
       }
       })
+      it('should throw exception when 500 error returned from axios', async () => {
+        mock.onGet(`${config.API_URL}job-roles?page=1&limit=25`).reply(500);
+
+        try {
+          await getJobRoles(1,25);
+      } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('Server Error');
+          } else {
+              console.error('Unexpected error', e);
+          }
+          return;
+      }
+      })
+      it('should throw exception when 500 error returned from axios', async () => {
+        mock.onGet(`${config.API_URL}job-roles?page=1&limit=50`).reply(500);
+
+        try {
+          await getJobRoles(1,50);
+      } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('Server Error');
+          } else {
+              console.error('Unexpected error', e);
+          }
+          return;
+      }
+      })
+      it('should throw exception when 500 error returned from axios', async () => {
+        mock.onGet(`${config.API_URL}job-roles?page=1&limit=100`).reply(500);
+
+        try {
+          await getJobRoles(1,100);
+      } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('Server Error');
+          } else {
+              console.error('Unexpected error', e);
+          }
+          return;
+      }
+      })
       it('should throw exception when 404 error returned from axios', async () => {
         mock.onGet(`${config.API_URL}job-roles?page=1&limit=10`).reply(404);
 
         try {
           await getJobRoles(1,10);
+      } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('No job roles open');
+          } else {
+              console.error('Unexpected error', e);
+          }
+          return;
+      }
+      })
+      it('should throw exception when 404 error returned from axios', async () => {
+        mock.onGet(`${config.API_URL}job-roles?page=1&limit=25`).reply(404);
+
+        try {
+          await getJobRoles(1,25);
+      } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('No job roles open');
+          } else {
+              console.error('Unexpected error', e);
+          }
+          return;
+      }
+      })
+      it('should throw exception when 404 error returned from axios', async () => {
+        mock.onGet(`${config.API_URL}job-roles?page=1&limit=50`).reply(404);
+
+        try {
+          await getJobRoles(1,50);
+      } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('No job roles open');
+          } else {
+              console.error('Unexpected error', e);
+          }
+          return;
+      }
+      })
+      it('should throw exception when 404 error returned from axios', async () => {
+        mock.onGet(`${config.API_URL}job-roles?page=1&limit=100`).reply(404);
+
+        try {
+          await getJobRoles(1,100);
       } catch (e: unknown) {
           if (e instanceof Error) {
               expect(e.message).to.equal('No job roles open');
