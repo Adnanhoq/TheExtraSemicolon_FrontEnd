@@ -34,7 +34,7 @@
                 <div class="row ">
                     {% for role in jobRoles | sort(attribute='roleId') %}
                         <a href="job-roles/{{role.roleId}}" class="jobCard col-md-4 mb-4">
-                            <div class="card w-100 h-100">
+                            <div id="card{{loop.index}}" class="card w-100 h-100">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ role.roleName }}</h5>
                                     <p class="card-text"><strong>Locations:</strong> {{ role.formattedLocations }}</p>
