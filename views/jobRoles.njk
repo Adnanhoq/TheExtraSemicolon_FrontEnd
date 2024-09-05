@@ -51,21 +51,27 @@
                     <div class="d-flex flex-row gap-2 align-items-center mx-3">
                         <nav>
                             <ul class="pagination">
-                            {% if ((pagination.page-2) <= 0 ) or (pagination.pages < pagination.page+2)%}
-                                {% for i in range(1,pagination.pages+1) %}
-                                    <li class="paginationCard {% if i == pagination.page %}active{% endif %}">
-                                        <a class="card p-3 m-1 " href="?page={{ i }}&limit={{ pagination.limit }}">{{ i }}</a>
-                                    </li>
-                                {% endfor %}
-                            {% else %}
-                                {% for i in range(pagination.page-2, pagination.page+2) %}
-                                    <li class="paginationCard {% if i == pagination.page %}active{% endif %}">
-                                        <a class="card p-3 m-1 " href="?page={{ i }}&limit={{ pagination.limit }}">{{ i }}</a>
-                                    </li>
-                                {% endfor %}
-                            {% endif %}
+                                {% set start_page = pagination.page - 2 %}
+                                {% set end_page = pagination.page + 2 %}
 
+                                {% if start_page < 1 %}
+                                    {% set start_page = 1 %}
+                                {% endif %}
+
+                                {% if end_page > pagination.pages %}
+                                    {% set end_page = pagination.pages %}
+                                {% endif %}
+
+
+
+                                {% for i in range(start_page, end_page + 1) %}
+                                    <li class="paginationCard {% if i == pagination.page %}active{% endif %}">
+                                        <a class="card p-3 m-1 " href="?page={{ i }}&limit={{ pagination.limit }}">{{ i }}</a>
+                                    </li>
+                                {% endfor %}
                             </ul>
+
+
                         </nav>
                     </div>
                 </div>
@@ -77,17 +83,17 @@
                                 <a class="page-link" href="?page=1&limit={{ pagination.limit }}">First</a>
                             </li>
                         {% else %}
-                            <li class="page-item disabled">
+                            <li class="page-item disabled w-75">
                                 <span class="page-link">First</span>
                             </li>
                         {% endif %}
 
                         {% if pagination.page > 1 %}
-                            <li class="page-item">
+                            <li class="page-item w-75">
                                 <a class="page-link" href="?page={{ pagination.page - 1 }}&limit={{ pagination.limit }}">Previous</a>
                             </li>
                         {% else %}
-                            <li class="page-item disabled">
+                            <li class="page-item disabled w-75">
                                 <span class="page-link">Previous</span>
                             </li>
                         {% endif %}
@@ -98,7 +104,7 @@
                             </li>
                         {% endfor %}
                             {% if pagination.page < pagination.pages %}
-                                <li class="page-item">
+                                <li class="page-item w-75">
                                     <a class="page-link" href="?page={{ pagination.page + 1 }}&limit={{ pagination.limit }}">Next</a>
                                 </li>
                         {% else %}
