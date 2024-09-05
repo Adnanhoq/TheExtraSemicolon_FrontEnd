@@ -1,18 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Apply for role</title>
-</head>
-<body>
+{% extends "./layouts/main.njk" %}
+
+{% block pageTitle %}
+  Apply for Role
+{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="/css/style.css">
+{% endblock %}
+
+{% block content %}
+
     <h1>Upload your CV</h1>
     <p>Format must be either PDF, DOC or DOCX</p>
     <form class="form" action="/upload" method="post" enctype="multipart/form-data">
         <label for="file">Upload your CV:</label>
         <input type="file" id="file" name="file">
-        <dialog id="modal">
-          <h2>Your file has been submitted</h2>
-        </dialog>
-        <button onclick="modal.show()" id="submit">Submit</button>
+        <button id="submit">Submit</button>
     </form>
-</body>
-</html>
+
+{% endblock %}

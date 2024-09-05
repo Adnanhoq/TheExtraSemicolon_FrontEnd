@@ -7,6 +7,7 @@ import { Application } from 'aws-sdk/clients/workspaces';
 import { JwtToken } from '../models/JwtToken';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
+import { getJobRoleById } from '../services/JobRoleService';
 
 /**
 
@@ -21,6 +22,10 @@ import axios from 'axios';
     }
 }
 
+  export const getUploadForm = async (req: express.Request, res: express.Response) => {
+    res.render('upload.njk');
+  }
+
     export const postUpload = async (req: express.Request, res: express.Response) => {
       try{
         const s3 = new S3({
@@ -33,7 +38,7 @@ import axios from 'axios';
 
 
         if (req.file == null){
-          console.log("File is not defined")
+          throw new Error('File is not defined');
         }
 
         const upload = multer({dest: 'uploads/'});
@@ -42,11 +47,9 @@ import axios from 'axios';
         
         if (uploadResult.success) {
           const decodedToken: JwtToken = jwtDecode(req.session.token ?? '');
-          console.log("roleidddd" + req.params.id);
-
           let ApplicationReq = { // Test application object - this works
             email: decodedToken.sub, 
-            roleId: 15, // Needs to come from zohaibs roleId which is currently in testing
+            roleId: Number('req.params.id'), // Needs to come from zohaibs roleId which is currently in testing
           }
 
           await createApplication(ApplicationReq);
@@ -58,7 +61,7 @@ import axios from 'axios';
         }       
       } catch (e){
         console.log(e);
-        res.render('/upload');
+        res.render('upload.njk', {error: e as Error});
       }
     }
     

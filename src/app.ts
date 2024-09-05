@@ -11,7 +11,7 @@ import { dateFilter } from "./filters/DateFilter";
 import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter"; 
 import { userRouter } from "./routes/UserRouter";
 const app = express();
-const upload = multer(multerConfig);
+
 
 const env = nunjucks.configure('views', {
     autoescape: true,
@@ -40,17 +40,6 @@ declare module "express-session" {
 
 app.listen(3000, () => {
     console.log('Server started on port 3000');
-});
-
-
-app.get('/test', getAllDatabases);
-app.post('/upload',upload.single('file'), postUpload)
-app.get('/upload', async (req: express.Request, res: express.Response): Promise<void> => {
-  res.render('upload.html');
-});
-
-app.get('/upload-success', async (req: express.Request, res: express.Response): Promise<void> => {
-  res.render('apply-succesful.html');
 });
 
 app.use('/',userRouter);
