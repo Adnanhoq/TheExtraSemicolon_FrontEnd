@@ -44,7 +44,11 @@ body {
 }
 
 .login-button {
+<<<<<<< HEAD
   background-color: #64bb4c;
+=======
+  background-color: #318819;
+>>>>>>> main
   border: 2px solid;
   border-color: #252D4F;
   font-size: 22px;
@@ -55,6 +59,13 @@ body {
   color: white;
 }
 
+<<<<<<< HEAD
+=======
+.error-message {
+  color: #d8000c;
+}
+
+>>>>>>> main
 /* --- Footer Styling --- */
 footer {
     padding-inline: 4.5rem;

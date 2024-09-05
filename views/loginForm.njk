@@ -12,14 +12,22 @@
 
 
         {% if errormessage %}
+<<<<<<< HEAD
             <h3>{{ errormessage }}</h3>
+=======
+            <h3 class="error-message">{{ errormessage }}</h3>
+>>>>>>> main
         {% endif %}
 
         <form class="form login-form" action="/login" method="post">
             <h3><label for="email">
                 Email:
             </label></h3>
+<<<<<<< HEAD
             <input class="login-input" id="email" name="email" value="{{email}}" type="email" aria-label="password">
+=======
+            <input class="login-input" id="email" name="email" value="{{email}}" type="text" aria-label="password">
+>>>>>>> main
             
             <h3><label for="password">
                 Password:

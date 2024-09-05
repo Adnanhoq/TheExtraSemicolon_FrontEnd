@@ -1,0 +1,55 @@
+{% extends "./layouts/main.njk" %}
+
+    {% block pageTitle %}
+        Job Roles
+    {% endblock %}
+
+    {% block links %}
+        <link rel="stylesheet" href="/css/style.css">
+    {% endblock %}
+
+    {% block content %}
+    {% if errormessage %}
+        <h3>{{ errormessage }}</h3>
+    {% else %}
+        <div class="d-flex justify-content-center align-items-center mt-4 pb-4 mb-4">
+            <div class="d-flex justify-content-center flex-column">
+                <h1 class="mt-2 text-center">{{ jobRole.roleName }}</h1>
+                <div class="d-flex flex-column mt-2">
+                <div class="d-flex flex-row justify-content-center gap-4">
+                    <p class="text-center">Band: {{ jobRole.band }}</p>
+                    <p class="text-center">|</p>
+                    <a class="text-center" href="{{ jobRole.linkToJobSpec }}" target="_blank">Link To Job Spec</a>
+                </div>
+                <div class="d-flex flex-column">
+                <div class="d-flex flex-row justify-content-center gap-3">
+                    <p class="text-center">Capability: {{ jobRole.capability }}</p>
+                    <p class="text-center">|</p>
+                    <p class="text-center">Positions: {{ jobRole.positionsAvailable }}</p>
+                </div>
+                    <p class="text-center">Locations: {{ jobRole.locations }}</p>
+                </div>
+                    <div class="d-flex justify-content-center align-items-center gap-4">
+                        <p class="text-center">Status: {{ 'Open' if jobRole.status else 'Closed' }}</p>
+                        <p class="text-center">|</p>
+                        <p class="text-center">Closing Date: {{ jobRole.closingDate | date }}</p>
+                    </div>
+                </div>
+                <div class="w-50 mx-auto ">
+                    <p>{{ jobRole.description }}</p>
+                </div>
+                <div class="w-50 mx-auto mb-4">
+                <h4>Responsibilities</h4>
+                    <ul>
+                        {% for responsibility in responsibilities %}
+                        <li>
+                            {{ responsibility }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
