@@ -5,6 +5,8 @@ import { S3 } from "aws-sdk";
 import fs from 'fs';
 
 import config from "../config";
+import { validateFileUpload } from "../validators/FileUploadValidator";
+import { error } from "console";
 
 
 export const uploadToS3 = async (s3: S3, fileData?: Express.Multer.File) => {
@@ -25,12 +27,19 @@ export const uploadToS3 = async (s3: S3, fileData?: Express.Multer.File) => {
       };
 
       try {
-        const res = await s3.upload(params).promise();
+        const validationErrors = await validateFileUpload(filePath);
 
+        if (validationErrors.length > 0) {
+          console.log("Validation errors found:", validationErrors);
+          return {success: false, message: "Validation failed.", data: error}
+        }
+
+        const res = await s3.upload(params).promise();
         console.log("File Uploaded Successfully", res.Location);
 
         return {success: true, message: "File Uploaded with Successful", data: res.Location};
       } catch (error) {
+        console.log(error);
         return {success: false, message: "Unable to Upload the file", data: error};
       }
 

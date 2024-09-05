@@ -21,13 +21,7 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
       console.log(file);
       const filePath = file.path;
       try {
-        const validationErrors = await validateFileUpload(filePath);
-
-        if (validationErrors.length > 0) {
-          console.log("Validation errors found:", validationErrors);
-          return res.status(400).json({ success: false, message: "Validation failed.", errors: validationErrors });
-        }
-
+       
         const uploadRes = await uploadToS3(s3, file);
 
 
