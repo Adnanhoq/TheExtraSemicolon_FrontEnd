@@ -1,10 +1,12 @@
 import { S3 } from 'aws-sdk';
 import express from "express";
-import {checkBucket, createApplication, uploadToS3 } from '../services/ApplicationService'
+import {checkBucket, createApplication, getApplicationById, uploadToS3 } from '../services/ApplicationService'
 import config from "../config";
 import  multer from 'multer';
 import { JwtToken } from '../models/JwtToken';
 import { jwtDecode } from 'jwt-decode';
+import axios from "axios";
+import {Application} from '../models/application';
 
 /**
 
@@ -23,8 +25,27 @@ import { jwtDecode } from 'jwt-decode';
     res.render('apply.njk', {id: req.params.id});
   }
 
+  export const checkApplicationDoesNotExist = async (id: number, email: string) => {
+    try {
+      console.log('HERE:');
+      const app = await getApplicationById(id, email);
+      throw new Error('Application Exists');
+    } catch(e) {
+      console.log(e);
+      if (!(axios.isAxiosError(e) && e.response && e.response.status == 404))
+      {
+        throw new Error(e.message);
+      }
+
+    }
+  }
+
     export const postUpload = async (req: express.Request, res: express.Response) => {
       try{
+        console.log('Check');
+        
+        checkApplicationDoesNotExist(Number(req.params.id),"user@kainos.com");
+        console.log('Check2');
         const s3 = new S3({
           accessKeyId: config.AWS_ACCESS_KEY_ID,
           secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
@@ -35,7 +56,7 @@ import { jwtDecode } from 'jwt-decode';
 
 
         if (req.file == null){
-          throw new Error('File is not defined');
+          throw new Error('Invalid File Type Uploaded');
         }
 
         const upload = multer({dest: 'uploads/'});
@@ -57,7 +78,7 @@ import { jwtDecode } from 'jwt-decode';
           console.log(uploadResult.message)
         }       
       } catch (e){
-        console.log(e);
+        //console.log(e);
         res.locals.errormessage = e.message;
         res.render('apply.njk', {id: req.params.id});
       }
