@@ -6,6 +6,7 @@ import  multer from 'multer';
 import { Application } from 'aws-sdk/clients/workspaces';
 import { JwtToken } from '../models/JwtToken';
 import { jwtDecode } from 'jwt-decode';
+import axios from 'axios';
 
 /**
 
@@ -30,7 +31,6 @@ import { jwtDecode } from 'jwt-decode';
         // Bucket initilization - I know I spelt it wrong
         await initBucket(s3);
 
-        console.log(req.body.name)
 
         if (req.file == null){
           console.log("File is not defined")
@@ -42,6 +42,7 @@ import { jwtDecode } from 'jwt-decode';
         
         if (uploadResult.success) {
           const decodedToken: JwtToken = jwtDecode(req.session.token ?? '');
+          console.log("roleidddd" + req.params.id);
 
           let ApplicationReq = { // Test application object - this works
             email: decodedToken.sub, 

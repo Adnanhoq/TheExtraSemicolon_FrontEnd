@@ -6,41 +6,13 @@
 <body>
     <h1>Upload your CV</h1>
     <p>Format must be either PDF, DOC or DOCX</p>
-
-
     <form class="form" action="/upload" method="post" enctype="multipart/form-data">
         <label for="file">Upload your CV:</label>
         <input type="file" id="file" name="file">
-        <button id="submit">Submit</button>
-        <div class="alert">
-            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-            This is an alert box.
-          </div>
-
-          <button type="button" id="alert-trigger">
-            Trigger Alert
-          </button>
-          <div id="example" role="alert"></div>
-          <script type="text/template" id="alert-template">
-            <p>Hello</p>
-          </script>
-
-          <iframe name="messageFrame" style="display:none;"></iframe>
-            <div>
-                <p>Thank you for your submission!</p>
-            </div>
-
-        
-            <form action="/submit" method="POST" target="messageFrame">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                <input type="submit" value="Submit">
-              </form>
-              
-              <iframe name="messageFrame" style="display:none;"></iframe>
-              <div>
-                <p>Thank you for your submission!</p>
-              </div>
+        <dialog id="modal">
+          <h2>Your file has been submitted</h2>
+        </dialog>
+        <button onclick="modal.show()" id="submit">Submit</button>
     </form>
 </body>
 </html>

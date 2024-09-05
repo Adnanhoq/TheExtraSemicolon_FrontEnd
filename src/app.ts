@@ -42,6 +42,7 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
+
 app.get('/test', getAllDatabases);
 app.post('/upload',upload.single('file'), postUpload)
 app.get('/upload', async (req: express.Request, res: express.Response): Promise<void> => {
