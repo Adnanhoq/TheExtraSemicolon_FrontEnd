@@ -26,12 +26,12 @@ import {Application} from '../models/application';
   }
 
   export const checkApplicationDoesNotExist = async (id: number, email: string) => {
+    // This checks to see if an application for this role from this email exists
+    // If this doesn't return a 404 error, an error is thrown
     try {
-      console.log('HERE:');
-      const app = await getApplicationById(id, email);
+      await getApplicationById(id, email);
       throw new Error('Application Exists');
     } catch(e) {
-      console.log(e);
       if (!(axios.isAxiosError(e) && e.response && e.response.status == 404))
       {
         throw new Error(e.message);
@@ -42,10 +42,8 @@ import {Application} from '../models/application';
 
     export const postUpload = async (req: express.Request, res: express.Response) => {
       try{
-        console.log('Check');
-        
-        checkApplicationDoesNotExist(Number(req.params.id),"user@kainos.com");
-        console.log('Check2');
+        const decodedToken: JwtToken = jwtDecode(req.session.token ?? '');
+        await checkApplicationDoesNotExist(Number(req.params.id),decodedToken.sub);
         const s3 = new S3({
           accessKeyId: config.AWS_ACCESS_KEY_ID,
           secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
@@ -64,7 +62,7 @@ import {Application} from '../models/application';
         const uploadResult = await uploadToS3(s3, (req.file as Express.Multer.File));
         
         if (uploadResult.success) {
-          const decodedToken: JwtToken = jwtDecode(req.session.token ?? '');
+
           let ApplicationReq = { // Test application object - this works
             email: decodedToken.sub, 
             roleId: Number('req.params.id'),
@@ -78,7 +76,7 @@ import {Application} from '../models/application';
           console.log(uploadResult.message)
         }       
       } catch (e){
-        //console.log(e);
+        console.log(e);
         res.locals.errormessage = e.message;
         res.render('apply.njk', {id: req.params.id});
       }
