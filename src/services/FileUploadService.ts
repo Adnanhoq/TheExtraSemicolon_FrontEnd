@@ -25,7 +25,7 @@ export const uploadToS3 = async (s3: S3, fileData?: Express.Multer.File) => {
         Body: fileContent,
         ContentType: fileData.mimetype
       };
-
+      
       try {
         const validationErrors = await validateFileUpload(filePath);
 
@@ -35,7 +35,7 @@ export const uploadToS3 = async (s3: S3, fileData?: Express.Multer.File) => {
         }
 
         const res = await s3.upload(params).promise();
-        console.log("File Uploaded Successfully", res.Location);
+        
 
         return {success: true, message: "File Uploaded with Successful", data: res.Location};
       } catch (error) {

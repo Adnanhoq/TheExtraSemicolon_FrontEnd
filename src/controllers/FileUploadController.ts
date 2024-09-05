@@ -7,6 +7,8 @@ import { validateFileUpload } from '../validators/FileUploadValidator';
 
 
 export const postCSVUpload = async (req: express.Request, res: express.Response) => {
+  let uploadFileName="";
+  
   try {
 
     const s3 = new S3({
@@ -15,10 +17,11 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
     });
 
     const file = req.file;
+    console.log(file);
+
     if (file == null) {
       console.log("File is not defined")
     } else {
-      console.log(file);
       const filePath = file.path;
       try {
        
@@ -27,6 +30,8 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
 
         if (uploadRes.success) {
           console.log(uploadRes.message);
+          uploadFileName = file.fieldname;
+
           res.redirect('/upload-success');
         } else {
           console.log(uploadRes.message)
