@@ -1,7 +1,8 @@
 import express from 'express';
-import { getIndexPage, getMapPage } from '../controllers/HomeController';
+import { getIndexPage } from '../controllers/HomeController';
 import { getLoginForm, postLoginForm, getLogout } from '../controllers/AuthController';
 import { getAllDatabases } from '../controllers/TestController';
+import { getMapPage, getNJKMapPage } from '../controllers/MapController';
 
 export const unauthenticatedRouter = express.Router();
 
@@ -13,3 +14,4 @@ unauthenticatedRouter.get('/logout', getLogout);
 /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
 unauthenticatedRouter.get('/test', getAllDatabases);
 unauthenticatedRouter.get('/map', getMapPage);
+unauthenticatedRouter.get('/mapnjk', getNJKMapPage);
