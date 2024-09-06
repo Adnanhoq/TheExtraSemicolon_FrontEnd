@@ -1,4 +1,5 @@
 const {By} = require('selenium-webdriver');
+require('dotenv').config();
 
 class HomePage {
 	constructor(driver){
@@ -6,22 +7,16 @@ class HomePage {
 	}
 
 	async mainPage(){
-		await this.driver.get('https://fqq3vg4qpt.eu-west-1.awsapprunner.com/');
-		//this.driver.get('http://localhost:3000/');
-
+		await this.driver.get(process.env.HOMEPAGE_URL_LOCAL);
 	}
 
 
 	async openLoginPage(){
-		await this.driver.get('https://fqq3vg4qpt.eu-west-1.awsapprunner.com/login');
-		//this.driver.get('http://localhost:3000/login');
-
+		await this.driver.get(process.env.LOGIN_PAGE_URL_LOCAL);
 	}
 
     async jobRolePage(){
-        await this.driver.get('https://fqq3vg4qpt.eu-west-1.awsapprunner.com/job-roles');
-        //this.driver.get('http://localhost:3000/job-roles');
-
+        await this.driver.get(process.env.JOB_ROLE_PAGE_URL_LOCAL);
     }
 
 	async logoutLink(){

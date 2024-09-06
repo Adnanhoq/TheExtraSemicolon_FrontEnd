@@ -1,4 +1,4 @@
-const {Builder, By} = require('selenium-webdriver');
+const {By} = require('selenium-webdriver');
 
 class LoginPage{
     constructor(driver){

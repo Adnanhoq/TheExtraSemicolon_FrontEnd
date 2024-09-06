@@ -1,14 +1,28 @@
 const { Assertion } = require('chai');
-const { assert } = require('console');
+const { assert } = require('chai');
 const {Builder, By} = require('selenium-webdriver');
 const HomePage = require('../../../../src/POM/HomePage');
 const LoginPage = require('../../../../src/POM/LoginPage');
+const readline = require('readline');
+const email = process.env.LOGIN_EMAIL;
+const password = process.env.LOGIN_PASSWORD;
+const adminEmail = process.env.LOGIN_EMAIL_ADMIN;
+const adminPassword = process.env.LOGIN_PASSWORD_ADMIN;
+require('dotenv').config();
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
 
 async function ValidLogin() {
 
     let driver = await new Builder().forBrowser('chrome').build();
 
     try {
+        
+        console.log("Test - Valid Login")
 
         const homePage = new HomePage(driver);
         const loginPage = new LoginPage(driver);
@@ -21,8 +35,8 @@ async function ValidLogin() {
         await sleep(2000);
         console.log(await driver.getTitle());
 
-        await loginPage.enterEmail('user@kainos.com');
-        await loginPage.enterPassword('user');
+        await loginPage.enterEmail(email);
+        await loginPage.enterPassword(password);
         await loginPage.clickLoginButton();
         await sleep(3000);
         console.log(await driver.getTitle());
@@ -31,7 +45,7 @@ async function ValidLogin() {
         let getLogout = await logout_link.getText();
         assert(getLogout == "Log Out");
 
-        console.log('Log out Link present')
+        console.log('Test Passed: Log out Link present')
 
     } catch (error) {
         console.log("error during login: ", error);
@@ -45,6 +59,8 @@ async function InvalidPassword() {
 
     try {
 
+        console.log("Test - Invalid Login")
+
         const homePage = new HomePage(driver);
         const loginPage = new LoginPage(driver);
 
@@ -57,7 +73,7 @@ async function InvalidPassword() {
         await sleep(2000);
         console.log(await driver.getTitle());
 
-        await loginPage.enterEmail('user@kainos.com');
+        await loginPage.enterEmail(email);
         await loginPage.enterPassword('test');
         await loginPage.clickLoginButton();
         await sleep(3000);
@@ -86,6 +102,9 @@ async function InvalidEmail() {
 
     try {
 
+        console.log("Test - Invalid Email")
+
+
         const homePage = new HomePage(driver);
         const loginPage = new LoginPage(driver);
 
@@ -99,7 +118,7 @@ async function InvalidEmail() {
         console.log(await driver.getTitle());
 
         await loginPage.enterEmail('test@kainos.com');
-        await loginPage.enterPassword('user');
+        await loginPage.enterPassword(password);
         await loginPage.clickLoginButton();
         await sleep(3000);
         console.log(await driver.getTitle());
@@ -127,6 +146,9 @@ async function InvalidEmailFormat() {
 
     try {
 
+        console.log("Test - Invalid Email format")
+
+
         const homePage = new HomePage(driver);
         const loginPage = new LoginPage(driver);
 
@@ -139,7 +161,7 @@ async function InvalidEmailFormat() {
         console.log(await driver.getTitle());
 
         await loginPage.enterEmail('userkainos.com');
-        await loginPage.enterPassword('user');
+        await loginPage.enterPassword(password);
         await loginPage.clickLoginButton();
         await sleep(3000);
         console.log(await driver.getTitle());
@@ -168,6 +190,9 @@ async function case_insensitive_email() {
 
     try {
 
+        console.log("Test - Case Insensitive email")
+
+
         const homePage = new HomePage(driver);
         const loginPage = new LoginPage(driver);
 
@@ -184,7 +209,7 @@ async function case_insensitive_email() {
         assert(title == "Log In");
 
         await loginPage.enterEmail('USER@KAINOS.COM');
-        await loginPage.enterPassword('user');
+        await loginPage.enterPassword(password);
         await loginPage.clickLoginButton();
         await sleep(3000);
         console.log(await driver.getTitle());
@@ -213,8 +238,28 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-ValidLogin();
-InvalidPassword();
-InvalidEmail();
-InvalidEmailFormat();
-case_insensitive_email();
+
+console.log('Choose a test to run:');
+console.log('1. Valid Login');
+console.log('2. Invalid Password');
+console.log('3. Invalid Email');
+console.log('3. Invalid Email format');
+console.log('3. Case Insensitive Email');
+
+
+rl.question('Enter the test number: ', (answer) => {
+    switch (answer) {
+        case '1':
+            ValidLogin();
+            break;
+        case '2':
+            InvalidPassword();
+            break;
+        case '3':
+            InvalidEmail();
+            break;
+        default:
+            console.log('Invalid selection');
+    }
+    rl.close();
+});
