@@ -1,18 +1,22 @@
 import axios, {type AxiosResponse} from "axios"
 import { JobRole } from "../models/JobRole"
 import config from "../config";
-import { JobRoleResponse } from "../models/JobRoleResponse";
 import { getHeader } from "./AuthUtil";
 
+import { JobRoleResponseWrapper } from "../models/JobRoleResponseWrapper";
 
-export const getJobRoles = async (token: string): Promise<JobRoleResponse[]> => {
+
+export const getJobRoles = async (page: number, limit: number, token: string): Promise<JobRoleResponseWrapper> => {
     try{
-        const response: AxiosResponse<JobRoleResponse[]> = await axios.get(`${config.API_URL}job-roles`, getHeader(token));
+        const response: AxiosResponse<JobRoleResponseWrapper> = await axios.get(`${config.API_URL}job-roles?page=${String(page)}&limit=${String(limit)}`, getHeader(token));
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
             if (error.response?.status === 404) {
                 throw new Error('No job roles open');
+            }
+            else if (error.response?.status === 500) {
+                throw new Error('Server Error');
             }
             throw new Error('Server Error');
         } else {

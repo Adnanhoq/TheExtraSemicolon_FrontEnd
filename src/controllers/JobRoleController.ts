@@ -3,9 +3,14 @@ import { getJobRoleById } from "../services/JobRoleService";
 import { getJobRoles } from "../services/JobRoleService";
 
 export const getAllJobRoles = async (req: express.Request, res: express.Response): Promise<void> => {
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+
+
     try{
-        const jobRole = await getJobRoles(req.session.token ?? '');
-        res.render('jobRoles.njk', {jobRole: jobRole, token: req.session.token});
+        const response = await getJobRoles(page, limit, req.session.token ?? '');
+        const { jobRoles, pagination } = response;
+        res.render('jobRoles.njk', {jobRoles: jobRoles, pagination, token: req.session.token});
 
     } catch (e) {
         res.locals.errormessage = (e as Error).message;
