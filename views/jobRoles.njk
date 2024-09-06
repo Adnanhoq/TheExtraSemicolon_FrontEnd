@@ -13,11 +13,28 @@
         <div class="container">
 
             <div class="mainBody">
-                <h1>Job Roles List</h1>
+                <h1 class = "m-0 p-0 d-flex flex-row justify-content-center mb-3">Job Roles List</h1>
+                <div class = "d-flex flex-row justify-content-between m-0 p-0">
+                    <h3 class="mx-2 mb-2 align-items-center">{{ pagination.total }} positions available</h3>
+                    <div class="d-flex flex-row-reverse align-items-center gap-1 ">
+                        <p class="">Items per page</p>
+                        <form method="GET" action="" label="aria-label" class="mb-3">
+                            <label for="itemsPerPage" style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; clip: rect(0, 0, 0, 0); overflow: hidden;">Items per Page</label>
+                            <select id="itemsPerPage" name="limit" onchange="this.form.submit()">
+                                <option value="10" {% if pagination.limit == 10 %}selected{% endif %}>10</option>
+                                <option value="25" {% if pagination.limit == 25 %}selected{% endif %}>25</option>
+                                <option value="50" {% if pagination.limit == 50 %}selected{% endif %}>50</option>
+                                <option value="100" {% if pagination.limit == 100 %}selected{% endif %}>100</option>
+                            </select>
+                            <button type="submit" style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; clip: rect(0, 0, 0, 0); overflow: hidden;">Submit</button>
+                        </form>
+                    </div>
+                </div>
+                
                 <div class="row ">
-                    {% for role in jobRole | sort(attribute='roleId') %}
+                    {% for role in jobRoles | sort(attribute='roleId') %}
                         <a href="job-roles/{{role.roleId}}" class="jobCard col-md-4 mb-4">
-                            <div class="card w-100 h-100">
+                            <div id="card{{loop.index}}" class="card w-100 h-100">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ role.roleName }}</h5>
                                     <p class="card-text"><strong>Locations:</strong> {{ role.formattedLocations }}</p>
@@ -29,6 +46,84 @@
                         </a>
                     {% endfor %}
                 </div>
+
+                <div class="pagination d-flex flex-row justify-content-center">
+                    <div class="d-flex flex-row gap-2 align-items-center mx-3">
+                        <nav>
+                            <ul class="pagination">
+                                {% set start_page = pagination.page - 2 %}
+                                {% set end_page = pagination.page + 2 %}
+
+                                {% if start_page < 1 %}
+                                    {% set start_page = 1 %}
+                                {% endif %}
+
+                                {% if end_page > pagination.pages %}
+                                    {% set end_page = pagination.pages %}
+                                {% endif %}
+
+
+
+                                {% for i in range(start_page, end_page + 1) %}
+                                    <li class="paginationCard {% if i == pagination.page %}active{% endif %}">
+                                        <a class="card p-3 m-1 " href="?page={{ i }}&limit={{ pagination.limit }}">{{ i }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+
+                        </nav>
+                    </div>
+                </div>
+
+                <nav class = "d-flex flex-row justify-content-center mb-5 pb-5">
+                    <ul class="pagination">
+                        {% if pagination.page > 1 %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1&limit={{ pagination.limit }}">First</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled w-75">
+                                <span class="page-link">First</span>
+                            </li>
+                        {% endif %}
+
+                        {% if pagination.page > 1 %}
+                            <li class="page-item w-75">
+                                <a class="page-link" href="?page={{ pagination.page - 1 }}&limit={{ pagination.limit }}">Previous</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled w-75">
+                                <span class="page-link">Previous</span>
+                            </li>
+                        {% endif %}
+                        
+                        {% for i in 1..pagination.pages %}
+                            <li class="page-item {% if i == pagination.page %}active{% endif %}">
+                                <a class="page-link" href="?page={{ i }}&limit={{ pagination.limit }}">{{ i }}</a>
+                            </li>
+                        {% endfor %}
+                            {% if pagination.page < pagination.pages %}
+                                <li class="page-item w-75">
+                                    <a class="page-link" href="?page={{ pagination.page + 1 }}&limit={{ pagination.limit }}">Next</a>
+                                </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">Next</span>
+                            </li>
+                        {% endif %}
+                        
+                        {% if (pagination.page >= 1) and (pagination.page != pagination.pages)%}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ pagination.pages }}&limit={{ pagination.limit }}">Last</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item disabled">
+                                <span class="page-link">Last</span>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
             </div>
         </div>
 {% endblock %}
