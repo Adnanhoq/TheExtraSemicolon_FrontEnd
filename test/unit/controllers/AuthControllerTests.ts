@@ -17,9 +17,8 @@ describe('AuthController', function () {
 
     describe('getLoginForm', function () {
         it('should render view with login form when retrieved', async () => {
-            //sinon.stub(AuthService, 'getToken').resolves('');
-            const req = { session: { token: 'test' }};
-            const res = { render: sinon.spy()};
+            const req = { session: { token: 'test'}};
+            const res = { render: sinon.spy(), locals: {role: 0} };
 
             await AuthController.getLoginForm(req as any, res as any);
 
