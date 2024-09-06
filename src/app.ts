@@ -5,6 +5,8 @@ import session from "express-session";
 import { dateFilter } from "./filters/DateFilter";
 import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter";
 import { userRouter } from "./routes/UserRouter";
+import { setRoleInLocals } from "./middleware/SetLocalRoleMiddleware";
+
 const app = express();
 
 const env = nunjucks.configure('views', {
@@ -36,7 +38,7 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
-app.use('/',userRouter);
+app.use(setRoleInLocals);
+app.use('/', userRouter);
 
 app.use('/', unauthenticatedRouter);
-
