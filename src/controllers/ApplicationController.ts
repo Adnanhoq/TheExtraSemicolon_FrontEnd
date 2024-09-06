@@ -59,15 +59,15 @@ import {Application} from '../models/application';
 
         const upload = multer({dest: 'uploads/'});
         upload.single 
-        const uploadResult = await uploadToS3(s3, (req.file as Express.Multer.File));
-        
+        const uploadResult = await uploadToS3(s3, (req.file as Express.Multer.File));        
         if (uploadResult.success) {
 
           let ApplicationReq = { // Test application object - this works
             email: decodedToken.sub, 
             roleId: Number('req.params.id'),
+            S3Link: uploadResult.data,
           }
-
+          console.log(ApplicationReq)
           await createApplication(ApplicationReq);
 
           console.log(uploadResult.message);
