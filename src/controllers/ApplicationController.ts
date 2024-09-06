@@ -65,7 +65,7 @@ import {Application} from '../models/application';
           let ApplicationReq = { // Test application object - this works
             email: decodedToken.sub, 
             roleId: Number('req.params.id'),
-            S3Link: uploadResult.data,
+            s3Link: uploadResult.data,
           }
           console.log(ApplicationReq)
           await createApplication(ApplicationReq);
