@@ -1,0 +1,26 @@
+{% extends "./layouts/main.njk" %}
+
+{% block pageTitle %}
+  Successful Application
+{% endblock %}
+
+{% block links %}
+<link rel="stylesheet" href="/css/style.css">
+{% endblock %}
+
+{% block content %}
+
+
+<div class="d-flex justify-content-center">
+  <div>
+
+{% if errormessage %}
+<h3 class="error-message">{{ errormessage }}</h3>
+{% endif %}
+
+    <h3>You have successfully applied for this role</h3>
+
+  </div>
+  </div>
+
+{% endblock %}

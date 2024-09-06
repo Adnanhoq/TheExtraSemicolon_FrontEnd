@@ -64,14 +64,14 @@ import {Application} from '../models/application';
 
           let ApplicationReq = { // Test application object - this works
             email: decodedToken.sub, 
-            roleId: Number('req.params.id'),
+            roleId: Number(req.params.id),
             s3Link: uploadResult.data,
           }
           console.log(ApplicationReq)
           await createApplication(ApplicationReq);
 
           console.log(uploadResult.message);
-          res.redirect('/upload-success');
+          res.render('apply-success.njk');
         } else {
           console.log(uploadResult.message)
         }       

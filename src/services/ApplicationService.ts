@@ -23,9 +23,7 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
         return {success: false, message: "Error, bucket is undefined"}
       }
         const res = await s3.headBucket({Bucket:bucket}).promise()
-
-        //console.log("Bucket already exists", res.$response.data);
-
+        
         return {success: true, message: "Bucket already exists", data: {}};
     } catch (error) {
         console.log("Error bucket don't exist", error);
@@ -81,10 +79,9 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
 
   export const createApplication = async (application: Application): Promise<void> => {
     try {
-        const response: AxiosResponse = await axios.post(config.API_URL+"apply", application); // This will need to be changed to config url from the env variables
+        const response: AxiosResponse = await axios.post(config.API_URL+"apply", application); 
         return response.data;
     } catch (e) {
-        //console.log(e);
         throw new Error(e.response.data);
     }
 
