@@ -214,7 +214,7 @@ function sleep(ms) {
 }
 
 ValidLogin();
-//InvalidPassword();
-//InvalidEmail();
-//InvalidEmailFormat();
-//case_insensitive_email();
+InvalidPassword();
+InvalidEmail();
+InvalidEmailFormat();
+case_insensitive_email();
