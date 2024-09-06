@@ -44,21 +44,21 @@ describe('JobRoleService', function () {
     describe('getAllJobRoles', function () {
       it('should return all Job Roles from response', async () => {
         const data = [jobRoleResponse];
-
+        const token: string = 'token';
         mock.onGet(`${config.API_URL}job-roles`).reply(200, data);
+        const results = await getJobRoles(token);
 
-        const results = await getJobRoles();
-        
 
         results[0].closingDate = new Date(results[0].closingDate);
         expect(results[0]).to.deep.equal(jobRoleResponse);
       })
 
       it('should throw exception when 500 error returned from axios', async () => {
+        const token: string = 'token';
         mock.onGet(`${config.API_URL}job-roles`).reply(500);
 
         try {
-          await getJobRoles();
+          await getJobRoles(token);
       } catch (e: unknown) {
           if (e instanceof Error) {
               expect(e.message).to.equal('Server Error');
@@ -69,10 +69,11 @@ describe('JobRoleService', function () {
       }
       })
       it('should throw exception when 404 error returned from axios', async () => {
+        const token: string = 'token';
         mock.onGet(`${config.API_URL}job-roles`).reply(404);
 
         try {
-          await getJobRoles();
+          await getJobRoles(token);
       } catch (e: unknown) {
           if (e instanceof Error) {
               expect(e.message).to.equal('No job roles open');
@@ -88,10 +89,10 @@ describe('JobRoleService', function () {
       it('should return a job role with all fields given an id', async () => {
         const data = getJobRoleByIdResponse;
         
-
+        const token: string = 'token';
         mock.onGet(`${config.API_URL}job-roles/` + '5').reply(200, data);
 
-        const results = await getJobRoleById('5');
+        const results = await getJobRoleById('5', token);
         
 
         results.closingDate = new Date(results.closingDate);
@@ -100,10 +101,11 @@ describe('JobRoleService', function () {
       })
 
       it('should throw exception when 500 error returned from axios', async () => {
+        const token: string = 'token';
         mock.onGet(`${config.API_URL}job-roles/` + '5').reply(500);
 
         try {
-          await getJobRoleById('5');
+          await getJobRoleById('5', token);
         } catch (e) {
           expect(e.message).to.equal('Failed to get Job Role');
           return;
@@ -111,10 +113,11 @@ describe('JobRoleService', function () {
       })
 
       it('should throw exception when 404 error returned from axios', async () => {
+        const token: string = 'token';
         mock.onGet(`${config.API_URL}job-roles/` + '5').reply(404);
 
         try {
-          await getJobRoleById('555555');
+          await getJobRoleById('555555', token);
         } catch (e) {
           expect(e.message).to.equal('Failed to get Job Role');
           return;

@@ -2,11 +2,12 @@ import axios, {type AxiosResponse} from "axios"
 import { JobRole } from "../models/JobRole"
 import config from "../config";
 import { JobRoleResponse } from "../models/JobRoleResponse";
+import { getHeader } from "./AuthUtil";
 
 
-export const getJobRoles = async (): Promise<JobRoleResponse[]> => {
+export const getJobRoles = async (token: string): Promise<JobRoleResponse[]> => {
     try{
-        const response: AxiosResponse<JobRoleResponse[]> = await axios.get(`${config.API_URL}job-roles`);
+        const response: AxiosResponse<JobRoleResponse[]> = await axios.get(`${config.API_URL}job-roles`, getHeader(token));
         return response.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -20,9 +21,9 @@ export const getJobRoles = async (): Promise<JobRoleResponse[]> => {
     }
 }
 
-export const getJobRoleById = async (id: string): Promise<JobRole> => {
+export const getJobRoleById = async (id: string, token: string): Promise<JobRole> => {
     try {
-        const response: AxiosResponse<JobRole> = await axios.get(`${config.API_URL}job-roles/` + id);
+        const response: AxiosResponse<JobRole> = await axios.get(`${config.API_URL}job-roles/` + id, getHeader(token));
         
         return response.data;
     } catch (e) {

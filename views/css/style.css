@@ -23,6 +23,10 @@ body {
     color: #252D4F;
 }
 
+.log-in-role-text {
+  margin: 0;
+}
+
 .nav-item:hover {
     color: #6f7cc1;
 }
