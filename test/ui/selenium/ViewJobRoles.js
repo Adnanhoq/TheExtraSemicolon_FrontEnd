@@ -1,7 +1,7 @@
 const { resolve } = require("path");
 const { Builder, By } = require('selenium-webdriver');
-const HomePage = require("../../../../src/POM/HomePage");
-const LoginPage = require('../../../../src/POM/LoginPage');
+const HomePage = require("../../POM/HomePage");
+const LoginPage = require('../../POM/LoginPage');
 const { get } = require("http");
 const { assert } = require("console");
 const readline = require('readline');

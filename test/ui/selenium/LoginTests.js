@@ -1,8 +1,8 @@
 const { Assertion } = require('chai');
 const { assert } = require('chai');
 const {Builder, By} = require('selenium-webdriver');
-const HomePage = require('../../../../src/POM/HomePage');
-const LoginPage = require('../../../../src/POM/LoginPage');
+const HomePage = require('../POM/HomePage');
+const LoginPage = require('../POM/LoginPage');
 const readline = require('readline');
 const email = process.env.LOGIN_EMAIL;
 const password = process.env.LOGIN_PASSWORD;
