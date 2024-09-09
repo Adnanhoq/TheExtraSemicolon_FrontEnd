@@ -238,28 +238,8 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-
-console.log('Choose a test to run:');
-console.log('1. Valid Login');
-console.log('2. Invalid Password');
-console.log('3. Invalid Email');
-console.log('3. Invalid Email format');
-console.log('3. Case Insensitive Email');
-
-
-rl.question('Enter the test number: ', (answer) => {
-    switch (answer) {
-        case '1':
-            ValidLogin();
-            break;
-        case '2':
-            InvalidPassword();
-            break;
-        case '3':
-            InvalidEmail();
-            break;
-        default:
-            console.log('Invalid selection');
-    }
-    rl.close();
-});
+ValidLogin();
+InvalidPassword();
+InvalidEmail();
+InvalidEmailFormat();
+case_insensitive_email();
