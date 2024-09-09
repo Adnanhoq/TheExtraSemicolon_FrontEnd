@@ -27,10 +27,17 @@ export const validateFileUpload = (file: string): Promise<string[]> => {
 
                 if (!row.roleName) rowErrors.push(`Row ${rowCount}: 'roleName' is required`);
                 if (!row.description) rowErrors.push(`Row ${rowCount}: 'description' is required`);
+                if (!row.responsibilities) rowErrors.push(`Row ${rowCount}: 'responsibilities' is required`);
+                if (!row.linkToJobSpec) rowErrors.push(`Row ${rowCount}: 'link to job role' is required`);
                 if (!row.capability) rowErrors.push(`Row ${rowCount}: 'capability' is required`);
-                if (row.positionsAvailable && isNaN(parseInt(row.positionsAvailable))) {
-                    rowErrors.push(`Row ${rowCount}: 'positionsAvailable' must be a number`);
+                if (!row.band) rowErrors.push(`Row ${rowCount}: 'band' is required`);
+                if (row.band && isNaN(parseInt(row.band))) {
+                    rowErrors.push(`Row ${rowCount}: 'band' must be a number`);
                 }
+                // if (row.positionsAvailable && isNaN(parseInt(row.positionsAvailable))) {
+                //     rowErrors.push(`Row ${rowCount}: 'positionsAvailable' must be a number`);
+                // }
+                if (!row.closingDate) rowErrors.push(`Row ${rowCount}: 'closing date' is required`);
 
                 if (rowErrors.length > 0) {
                     validationErrors.push(...rowErrors);

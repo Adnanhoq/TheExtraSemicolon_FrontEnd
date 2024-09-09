@@ -48,3 +48,6 @@ app.post('/uploadCSV',upload.single('file'), postCSVUpload);
 app.get('/uploadCSV', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('csvFileUpload.html');
 });
+app.get('/upload-success', async (req: express.Request, res: express.Response): Promise<void> => {
+  res.render('upload-success.html');
+});

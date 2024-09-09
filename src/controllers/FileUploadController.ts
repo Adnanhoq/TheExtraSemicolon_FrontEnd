@@ -4,6 +4,7 @@ import { uploadToS3 } from '../services/FileUploadService'
 import config from "../config";
 import multer from 'multer';
 import { validateFileUpload } from '../validators/FileUploadValidator';
+import axios, { AxiosResponse } from 'axios';
 
 
 export const postCSVUpload = async (req: express.Request, res: express.Response) => {
@@ -29,10 +30,18 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
 
 
         if (uploadRes.success) {
-          console.log(uploadRes.message);
+          //console.log(uploadRes.message);
           uploadFileName = file.fieldname;
+          try{
+              
+            const response: AxiosResponse<string[]> = await axios.post(config.API_URL+"upload",uploadFileName);
+            return response.data;
+          } catch(e){          
+            res.redirect('/upload-success');
+            throw new Error("Failed to upload csv file");
+          }
 
-          res.redirect('/upload-success');
+
         } else {
           console.log(uploadRes.message)
         }
