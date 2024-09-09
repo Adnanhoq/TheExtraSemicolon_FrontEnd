@@ -22,6 +22,7 @@ import axios from "axios";
 
   export const getUploadForm = async (req: express.Request, res: express.Response) => {
     res.render('apply.njk', {id: req.params.id});
+    console.log(req);
   }
 
   export const checkApplicationDoesNotExist = async (id: number, email: string) => {
@@ -66,7 +67,6 @@ import axios from "axios";
             roleId: Number(req.params.id),
             s3Link: uploadResult.data,
           }
-          console.log(ApplicationReq)
           await createApplication(ApplicationReq);
 
           console.log(uploadResult.message);

@@ -6,6 +6,7 @@ import aws from "aws-sdk";
 import axios, { AxiosResponse } from "axios";
 import { Application } from "../models/application";
 import { randomUUID } from "crypto";
+import { validateApplicationObject } from "../validators/ApplicationValidator";
 
 /**
  * Checks if an S3 bucket exists.
@@ -81,6 +82,8 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
 
   export const createApplication = async (application: Application): Promise<void> => {
     try {
+      validateApplicationObject(application);
+      // use validator methods to see if application object contains a roleid that is 1 or more
         const response: AxiosResponse = await axios.post(config.API_URL+"apply", application); 
         return response.data;
     } catch (e) {
