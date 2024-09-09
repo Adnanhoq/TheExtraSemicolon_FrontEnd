@@ -1,7 +1,8 @@
 import express from 'express';
-import { getCameraPage, getIndexPage } from '../controllers/HomeController';
+import { getIndexPage } from '../controllers/HomeController';
 import { getLoginForm, postLoginForm, getLogout } from '../controllers/AuthController';
 import { getAllDatabases } from '../controllers/TestController';
+import { getCameraPage } from '../controllers/ProfileController';
 
 export const unauthenticatedRouter = express.Router();
 

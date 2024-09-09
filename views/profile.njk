@@ -6,15 +6,18 @@
 
     {% block scripts %}
     <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
-
+    <script src="imagetracer_v1.2.6.js"></script>
     {% endblock %}
 
 {% block content %}
 
 <dialog id="dialog">
-    <img id="test" width="500" height="600">
-    <button id="cancel">Cancel</button>
-    <button>Accept</button>
+    <input type="image" id="profilePic" width="500" height="600">
+    <form action="/profile" method="post">
+    <input type="hidden" name="profile" id="profile"/>
+    <button type="button" id="cancel">Cancel</button>
+    <button type="submit">Accept</button>
+    </form>
 </dialog>
 
 <div class="d-flex justify-content-center">
@@ -48,8 +51,19 @@ document.getElementById('takePicture').addEventListener('click', takePicture);
 
 function takePicture() {
     var picture = webcam.snap();
-    document.getElementById("test").src = picture;
+    console.log(picture);
+    document.getElementById("profilePic").src = picture;
+
+
+
+    document.getElementById("profile").src = picture;
     dialog.showModal();
+}
+
+function convertToSVG(pic) {
+    ImageTracer.imageToSVG(
+        picture,
+        function(svgstr) {ImageTracer.appendSVGString(svgstr, 'profile')})
 }
 
 document.getElementById('cancel').addEventListener('click',
