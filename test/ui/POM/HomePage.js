@@ -12,11 +12,11 @@ class HomePage {
 
 
 	async openLoginPage(){
-		await this.driver.get(process.env.LOGIN_PAGE_URL);
+		await this.driver.get(process.env.HOMEPAGE_URL + "login");
 	}
 
     async jobRolePage(){
-        await this.driver.get(process.env.JOB_ROLE_PAGE_URL);
+        await this.driver.get(process.env.HOMEPAGE_URL + "job-roles");
     }
 
 	async logoutLink(){
