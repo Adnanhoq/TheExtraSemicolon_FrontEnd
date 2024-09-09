@@ -6,7 +6,6 @@ import  multer from 'multer';
 import { JwtToken } from '../models/JwtToken';
 import { jwtDecode } from 'jwt-decode';
 import axios from "axios";
-import {Application} from '../models/application';
 
 /**
 
@@ -62,7 +61,7 @@ import {Application} from '../models/application';
         const uploadResult = await uploadToS3(s3, (req.file as Express.Multer.File));        
         if (uploadResult.success) {
 
-          let ApplicationReq = { // Test application object - this works
+          let ApplicationReq = { 
             email: decodedToken.sub, 
             roleId: Number(req.params.id),
             s3Link: uploadResult.data,

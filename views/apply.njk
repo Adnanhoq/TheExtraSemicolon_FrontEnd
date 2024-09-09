@@ -11,14 +11,15 @@
 {% block content %}
 
 
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center "">
   <div>
 
 {% if errormessage %}
 <h3 class="error-message">{{ errormessage }}</h3>
 {% endif %}
-
-    <h3>Applying for Role:</h3>
+    <br>
+    <br>
+    <h3>Applying for Role</h3>
     
     <form class="form" action="/apply/{{id}}" method="post" enctype="multipart/form-data">
         <label for="file">Upload your CV:</label>

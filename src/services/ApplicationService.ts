@@ -5,6 +5,7 @@ import multer from "multer";
 import aws from "aws-sdk";
 import axios, { AxiosResponse } from "axios";
 import { Application } from "../models/application";
+import { randomUUID } from "crypto";
 
 /**
  * Checks if an S3 bucket exists.
@@ -49,7 +50,8 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
       console.log("Error, bucket is undefined")
       return {success: false, message: "Error, bucket is undefined"}
     }
-    const folderData = "the_extra_semicolon/" + fileData!.originalname
+    const guid = randomUUID();
+    const folderData = "the_extra_semicolon/" + guid + fileData!.originalname
     console.log(folderData)
       const params = {
         Bucket: config.BUCKET_NAME ?? '',
