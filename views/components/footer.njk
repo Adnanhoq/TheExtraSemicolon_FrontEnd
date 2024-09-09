@@ -1,8 +1,12 @@
-<footer class="d-flex fixed-bottom flex-wrap justify-content-between align-items-center py-3 border-top" style="background-color:white">
+<footer class="halloween-footer d-flex fixed-bottom flex-wrap justify-content-between align-items-center py-3 border-none">
     <p class="col-md-4 mb-0">© 2024 Kainos</p>
     
     <div class="nav-logo-container">
-        <img src="../assets/index/kainos-logo.png" alt="transparent kainos logo for the navbar" class="img-fluid">
+        {% if theme == 'halloween' %}
+        <a class="img-fluid" href="./"><img src="../assets/index/kainos-logo-alt.png" alt="alt kainos logo for the footer" class="img-fluid"></a>
+        {% else %}
+        <a class="img-fluid" href="./"><img src="../assets/index/kainos-logo.png" alt="alt kainos logo for the footer" class="img-fluid"></a>
+        {% endif %}
     </div>
     
     <ul class="nav col-md-4 justify-content-end gap-4">

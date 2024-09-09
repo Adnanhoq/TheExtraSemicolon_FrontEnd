@@ -5,10 +5,38 @@
 {% endblock %}
 
 {% block content %}
-      <section class="hero d-flex justify-content-center mt-5">
+      <section class="hero d-flex justify-content-center mt-2">
         <div class="text-center align-self-center hero-txt">
-            <h1 class=" align-self-center border-2 fs-1 pb-4">Your Kainos Story Starts Here</h1>
-            <div class="container d-flex justify-content-center">
+        {% if theme == 'halloween' %}
+        <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="width: 0;height: 0;">
+        <defs>
+          <filter id="goo">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7" result="goo" />
+            <feBlend in="SourceGraphic" in2="goo" />
+          </filter>
+        </defs>
+      </svg>
+
+      <h1 class="title">
+      Your Kainos Story Starts Here
+        <span class="drop"></span>
+        <span class="drop"></span>
+        <span class="drop"></span>
+        <span class="drop"></span>
+        <span class="drop"></span>
+      </h1>
+      {% else %}
+            <h1 class=" align-self-center border-2 fs-1 pb-4 main-h">Your Kainos Story Starts Here</h1>
+      {% endif %}
+      {% if theme == 'halloween' %}
+      <div class="d-flex justify-content-center">
+        <div class="w-50">
+          <img class="rounded-3 w-50 img-fluid" src="/assets/index/pumpkin-tall.png" alt="illustration depicting example of workplace environment">
+        </div>
+      </div>
+      {% else %}
+            <div class="container d-flex justify-content-center mt-5">
                 <div class="row">
                   <div class="col left-img left-img">
                     <img class=" rounded-3 img-thumbnail" src="../assets/index/hero-img-1.jpg" alt="illustration depicting example of workplace environment">
@@ -27,14 +55,17 @@
                 </div>
               </div>
         </div>
+        {% endif %}
       </section>
 
+      {% if theme == 'default' %}
       <div class="marquee marquee--4 mt-1 mb-1">
         <img class="marquee__item" src="../assets/index/kainos-smart-audit-logo.png" width="275" height="150" alt="A product of Kainos: Kainos Smart Audit">
         <img class="marquee__item" src="../assets/index/kainos-smart-shield.png" width="275" height="150" alt="A product of Kainos: Kainos Smart Shield">
         <img class="marquee__item" src="../assets/index/kainos-smart-test.png" width="275" height="150" alt="A product of Kainos: Kainos Smart Test">
         <img class="marquee__item" src="../assets/index/kainos-smart.png" width="250" height="125" alt="A product of Kainos: Kainos Smart">
       </div>
+      {% endif %}
 
 {% endblock %}
 

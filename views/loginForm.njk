@@ -6,29 +6,28 @@
 
 {% block content %}
 
-        <div class="d-flex justify-content-center">
-
-            <div class="login-container">
-
-
-        {% if errormessage %}
-            <h3 class="error-message">{{ errormessage }}</h3>
-        {% endif %}
-
-        <form class="form login-form" action="/login" method="post">
-            <h3><label for="email">
-                Email:
+<section class="d-flex justify-content-center align-items-center" style="height: 75vh;">
+    <div class="d-flex ">
+        <div class="w-25 w-100">
+            <h2 class="login-page-header">Enter, if you are brave enough</h2>
+            <div class="d-flex justify-content-center w-50">
+                <img class="img-fluid w-50" src="/assets/index/pumpkin-round.png" alt="image of a round threatening pumpkin">
+            </div>
+        </div>
+        <form class="form login-form " action="/login" method="post">
+            <h3 class="halloween-text"><label for="email">
+                    Email:
             </label></h3>
             <input class="login-input" id="email" name="email" value="{{email}}" type="text" aria-label="password">
-            
-            <h3><label for="password">
-                Password:
+            <h3 class="halloween-text"><label for="password">
+                    Password:
             </label></h3>
             <input class="login-input" id="password" name="password" type="password" aria-label="password">
-
-        </br></br>
-        <button class="login-button" id="login">Log In</button>
-        </form>
+    
+            </br></br>
+            <button class="login-button" id="login">Log In</button>
+            </form>
     </div>
-</div>
+</section>
+
 {% endblock %}
