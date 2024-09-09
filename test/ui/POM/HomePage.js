@@ -7,16 +7,16 @@ class HomePage {
 	}
 
 	async mainPage(){
-		await this.driver.get(process.env.HOMEPAGE_URL_LOCAL);
+		await this.driver.get(process.env.HOMEPAGE_URL);
 	}
 
 
 	async openLoginPage(){
-		await this.driver.get(process.env.LOGIN_PAGE_URL_LOCAL);
+		await this.driver.get(process.env.LOGIN_PAGE_URL);
 	}
 
     async jobRolePage(){
-        await this.driver.get(process.env.JOB_ROLE_PAGE_URL_LOCAL);
+        await this.driver.get(process.env.JOB_ROLE_PAGE_URL);
     }
 
 	async logoutLink(){

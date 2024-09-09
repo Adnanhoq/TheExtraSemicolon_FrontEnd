@@ -12,7 +12,7 @@
     },
     "include": [
         "src/**/*",
-        "./.env",
+        "./.env", "test/ui/POM",
     ],
     "exclude": [
         "./node_modules/**/*",
