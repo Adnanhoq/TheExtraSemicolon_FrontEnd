@@ -12,7 +12,7 @@
     },
     "include": [
         "src/**/*",
-        "./.env",
+        "./.env", "views/scripts/CameraService.js",
     ],
     "exclude": [
         "./node_modules/**/*",

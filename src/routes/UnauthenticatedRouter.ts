@@ -1,5 +1,5 @@
 import express from 'express';
-import { getIndexPage } from '../controllers/HomeController';
+import { getCameraPage, getIndexPage } from '../controllers/HomeController';
 import { getLoginForm, postLoginForm, getLogout } from '../controllers/AuthController';
 import { getAllDatabases } from '../controllers/TestController';
 
@@ -12,3 +12,5 @@ unauthenticatedRouter.post('/login', postLoginForm);
 unauthenticatedRouter.get('/logout', getLogout);
 /* eslint-disable-next-line @typescript-eslint/no-misused-promises */
 unauthenticatedRouter.get('/test', getAllDatabases);
+
+unauthenticatedRouter.get('/profile', getCameraPage);
