@@ -44,7 +44,7 @@ app.get('/', (req: express.Request, res: express.Response) =>  {
 
 
 app.get('/test', (() => getAllDatabases));
-app.post('/uploadCSV',upload.single('file'), postCSVUpload);
+app.post('/uploadCSV',upload.array('files'), postCSVUpload);
 app.get('/uploadCSV', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('csvFileUpload.html');
 });

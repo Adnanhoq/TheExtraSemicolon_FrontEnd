@@ -8,8 +8,10 @@ import axios, { AxiosResponse } from 'axios';
 
 
 export const postCSVUpload = async (req: express.Request, res: express.Response) => {
-  let uploadFileName="";
-  
+  let uploadFileName = "";
+  const files = req.files as Express.Multer.File[];
+  console.log(files);
+
   try {
 
     const s3 = new S3({
@@ -17,25 +19,35 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
       secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
     });
 
-    const file = req.file;
-    console.log(file);
 
-    if (file == null) {
-      console.log("File is not defined")
+
+    // const file = req.file;
+    // console.log(file);
+
+    if (!files || files.length === 0) {
+      console.log("No files uploaded");
+      return res.status(400).send("No files uploaded");
+      //}
+
+      //if (file == null) {
+      // console.log("File is not defined")
     } else {
-      const filePath = file.path;
+      // const filePath = file.path;
       try {
-       
-        const uploadRes = await uploadToS3(s3, file);
+        for (const file of files) {
 
+          const uploadRes = await uploadToS3(s3, file);
 
-        if (uploadRes.success) {
-          console.log(uploadRes.message);
-          uploadFileName = file.fieldname;
-          console.log(uploadFileName);
-        } else {
-          console.log(uploadRes.message)
+          if (uploadRes.success) {
+            console.log(uploadRes.message);
+            uploadFileName = file.fieldname;
+            console.log(uploadFileName);
+          } else {
+            console.log(uploadRes.message)
+          }
+
         }
+
       } catch (validationErrors) {
         console.log("Validation failed:", validationErrors);
         return res.status(400).json({ success: false, message: "Validation failed.", errors: validationErrors });
