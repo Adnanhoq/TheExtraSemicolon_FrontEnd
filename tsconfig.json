@@ -1,6 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
+        "strict": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "target": "es6",
@@ -12,7 +13,8 @@
     },
     "include": [
         "src/**/*",
-        "./.env", "test/ui/POM",
+        "./.env", 
+        "test/ui/POM"
     ],
     "exclude": [
         "./node_modules/**/*",

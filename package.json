@@ -8,8 +8,8 @@
     "dev": "nodemon -r dotenv/config src/app.ts",
     "linter": "npx eslint .",
     "test": "mocha --require ts-node/register test/unit/**/*.ts",
-    "test-ui:login": "mocha --grep '@login' 'test/ui/selenium/*.js'",
-    "test-ui:roles": "mocha --grep '@roles' 'test/ui/selenium/*.js'",
+    "test-ui:login": "mocha --require ts-node/register --grep '@login' test/ui/selenium/*.ts",
+    "test-ui:roles": "mocha --require ts-node/register --grep '@roles' test/ui/selenium/*.ts",
     "build": "tsc --build"
   },
   "keywords": [],
@@ -20,6 +20,7 @@
     "body-parser": "^1.20.2",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "nunjucks": "^3.2.4",
     "jwt-decode": "^4.0.0"
   },
   "devDependencies": {
@@ -31,9 +32,10 @@
     "@types/express-session": "^1.18.0",
     "@types/mocha": "^10.0.7",
     "@types/mongoose": "^5.11.96",
-    "@types/node": "^20.16.1",
+    "@types/node": "^20.16.5",
     "@types/nunjucks": "^3.2.6",
     "@types/pbkdf2": "^3.1.2",
+    "@types/selenium-webdriver": "^4.1.26",
     "@types/sinon": "^17.0.3",
     "axios-mock-adapter": "^1.21.4",
     "chai": "^4.5.0",
@@ -50,7 +52,7 @@
     "sinon": "^18.0.0",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4",
+    "typescript": "^5.6.2",
     "typescript-eslint": "^7.18.0"
   }
 }

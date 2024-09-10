@@ -12,6 +12,6 @@ export default tseslint.config(
     }
   },
   {
-    ignores: ["dist/", "node_modules/", "eslint.config.mjs", "test/", ".github/CODEOWNERS", "test/ui/POM/HomePage.js", "test/ui/POM/LoginPage.js"]
+    ignores: ["dist/", "node_modules/", "eslint.config.mjs", "test/", ".github/CODEOWNERS"]
   }
 );
