@@ -5,5 +5,5 @@ export const getCameraPage = (req: express.Request, res: express.Response) => {
 }
 
 export const postProfilePicture = async (req: express.Request, res: express.Response) => {
-
+    
 }
