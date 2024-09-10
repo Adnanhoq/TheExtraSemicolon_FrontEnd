@@ -6,27 +6,32 @@
 
     {% block scripts %}
     <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
-    <script type="text/javascript" src="/scripts/imagetracer_v1.2.6.js"></script>
     {% endblock %}
 
 {% block content %}
 
 <dialog id="dialog">
-    <input type="image" id="profilePic" width="500" height="600">
+    <div>
+        <h2>Accept your new profile picture?</h2>
+     <svg id="thumbnail" class="rounded-circle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500"></svg>
     <form action="/profile" method="post">
     <input type="hidden" name="profile" id="profile"/>
-    <button type="button" id="cancel">Cancel</button>
-    <button type="submit">Accept</button>
+    <div class="mt-4">
+    <button class="btn btn-danger" type="button" id="cancel">Cancel</button>
+    <button class="btn btn-success" type="submit">Accept</button>
+    <div>
     </form>
+    </div>
 </dialog>
 
 <div class="d-flex justify-content-center">
-<div>
-<h2>Update your profile picture:</h2>
-<video id="webcam" autoplay playsinline width="640" height="480"></video>
+<div class="d-flex flex-column justify-content-center">
+<h2 class="mb-2">Update your profile picture:</h2>
+<video id="webcam" autoplay playsinline class="rounded-circle" width="500" height="500"></video>
 <canvas id="canvas" class="d-none"></canvas>
-
-<button id="takePicture">Take Picture</button>
+<div class="d-flex w-100 justify-content-center">
+<button class="mt-3 btn btn-secondary w-50" id="takePicture">Take Picture</button>
+</div>
 </div>
 </div>
 
@@ -50,19 +55,16 @@ webcam.start()
 document.getElementById('takePicture').addEventListener('click', takePicture);
 
 function takePicture() {
-    var picture = webcam.snap();
-    console.log(picture);
-    document.getElementById("profilePic").src = picture;
-    
+    var image = webcam.snap();
+    console.log(image);
+    var svgimg = document.createElementNS("http://www.w3.org/2000/svg", "image");
+    svgimg.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', image);
 
-
-    document.getElementById("profile").src = convertToSVG(picture);
+    document.getElementById("thumbnail").appendChild(svgimg);
+    //document.getElementById("profile").appendChild(svgimg);
     dialog.showModal();
 }
 
-function convertToSVG(pic) {
-    ImageTracer.imageToSVG(pic);
-}
 
 document.getElementById('cancel').addEventListener('click',
 () => dialog.close());
