@@ -40,7 +40,7 @@ export const uploadToS3 = async (s3: S3, fileData?: Express.Multer.File) => {
 
         const res = await s3.upload(params).promise();
         
-
+        
         return {success: true, message: "File Uploaded with Successful", data: res.Location};
       } catch (error) {
         console.log(error);
