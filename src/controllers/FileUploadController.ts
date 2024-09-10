@@ -30,18 +30,9 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
 
 
         if (uploadRes.success) {
-          //console.log(uploadRes.message);
+          console.log(uploadRes.message);
           uploadFileName = file.fieldname;
-          try{
-              
-            const response: AxiosResponse<string[]> = await axios.post(config.API_URL+"upload",uploadFileName);
-            return response.data;
-          } catch(e){          
-            res.redirect('/upload-success');
-            throw new Error("Failed to upload csv file");
-          }
-
-
+          console.log(uploadFileName);
         } else {
           console.log(uploadRes.message)
         }
@@ -49,8 +40,6 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
         console.log("Validation failed:", validationErrors);
         return res.status(400).json({ success: false, message: "Validation failed.", errors: validationErrors });
       }
-
-
     }
 
   } catch (e) {

@@ -7,6 +7,7 @@ import fs from 'fs';
 import config from "../config";
 import { validateFileUpload } from "../validators/FileUploadValidator";
 import { error } from "console";
+import { randomUUID } from "crypto";
 
 
 export const uploadToS3 = async (s3: S3, fileData?: Express.Multer.File) => {
@@ -17,11 +18,14 @@ export const uploadToS3 = async (s3: S3, fileData?: Express.Multer.File) => {
     }
     const filePath = fileData.path;
     const fileContent = fs.readFileSync(filePath);
+    const guid = randomUUID();
+    const folderData = "the_extra_semicolon/imports/"+ guid + fileData!.originalname;
+    console.log(folderData);
 
 
       const params = {
         Bucket: config.BUCKET_NAME || 'academy-job-portal-cvs',
-        Key: fileData!.originalname,
+        Key: folderData,
         Body: fileContent,
         ContentType: fileData.mimetype
       };
