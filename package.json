@@ -8,7 +8,8 @@
     "dev": "nodemon -r dotenv/config src/app.ts",
     "linter": "npx eslint .",
     "test": "mocha --require ts-node/register test/unit/**/*.ts",
-    "test-ui": "mocha --require ts-node/register --timeout 10000 test/ui/**/*.ts",
+    "test-ui:login": "mocha --grep '@login' 'test/ui/selenium/*.js'",
+    "test-ui:roles": "mocha --grep '@roles' 'test/ui/selenium/*.js'",
     "build": "tsc --build"
   },
   "keywords": [],
