@@ -9,14 +9,7 @@ describe('Application Service', function() {
     })
 
 
-    /**
- * Checks if an S3 bucket exists.
- * 
- - @name checkBucket
- - @param {S3} s3 - An instance of AWS S3 client.
- - @param {string} bucket - The name of the S3 bucket to check.
- - @returns {Promise<{success: boolean; message: string; data: object;}>} The result of the check operation.
- */
+    
     describe('checkBucket Function Testing', function() {
         /**
          * Checks if an S3 bucket exists.
