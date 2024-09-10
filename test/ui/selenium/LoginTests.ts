@@ -79,7 +79,7 @@ describe('Login Tests', function () {
             await loginPage.clickLoginButton();
             await sleep(3000);
 
-            const elm: WebElement = await driver.findElement(By.xpath("/html/body/div/div/h3"));
+            const elm: WebElement = await driver.findElement(By.css('h3'));
             const expected: string = await elm.getText();
             assert(expected === "User is not valid: Invalid credentials");
 
@@ -114,7 +114,7 @@ describe('Login Tests', function () {
             await loginPage.clickLoginButton();
             await sleep(3000);
 
-            const elm: WebElement = await driver.findElement(By.xpath("/html/body/div/div/h3"));
+            const elm: WebElement = await driver.findElement(By.css('h3'));
             const expected: string = await elm.getText();
             assert(expected === "User is not valid: Invalid credentials");
 
@@ -149,7 +149,7 @@ describe('Login Tests', function () {
             await loginPage.clickLoginButton();
             await sleep(3000);
 
-            const elm: WebElement = await driver.findElement(By.xpath("/html/body/div/div/h3"));
+            const elm: WebElement = await driver.findElement(By.css('h3'));
             const expected: string = await elm.getText();
             assert(expected === "Email is not valid format");
 
