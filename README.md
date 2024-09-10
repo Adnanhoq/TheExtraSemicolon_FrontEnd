@@ -29,11 +29,12 @@
     1. Unit testing
     2. Mock testing
 2. To run the ui tests:
-    Login tests, run -  `npm run test-ui:login`
-    View Job Roles tests, run -  `npm run test-ui:roles`
-
-    To run local - change 'process.env.HOMEPAGE_URL' to 'process.env.HOMEPAGE_URL_LOCAL' for all lines in the file.
-    Then run the commands above (make sure local is running back and frontend)
+    - Copy '.env.example' 
+    - Rename the file to .env
+    - Login tests, run -  `npm run test-ui:login`
+    - View Job Roles tests, run -  `npm run test-ui:roles`
+    - To run local - change 'process.env.HOMEPAGE_URL' to 'process.env.HOMEPAGE_URL_LOCAL' for all lines in the file.
+    - Then run the commands above (make sure local is running back and frontend)
 
 3. To run the accessibility tests, run `pa11y-ci`
 These tests should all pass
