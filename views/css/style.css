@@ -2,13 +2,31 @@ body {
     color: #252D4F;
 }
 
+/* ---- Halloween Scrollbar Styling */
+/* /* ::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+} */
+
+.halloween::-webkit-scrollbar
+{
+	width: 5px;
+}
+
+.halloween::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+  background: orangered;
+}
+
 /* --- Navbar Styling --- */
 
 .halloween .halloween-navbar {
-  background-color: orangered;
+  background-color: #db3b00;
 }
 
-.nav-logo-container {
+.nav-logo-container, .footer-logo-container, .logo-with-hat-container {
     width: 8.5rem;
     margin-inline: 4rem;
     cursor: pointer;
@@ -53,6 +71,7 @@ body {
 }
 
 .login-button {
+  width: 14rem;
   background-color: #318819;
   border: 2px solid;
   border-color: #252D4F;
@@ -75,7 +94,7 @@ footer {
 }
 
 .halloween .halloween-footer {
-  background-color: orangered;
+  background-color: #db3b00;
 }
 
 /* --- Scroller --- */
@@ -163,7 +182,7 @@ body.halloween {
 
 .halloween footer {
   background-color: black;
-  border: none;
+  border-top: none;
 }
 
 .halloween .main-h {
@@ -174,8 +193,13 @@ body.halloween {
   color: white;
 }
 
+.halloween .halloween-nav-or-footer-text {
+  color: #000418;
+}
+
+
 .halloween .login-page-header {
-  color: orangered;
+  color: #db3b00;
 }
 
 .title {
@@ -184,7 +208,7 @@ body.halloween {
   margin: 0;
   filter: url(#goo);
   position: relative;
-  color: orangered;
+  color: #db3b00;
   text-transform: uppercase;
 }
 
@@ -238,4 +262,106 @@ body.halloween {
 .halloween .pumpkin-footer-container, .halloween .pumpkin-footer {
   visibility: visible;
   width: 1.35rem;
+}
+
+/* ------ Christmas Theme Styling ------ */
+.christmas .christmas-hero-img {
+  background-image: url('/assets/index/christmas-bg-big.jpg');
+  position: relative;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+}
+
+.christmas .christmas-hero-text {
+  position: relative;
+  padding-top: 6.5rem;
+}
+
+.christmas .christmas-main-title {
+  font-family: "Festive", cursive;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 10rem;
+  width: fit-content;
+}
+
+.snow_wrap{
+	height: 100vh;
+	width: 100%;
+	background:url('/assets/index/christmas-bg-big.jpg');
+	background-size: cover;
+	background-position: center bottom; 
+	overflow: hidden;
+	position: relative;
+}
+
+.snow, .snow:before, .snow:after {
+  position: absolute;
+  top: -650px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-image: 
+  radial-gradient(4px 4px at 100px 50px, #fff , transparent), 
+  radial-gradient(6px 6px at 200px 150px, #fff, transparent), 
+  radial-gradient(3px 3px at 300px 250px, #fff 50%, transparent), 
+  radial-gradient(4px 4px at 400px 350px, #fff 50%, transparent), 
+  radial-gradient(6px 6px at 500px 100px, #fff 50%, transparent), 
+  radial-gradient(3px 3px at 50px 200px, #fff 50%, transparent), 
+  radial-gradient(4px 4px at 150px 300px, #fff 50%, transparent), 
+  radial-gradient(6px 6px at 250px 400px, #fff 50%, transparent), 
+  radial-gradient(3px 3px at 350px 500px, #fff 50%, transparent);
+  background-size: 650px 650px;
+  animation: snow 3s linear infinite;
+  content: "";
+}
+
+.snow:after {
+  margin-left: -250px;
+  opacity: 0.5;
+  filter: blur(2px);
+  animation-duration: 6s;
+  animation-direction: reverse;
+}
+
+.snow:before {
+	margin-left: -350px;
+  opacity: 0.7;
+  filter: blur(1px);
+  animation-duration: 9s;
+  animation-direction: reverse;
+}
+
+@keyframes snow {
+  to {
+    transform: translateY(650px);
+  }
+}
+
+.christmas .logo-with-hat-container {
+  position: relative;
+}
+
+.christmas .christmas-hat {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 2rem; /* Adjust the size as needed */
+  transform: rotate(45deg);
+}
+
+.christmas-hat {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 2rem; /* Adjust the size as needed */
+  transform: rotate(45deg);
+}
+
+.christmas .button-ribbon {
+  position: absolute;
+  top: 10px;
+  right: -105px;
+  width: 2rem; /* Adjust the size as needed */
 }
