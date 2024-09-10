@@ -1,25 +1,147 @@
 import axios from "axios";
-import MockAdapter from "axios-mock-adapter"
+import sinon from 'sinon';
+import { assert, expect } from 'chai';
+import MockAdapter from "axios-mock-adapter";
+import { checkBucket, getApplicationById, uploadToS3 } from "../../../src/services/ApplicationService";
 import { S3 } from "aws-sdk";
+import * as Crypto from "crypto";
+import { config } from "../../../src/config";
 
 let mock : MockAdapter
-describe('Application Service', function() {
+
+const URL = config.API_URL + "apply";
+
+describe('ApplicationService', function() {
     this.beforeEach(() => {
+        sinon.restore();
         mock = new MockAdapter(axios);
     })
+    describe('checkBucket', function() {
+        
+        it('should return false success if bucket is undefined', async () => {
+            const s3 = undefined;
+            const bucket = undefined;
+
+            const res = await checkBucket(s3 as any, bucket);
+
+            expect(res.success).to.be.false;
+            expect(res.message).to.equal("Error, bucket is undefined");
+        }),
+        it('should return true if bucket already exists', async () => {
+            const s3 = {headBucket : sinon.stub().returns({promise: sinon.spy()})};
+            const bucket = '';
+            
+            const res = await checkBucket(s3 as any, bucket as any);
+            expect(res.success).to.be.true;
+            expect(res.message).to.equal("Bucket already exists");
+        }),
+        it('should return false success if bucket does not exist', async () => {
+            const s3 = {headBucket : sinon.spy()}
+            const bucket = '';
+
+            const res = await checkBucket(s3 as any, bucket as any);
+
+            expect(res.success).to.be.false;
+            expect(res.message).to.equal("Error! Bucket does not exist");
+        });        
+    }),
+    describe('uploadToS3', function() {
+        it('should throw Error when file data undefined', async () => {
+            const s3 = {};
+            const fileData = null;
+
+            const res = await uploadToS3(s3 as any, fileData as any);
+            expect(res.success).to.be.false;
+            expect(res.message).to.equal("Unable to access this file");
+
+        }),
+        it('should return with successful response when S3 and FileData configured', async () => {
+            const testMimetype = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            const fileData = {originalname : "testFile", buffer: '', mimetype: testMimetype};
+            config.BUCKET_NAME = '';
+            const s3 = {upload: sinon.stub().returns({promise: sinon.stub().returns({})})};
 
 
+            const res = await uploadToS3(s3 as any, fileData as any);
+            expect(res.success).to.be.true;
+            expect(res.message).to.equal("File Uploaded with Successful");
+
+        }),
+        it('should return with failed response when file fails to upload', async () => {
+            const testMimetype = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            const fileData = {originalname : "testFile", buffer: '', mimetype: testMimetype};
+            config.BUCKET_NAME = '';
+            const s3 = {upload: sinon.stub().returns({})};
+
+
+            const res = await uploadToS3(s3 as any, fileData as any);
+            expect(res.success).to.be.false;
+            expect(res.message).to.equal("Unable to Upload the file");
+        }),
+        it('should return with failed response when Bucket Name undefined', async () => {
+            const testMimetype = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            const fileData = {originalname : "testFile", buffer: '', mimetype: testMimetype};
+            config.BUCKET_NAME = undefined;
+            const s3 = {upload: sinon.stub().returns({})};
+
+
+            const res = await uploadToS3(s3 as any, fileData as any);
+            expect(res.success).to.be.false;
+            expect(res.message).to.equal("Error, bucket is undefined");
+        })
+    }),
+    describe('getApplicationById', function() {
+
+        it('should not throw error when API returns 200', async () => {
+            const token = '';
+            const id = 1;
+            const email = 'user@kainos.com'
     
-    describe('checkBucket Function Testing', function() {
-        /**
-         * Checks if an S3 bucket exists.
-         * 
-         - @name checkBucket
-        - @param {S3} s3 - An instance of AWS S3 client.
-        - @param {string} bucket - The name of the S3 bucket to check.
-        - @returns {Promise<{success: boolean; message: string; data: object;}>} The result of the check operation.
-        */
-        const res = await s3.headBucket({Bucket:bucket}).promise()
+            mock.onPost(URL+`/${id}`, email).reply(200, "Correct");
+    
+            try {
+                await getApplicationById(id, email, token);
+            } catch(e) {
+                assert.fail("Expected no error message");
+            }
+        }),
+        it('should return error when 404 received', async () => {
+            const token = '';
+            const id = 1;
+            const email = 'user@kainos.com'
+    
+            mock.onPost(URL+`/${id}`, email).reply(404, "Not Found");
+    
+            try {
+                await getApplicationById(id, email, token);
+            } catch(e) {
+                expect(e.status).to.equal(404);
+                return
+            }
+            assert.fail("Expected error message");
+        }),
+        it('should return error when 500 received', async () => {
+            const token = '';
+            const id = 1;
+            const email = 'user@kainos.com'
+    
+            mock.onPost(URL+`/${id}`, email).reply(500);
+    
+            try {
+                await getApplicationById(id, email, token);
+            } catch(e) {
+                console.log(e);
+                expect(e.status).to.equal(500);
+                return
+            }
+            assert.fail("Expected error message");
+        })
+
+    }),
+    describe('createApplication', function () {
+        it('should return response 201 when successful application created', async () => {
+            
+        })
     })
 
 })

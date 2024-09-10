@@ -1,8 +1,8 @@
 import { assert, expect } from "chai";
 import { validateApplicationObject } from "../../../src/validators/ApplicationValidator";
 
-describe('Application Validator', function(){
-    describe('Testing validateApplicationObject ', function(){
+describe('ApplicationValidator', function(){
+    describe('validateApplicationObject', function(){
         it("should throw 'RoleID cannot be less than 1' error", () => {
             let ApplicationReq = { 
                 email: "testemail", 

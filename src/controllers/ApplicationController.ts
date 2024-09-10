@@ -21,15 +21,15 @@ import axios from "axios";
 }
 
   export const getUploadForm = async (req: express.Request, res: express.Response) => {
-    res.render('apply.njk', {id: req.params.id});
+    res.render('apply.njk', {id: req.params.id, token: req.session.token});
     console.log(req);
   }
 
-  export const checkApplicationDoesNotExist = async (id: number, email: string) => {
+  export const checkApplicationDoesNotExist = async (id: number, email: string, token: string) => {
     // This checks to see if an application for this role from this email exists
     // If this doesn't return a 404 error, an error is thrown
     try {
-      await getApplicationById(id, email);
+      await getApplicationById(id, email, token);
       throw new Error('Application Exists');
     } catch(e) {
       if (!(axios.isAxiosError(e) && e.response && e.response.status == 404))
@@ -43,7 +43,7 @@ import axios from "axios";
     export const postUpload = async (req: express.Request, res: express.Response) => {
       try{
         const decodedToken: JwtToken = jwtDecode(req.session.token ?? '');
-        await checkApplicationDoesNotExist(Number(req.params.id),decodedToken.sub);
+        await checkApplicationDoesNotExist(Number(req.params.id),decodedToken.sub, req.session.token ?? '');
         const s3 = new S3({
           accessKeyId: config.AWS_ACCESS_KEY_ID,
           secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
@@ -67,7 +67,7 @@ import axios from "axios";
             roleId: Number(req.params.id),
             s3Link: uploadResult.data,
           }
-          await createApplication(ApplicationReq);
+          await createApplication(ApplicationReq, req.session.token ?? '');
 
           console.log(uploadResult.message);
           res.render('apply-success.njk');

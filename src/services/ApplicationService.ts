@@ -7,6 +7,7 @@ import axios, { AxiosResponse } from "axios";
 import { Application } from "../models/application";
 import { randomUUID } from "crypto";
 import { validateApplicationObject } from "../validators/ApplicationValidator";
+import { getHeader } from "./AuthUtil";
 
 /**
  * Checks if an S3 bucket exists.
@@ -25,6 +26,7 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
         return {success: false, message: "Error, bucket is undefined"}
       }
         const res = await s3.headBucket({Bucket:bucket}).promise()
+        
         
         return {success: true, message: "Bucket already exists", data: {}};
     } catch (error) {
@@ -53,7 +55,6 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
     }
     const guid = randomUUID();
     const folderData = "the_extra_semicolon/" + guid + fileData!.originalname
-    console.log(folderData)
       const params = {
         Bucket: config.BUCKET_NAME ?? '',
         Key: folderData,
@@ -75,15 +76,16 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
   }
   }
 
-  export const getApplicationById = async (id: number, email: string) => {
-    const response: AxiosResponse = await axios.post(config.API_URL+`apply/${id}`, email);
+  export const getApplicationById = async (id: number, email: string, token: string) => {
+    const response: AxiosResponse = await axios.post(config.API_URL+`apply/${id}`, email, getHeader(token));
     return response.data;
+
   }
 
-  export const createApplication = async (application: Application): Promise<void> => {
+  export const createApplication = async (application: Application, token: string): Promise<void> => {
     try {
         validateApplicationObject(application);
-        const response: AxiosResponse = await axios.post(config.API_URL+"apply", application); 
+        const response: AxiosResponse = await axios.post(config.API_URL+"apply", application, getHeader(token)); 
         return response.data;
     } catch (e) {
         throw new Error(e.response.data);
