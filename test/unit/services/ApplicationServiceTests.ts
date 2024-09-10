@@ -2,7 +2,7 @@ import axios from "axios";
 import sinon from 'sinon';
 import { assert, expect } from 'chai';
 import MockAdapter from "axios-mock-adapter";
-import { checkBucket, getApplicationById, uploadToS3 } from "../../../src/services/ApplicationService";
+import { checkBucket, createApplication, getApplicationById, uploadToS3 } from "../../../src/services/ApplicationService";
 import { S3 } from "aws-sdk";
 import * as Crypto from "crypto";
 import { config } from "../../../src/config";
@@ -140,6 +140,25 @@ describe('ApplicationService', function() {
     }),
     describe('createApplication', function () {
         it('should return response 201 when successful application created', async () => {
+            const token = '';
+            let application = { 
+                email: 'test', 
+                roleId: 1,
+                s3Link: 'testlink',
+              }
+
+            mock.onPost(URL).reply(201);
+
+
+            try {
+                await createApplication(application, token);
+            } catch(e) {
+                console.log(e);
+                expect(e.status).to.equal(201);
+                return
+            }
+            assert.fail("Expected error message");
+
             
         })
     })
