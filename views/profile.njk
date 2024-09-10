@@ -1,12 +1,12 @@
 {% extends "./layouts/main.njk" %}
 
     {% block pageTitle %}
-        Error Page
+        Update Profile Picture
     {% endblock %}
 
     {% block scripts %}
     <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
-    <script src="imagetracer_v1.2.6.js"></script>
+    <script type="text/javascript" src="/scripts/imagetracer_v1.2.6.js"></script>
     {% endblock %}
 
 {% block content %}
@@ -53,17 +53,15 @@ function takePicture() {
     var picture = webcam.snap();
     console.log(picture);
     document.getElementById("profilePic").src = picture;
+    
 
 
-
-    document.getElementById("profile").src = picture;
+    document.getElementById("profile").src = convertToSVG(picture);
     dialog.showModal();
 }
 
 function convertToSVG(pic) {
-    ImageTracer.imageToSVG(
-        picture,
-        function(svgstr) {ImageTracer.appendSVGString(svgstr, 'profile')})
+    ImageTracer.imageToSVG(pic);
 }
 
 document.getElementById('cancel').addEventListener('click',
