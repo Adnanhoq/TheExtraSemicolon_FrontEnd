@@ -3,10 +3,9 @@ const {By} = require('selenium-webdriver');
 class LoginPage{
     constructor(driver){
         this.driver = driver;
-        this.emailInput = By.xpath("//*[@id='email']");
-        this.passwordInput = By.xpath("//*[@id='password']");
-        this.loginButton = By.xpath("//*[@id='login']");
-        this.errorMessage = By.xpath("/html/body/div/div/h3");
+        this.emailInput = By.id('email');
+        this.passwordInput = By.id('password');
+        this.loginButton = By.id('login');
     }
 
     async enterEmail(email){
@@ -19,11 +18,6 @@ class LoginPage{
 
     async clickLoginButton(){
         await this.driver.findElement(this.loginButton).click();
-    }
-
-    async getErrorMessage() {
-        let element = await this.driver.findElement(this.errorMessage);
-        return await element.getText();
     }
 }
 
