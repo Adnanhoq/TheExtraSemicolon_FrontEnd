@@ -1,7 +1,4 @@
 import { WebDriver, By, WebElement } from 'selenium-webdriver';
-import * as dotenv from 'dotenv';
-
-dotenv.config();
 
 class HomePage {
     private driver: WebDriver;
