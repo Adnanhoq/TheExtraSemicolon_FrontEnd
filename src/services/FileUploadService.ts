@@ -12,16 +12,18 @@ import { randomUUID } from "crypto";
 
 export const uploadToS3 = async (s3: S3, fileData?: Express.Multer.File) => {
   try {
+    console.log(fileData);
 
     if (!fileData) {
       throw new Error('No file data provided');
     }
-    const filePath = fileData.path;
-    const fileContent = fs.readFileSync(filePath);
+    //const filePath = fileData.path;
+    // const fileContent = fs.readFileSync(filePath);
+    const fileContent = fileData.buffer;
     const guid = randomUUID();
-    const folderData = "the_extra_semicolon/imports/"+ guid + fileData!.originalname;
+    const folderData ="the_extra_semicolon/imports/" + guid + fileData!.originalname;
     console.log(folderData);
-
+    console.log(config.FOLDER);
 
       const params = {
         Bucket: config.BUCKET_NAME || 'academy-job-portal-cvs',
@@ -29,26 +31,29 @@ export const uploadToS3 = async (s3: S3, fileData?: Express.Multer.File) => {
         Body: fileContent,
         ContentType: fileData.mimetype
       };
-      
-      try {
-        const validationErrors = await validateFileUpload(filePath);
-
-        if (validationErrors.length > 0) {
-          console.log("Validation errors found:", validationErrors);
-          return {success: false, message: "Validation failed.", data: error}
-        }
-
+     
+        await validateFileUpload(fileContent);
+        
         const res = await s3.upload(params).promise();
+        return res.Location;
+      
+      // try {
+
+      //   await validateFileUpload(filePath);
+      //   const res = await s3.upload(params).promise();
         
         
-        return {success: true, message: "File Uploaded with Successful", data: res.Location};
-      } catch (error) {
-        console.log(error);
-        return {success: false, message: "Unable to Upload the file", data: error};
-      }
+      //   // return {success: true, message: "File Uploaded with Successful", data: res.Location};
+      //   return res.Location;
+      // } catch (error) {
+      //  // console.log(error);
+      //  throw new Error(`Unable to upload the file: ${error.message}`);
+      //   //return {success: false, message: "Unable to Upload the file", data: error.message};
+      // }
 
   } catch (error) {
   console.log(error);
-  return {success:false, message: "Unable to access this file", data: {}};
+  throw new Error(`Unable to process this file: ${error.message}`);
+  //return {success:false, message: "Unable to access this file", data: {}};
   }
   }

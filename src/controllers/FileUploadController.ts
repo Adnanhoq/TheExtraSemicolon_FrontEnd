@@ -8,9 +8,7 @@ import axios, { AxiosResponse } from 'axios';
 
 
 export const postCSVUpload = async (req: express.Request, res: express.Response) => {
-  let uploadFileName = "";
   const files = req.files as Express.Multer.File[];
-  console.log(files);
 
   try {
 
@@ -27,19 +25,30 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
     } else {
       try {
         for (const file of files) {
-
-          const uploadRes = await uploadToS3(s3, file);
-
-          if (uploadRes.success) {
-            res.render("/upload-success")
-            console.log(uploadRes.message);
-            
-          } else {
-            console.log(uploadRes.message)
+          try{
+            const location = await uploadToS3(s3, file);
+          console.log("File uploaded succesfully to: ", location)
+          res.render("/upload-success")
+          } catch (error) {
+            console.log("Upload failed:", error.message)
             res.render('/upload')
           }
-
         }
+      // try {
+      //   for (const file of files) {
+
+      //     const uploadRes = await uploadToS3(s3, file);
+
+      //     if (uploadRes.success) {
+      //       res.render("/upload-success")
+      //       console.log(uploadRes.message);
+            
+      //     } else {
+      //       console.log(uploadRes.message)
+      //       res.render('/upload')
+      //     }
+
+      //   }
 
       } catch (validationErrors) {
         console.log("Validation failed:", validationErrors);
