@@ -2,6 +2,8 @@ import { assert } from 'chai';
 import { Builder, By, WebDriver, WebElement } from 'selenium-webdriver';
 import HomePage from '../Pages/HomePage';
 import LoginPage from '../Pages/LoginPage';
+import { sleep } from '../utils/utils'
+
 
 const email = process.env.LOGIN_EMAIL as string;
 const password = process.env.LOGIN_PASSWORD as string;
@@ -142,6 +144,3 @@ describe('Login Tests', function () {
     });
 });
 
-function sleep(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
