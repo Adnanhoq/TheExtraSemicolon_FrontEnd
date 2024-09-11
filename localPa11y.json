@@ -47,7 +47,7 @@
         },
         {
             "url": "http://localhost:3000/login",
-            "description": "Testing the Christmas themed home-page"
+            "description": "Testing the Christmas themed login page"
         },
         {
             "url": "http://localhost:3000/job-roles",
