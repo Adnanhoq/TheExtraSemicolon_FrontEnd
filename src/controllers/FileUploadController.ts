@@ -20,30 +20,23 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
     });
 
 
-
-    // const file = req.file;
-    // console.log(file);
-
     if (!files || files.length === 0) {
       console.log("No files uploaded");
       return res.status(400).send("No files uploaded");
-      //}
-
-      //if (file == null) {
-      // console.log("File is not defined")
+     
     } else {
-      // const filePath = file.path;
       try {
         for (const file of files) {
 
           const uploadRes = await uploadToS3(s3, file);
 
           if (uploadRes.success) {
+            res.render("/upload-success")
             console.log(uploadRes.message);
-            uploadFileName = file.fieldname;
-            console.log(uploadFileName);
+            
           } else {
             console.log(uploadRes.message)
+            res.render('/upload')
           }
 
         }
