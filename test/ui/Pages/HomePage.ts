@@ -8,17 +8,17 @@ class HomePage {
     }
 
     async mainPage(): Promise<void> {
-        await this.driver.get(process.env.HOMEPAGE_URL_LOCAL as string);
+        await this.driver.get(process.env.HOMEPAGE_URL as string);
     }
 
 
     async openLoginPage(): Promise<void> {
-        await this.driver.get(`${process.env.HOMEPAGE_URL_LOCAL as string}login`);
+        await this.driver.get(`${process.env.HOMEPAGE_URL as string}login`);
     }
 
 
     async jobRolePage(): Promise<void> {
-        await this.driver.get(`${process.env.HOMEPAGE_URL_LOCAL as string}job-roles`);
+        await this.driver.get(`${process.env.HOMEPAGE_URL as string}job-roles`);
     }
 
     async logoutLink(): Promise<WebElement> {
