@@ -2,6 +2,7 @@ import { assert } from 'chai';
 import { Builder, By, WebDriver } from 'selenium-webdriver';
 import HomePage from '../Pages/HomePage';
 import LoginPage from '../Pages/LoginPage';
+import { sleep } from '../utils/utils'
 
 
 const email = process.env.LOGIN_EMAIL as string;
@@ -76,6 +77,4 @@ describe('View Job Roles Tests', function () {
     });
 });
 
-function sleep(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+
