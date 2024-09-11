@@ -28,12 +28,7 @@
 1. To run the following tests, run `npm test`.
     1. Unit testing
     2. Mock testing
-2. To run the ui tests:
-    - Copy '.env.example' 
-    - Rename the file to .env
-    - Login tests, run -  `npm run test-ui:login`
-    - View Job Roles tests, run -  `npm run test-ui:roles`
-
+2. To run the ui tests, run `npm run test-ui`
 3. To run the accessibility tests, run `pa11y-ci`
 These tests should all pass
 
