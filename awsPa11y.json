@@ -3,9 +3,19 @@
         "chromeLaunchConfig": {
             "ignoreHTTPSErrors": true,
             "args": ["--disable-dev-shm-usage", "--no-sandbox"]
-    }
+    },
+    "useIncognitoBrowserContext": false
 },
     "urls": [
+        {
+            "url": "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/login",
+            "actions": [
+                "set field #email to admin@kainos.com",
+                "set field #password to admin",
+                "click element #login",
+                "wait for path to be /"
+            ]
+        }
         "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/",
         "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/job-roles",
         "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/job-roles/2",
