@@ -15,7 +15,11 @@
             <div class="mainBody">
                 <div class="d-flex justify-content-center mb-3 position-relative align-items-center">
                     <h1 class="mb-1 pb-2">Job Roles List</h1>
-                    <button id="generateReport" class="btn btn-outline-dark position-absolute end-0">Generate Report</button>
+                    {% if role == '1' %}
+                            <a href="/jobroles/report" class="btn btn-outline-dark position-absolute end-0">
+                                Generate Report
+                            </a>
+                    {% endif %}
                 </div>
 
 

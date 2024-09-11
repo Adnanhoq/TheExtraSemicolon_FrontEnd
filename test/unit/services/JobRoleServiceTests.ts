@@ -9,6 +9,7 @@ import { JobRole } from "../../../src/models/JobRole";
 import { Location } from "../../../src/enums/Location";
 import { Capability } from "../../../src/enums/Capability";
 import { JobBand } from "../../../src/enums/JobBand";
+import { getReportOfJobRoles } from "../../../src/services/JobRoleService";
 
 
 const jobRoleResponseWrapper: JobRoleResponseWrapper = {
@@ -51,6 +52,10 @@ describe('JobRoleService', function () {
     this.beforeEach(() => {
         mock = new MockAdapter(axios);
     });
+
+    this.afterEach(() => {
+      mock.restore;
+    })
 
     describe('getAllJobRoles', function () {
       it('should return all Job Roles from response', async () => {
@@ -258,5 +263,49 @@ describe('JobRoleService', function () {
       })
 
     })
+    describe('Generate A Report of All Job Roles', function () {
+
+      it('should throw an error when the API returns a 200 status', async () => {
+        mock.onGet(`${config.API_URL}job-roles/report`).reply(200);
+    
+        try {
+            await getReportOfJobRoles();
+        } catch (e) {
+            expect(e.message).to.equal('Server Error');
+        }
+    })
+
+      it('should throw an error when the API returns a 500 status', async () => {
+          mock.onGet(`${config.API_URL}job-roles/report`).reply(500);
+      
+          try {
+              await getReportOfJobRoles();
+          } catch (e) {
+              expect(e.message).to.equal('Server Error');
+          }
+      })
+
+      it('should throw an error when the API returns a 404 status', async () => {
+          mock.onGet(`${config.API_URL}job-roles/report`).reply(404);
+      
+          try {
+              await getReportOfJobRoles();
+          } catch (e) {
+              expect(e.message).to.equal('No Job Roles found');
+          }
+      })
+
+      it('should throw an error when the request times out', async () => {
+          mock.onGet(`${config.API_URL}job-roles/report`).timeout();
+      
+          try {
+              await getReportOfJobRoles();
+          } catch (e) {
+              expect(e.message).to.equal('You have timed out');
+          }
+      })
+
+    })
+
 
 });
