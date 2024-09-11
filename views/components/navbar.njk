@@ -9,9 +9,13 @@
       {% if role != '0' %}
       <div class="navbar-nav">
         <a class="nav-item nav-link fw-medium" href="/job-roles">Job Roles</a>
+         {% if role == '1' %}
+          <a class="nav-item nav-link fw-medium" href="/upload-CSV">Import Job Roles</a>
+          {% endif %}
       </div>
       {% endif %}
     </div>
+    
     <div class="d-flex justify-content-center align-items-center">
     <div>
     <p class="fw-medium log-in-role-text">

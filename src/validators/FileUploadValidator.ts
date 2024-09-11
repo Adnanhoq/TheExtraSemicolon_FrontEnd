@@ -15,16 +15,11 @@ export const validateFileUpload = (file: Buffer): Promise<string[]> => {
     function isValidDate(dateString: string): boolean {
         const regex = /^\d{4}-\d{2}-\d{2}$/;
         if (!regex.test(dateString)) {
-          return false;
+            return false;
         }
         const date = new Date(dateString);
         return !isNaN(date.getTime());
-      }
-      
-    
-      
-
-
+    }
 
     return new Promise((resolve, reject) => {
         const headers = ["roleName", "description", "responsibilities", "linkToJobSpec", "capability", "band", "closingDate", "status", "positionsAvailable", "locations"];
@@ -62,13 +57,13 @@ export const validateFileUpload = (file: Buffer): Promise<string[]> => {
                     rowErrors.push(`Row ${rowCount}: 'band' is required`);
                 } else if (row.band && isNaN(parseInt(row.band))) {
                     rowErrors.push(`Row ${rowCount}: 'band' must be a number`);
-                } else if (row.band < 0 || row.band > 7 ){
+                } else if (row.band < 0 || row.band > 7) {
                     rowErrors.push(`Row ${rowCount}: 'band' number out of bounds`);
                 }
                 if (!row.closingDate) {
                     rowErrors.push(`Row ${rowCount}: 'closing date' is required`);
                 }
-                else if (!isValidDate(row.closingDate)){
+                else if (!isValidDate(row.closingDate)) {
                     rowErrors.push(`Row ${rowCount}: 'closing date' is an invalid date`);
                 }
 
