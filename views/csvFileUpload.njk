@@ -6,9 +6,6 @@
 
 {% block content %}
 
-    {% if errormessage %}
-            <h3 class="error-message">{{ errormessage }}</h3>
-    {% endif %}
 
 <form action="/upload-CSV" method="post" enctype="multipart/form-data">
         <h3><label for="file">
@@ -19,7 +16,10 @@
         
         <input type="submit">    
     </form>
-    
+    {% if errormessage %}
+            <p class="error-message">{{ errormessage }}</p>
+    {% endif %}
+
     {% if location %}
      <h3 class="success-message">File uploaded succesfully to: {{location}}</h3>
      {% endif %}

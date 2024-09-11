@@ -2,9 +2,6 @@ import { S3 } from 'aws-sdk';
 import express from "express";
 import { uploadToS3 } from '../services/FileUploadService'
 import config from "../config";
-import multer from 'multer';
-import { validateFileUpload } from '../validators/FileUploadValidator';
-import axios, { AxiosResponse } from 'axios';
 
 
 export const postCSVUpload = async (req: express.Request, res: express.Response) => {
@@ -19,33 +16,27 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
 
 
     if (!files || files.length === 0) {
-      console.log("No files uploaded");
       return res.status(400).send("No files uploaded");
-     
     } else {
       try {
         for (const file of files) {
-          try{
+          try {
             const location = await uploadToS3(s3, file);
             locations.push(location);
-            console.log("File uploaded succesfully to: ", location)       
           } catch (error) {
-            console.log("Upload failed:", error.message)
-            throw new Error
+            throw new Error(`Failed to upload file:${file.originalname} due to ${error.message}`);
           }
         }
-        console.log(locations);
-        res.render('uploadSuccess.njk',{locations: locations});
+        res.render('uploadSuccess.njk', { locations: locations });
 
       } catch (error) {
-        console.log(error);
-        res.render('/csvFileUpload.njk', {errormessage: error.message})
+        res.render('csvFileUpload.njk', { errormessage: error.message })
       }
     }
 
   } catch (e) {
-    console.log(e);
-    res.render('/upload');
+    res.locals.errormessage = (e as Error).message;
+    res.render('errorPage.njk', { error: e as Error, token: req.session.token });
   }
 }
 
