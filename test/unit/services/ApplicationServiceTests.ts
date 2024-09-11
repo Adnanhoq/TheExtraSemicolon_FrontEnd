@@ -147,19 +147,31 @@ describe('ApplicationService', function() {
                 s3Link: 'testlink',
               }
 
-            mock.onPost(URL).reply(201);
-
+            mock.onPost(URL+`/${application.roleId}`).reply(201, 'Created'); // How to mock CV upload?
 
             try {
                 await createApplication(application, token);
             } catch(e) {
-                console.log(e);
-                expect(e.status).to.equal(201);
+                assert.fail("Expected no error message");
+            }
+
+            
+        })
+
+        it('should return error of the response data when unsuccessful', async () => {
+            const token = '';
+            let application = { 
+                email: 'test', 
+                roleId: 0,
+                s3Link: 'testlink',
+              }
+            try {
+                await createApplication(application, token);
+            } catch(e) {
+                expect(e.status).to.equal(500);
                 return
             }
             assert.fail("Expected error message");
-
-            
         })
     })
 

@@ -1,8 +1,5 @@
 import { S3 } from "aws-sdk";
-import fs from "fs";
 import config from "../config";
-import multer from "multer";
-import aws from "aws-sdk";
 import axios, { AxiosResponse } from "axios";
 import { Application } from "../models/application";
 import { randomUUID } from "crypto";
@@ -86,6 +83,7 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
     try {
         validateApplicationObject(application);
         const response: AxiosResponse = await axios.post(config.API_URL+"apply", application, getHeader(token)); 
+        console.log(response.data)
         return response.data;
     } catch (e) {
         throw new Error(e.response.data);

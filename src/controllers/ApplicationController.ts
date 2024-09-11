@@ -34,7 +34,7 @@ import axios from "axios";
     } catch(e) {
       if (!(axios.isAxiosError(e) && e.response && e.response.status == 404))
       {
-        throw new Error(e.message);
+        throw new Error(e.message as string);
       }
 
     }
@@ -58,11 +58,11 @@ import axios from "axios";
         }
 
         const upload = multer({dest: 'uploads/'});
-        upload.single 
+        upload.single
         const uploadResult = await uploadToS3(s3, (req.file as Express.Multer.File));        
         if (uploadResult.success) {
 
-          let ApplicationReq = { 
+          const ApplicationReq = { 
             email: decodedToken.sub, 
             roleId: Number(req.params.id),
             s3Link: uploadResult.data,

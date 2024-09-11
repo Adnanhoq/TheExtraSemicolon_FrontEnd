@@ -2,11 +2,6 @@ import express from "express";
 import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
-import multer from "multer";
-
-import { getAllDatabases } from "./controllers/TestController";
-import { postUpload } from "./controllers/ApplicationController";
-import { multerConfig } from "./multerConfig";
 import { dateFilter } from "./filters/DateFilter";
 import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter"; 
 import { userRouter } from "./routes/UserRouter";
