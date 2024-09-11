@@ -4,5 +4,6 @@ export enum UserRole {
 }
 
 export interface JwtToken {
-    Role: UserRole
+    Role: UserRole,
+    sub: string;
 }

@@ -1,4 +1,4 @@
 export interface ProfileRequest {
     email: string,
-    image: string
+    profilePicture: string
 }

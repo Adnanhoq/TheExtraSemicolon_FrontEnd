@@ -6,6 +6,8 @@
 
     {% block scripts %}
     <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+    <script src="scripts/imagetracer_v1.2.6.js"></script>
+    <script src="scripts/imageScaling.js"></script>
     {% endblock %}
 
 {% block content %}
@@ -15,7 +17,7 @@
         <h2>Accept your new profile picture?</h2>
      <svg id="thumbnail" class="rounded-circle" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="500" height="500"></svg>
     <form action="/profile" method="post">
-    <input type="hidden" name="profile" id="profile"/>
+    <input type="hidden" name="profilePicture" id="profilePicture"/>
     <div class="mt-4">
     <button class="btn btn-danger" type="button" id="cancel">Cancel</button>
     <button class="btn btn-success" type="submit">Accept</button>
@@ -43,6 +45,7 @@ const dialog = document.getElementById("dialog");
 const snapSoundElement = document.getElementById('snapSound');
 const webcam = new Webcam(webcamElement, 'user', canvasElement, snapSoundElement);
 const cancelButton = document.getElementById('cancel');
+const profile = document.getElementById('profilePicture');
 
 webcam.start()
    .then(result =>{
@@ -54,22 +57,44 @@ webcam.start()
 
 document.getElementById('takePicture').addEventListener('click', takePicture);
 
-function takePicture() {
+async function takePicture() {
     var image = webcam.snap();
     console.log(image);
-    var svgimg = document.createElementNS("http://www.w3.org/2000/svg", "image");
-    svgimg.setAttributeNS("http://www.w3.org/1999/xlink", 'xlink:href', image);
 
-    document.getElementById("thumbnail").appendChild(svgimg);
-    //document.getElementById("profile").appendChild(svgimg);
+    var scaledImg = await resizedataURL(image, 100, 100);
+    console.log(scaledImg);
+    var thumbnail = document.getElementById('thumbnail');
+    let child = thumbnail.lastElementChild;
+    while (child) {
+        thumbnail.removeChild(child);
+        child = thumbnail.lastElementChild;
+    }
+
+    ImageTracer.imageToSVG(
+        image,
+        function(svgstr) {
+            ImageTracer.appendSVGString(svgstr, 'thumbnail');
+        },
+        'Original'
+    );
+
+    ImageTracer.imageToSVG(
+        scaledImg,
+        function(svgstr) {
+            profile.value = svgstr;
+            console.log(profile.value);
+        },
+        'Original'
+
+    )
+
     dialog.showModal();
 }
 
 
+
 document.getElementById('cancel').addEventListener('click',
 () => dialog.close());
-
-
 
 webcam.stop();
 
