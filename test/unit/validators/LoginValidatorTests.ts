@@ -33,7 +33,7 @@ describe('LoginValidator', function () {
                 try {
                     validateLogin(email, "admin");
                 } catch (e) {
-                    expect(e.message).to.equal(expectedError);
+                    expect((e as Error).message).to.equal(expectedError);
                     return;
                 }
                 assert.fail("Expected error message");
@@ -44,7 +44,7 @@ describe('LoginValidator', function () {
                 try {
                     validateLogin("admin@kainos.com", password);
                 } catch (e) {
-                    expect(e.message).to.equal(expectedError);
+                    expect((e as Error).message).to.equal(expectedError);
                     return;
                 }
                 assert.fail("Expected error message");
