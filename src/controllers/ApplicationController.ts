@@ -15,14 +15,16 @@ import axios from "axios";
   export const initBucket = async (s3: S3) => {
   const bucketStatus = await checkBucket(s3, config.BUCKET_NAME);
 
-  if( !bucketStatus.success ) { // Check the bucket's existance
-    console.log("Bucket does not exist");
-    }
+    if( !bucketStatus.success ) { // Check the bucket's existance
+      return {success : false, message: "Bucket does not exist"}
+      }
+      else {
+        return {success: true, message: "Bucket exists" }
+      }
 }
 
   export const getUploadForm = async (req: express.Request, res: express.Response) => {
     res.render('apply.njk', {id: req.params.id, token: req.session.token});
-    console.log(req);
   }
 
   export const checkApplicationDoesNotExist = async (id: number, email: string, token: string) => {
