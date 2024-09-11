@@ -3,7 +3,8 @@
         "chromeLaunchConfig": {
             "ignoreHTTPSErrors": true,
             "args": ["--disable-dev-shm-usage", "--no-sandbox"]
-    }
+    },
+    "useIncognitoBrowserContext": false
 },
     "urls": [
         {
