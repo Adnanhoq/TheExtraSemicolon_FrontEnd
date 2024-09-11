@@ -22,7 +22,7 @@ export const getSingleJobRole = async (req: express.Request, res: express.Respon
     try {
         const jobRole = await getJobRoleById(req.params.id, req.session.token ?? '');
         
-        const jobResponsibilitiesSplit = jobRole.responsibilities.split("•").filter(responsibility => responsibility.trim() !== '');
+        const jobResponsibilitiesSplit = jobRole.responsibilities.split("*").filter(responsibility => responsibility.trim() !== '');
         
         res.render('jobRoleDetail.njk', { jobRole: jobRole, responsibilities: jobResponsibilitiesSplit, token: req.session.token });
     } catch (e) {
