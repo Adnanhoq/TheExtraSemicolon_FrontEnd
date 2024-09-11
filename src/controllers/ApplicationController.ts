@@ -73,9 +73,7 @@ import axios from "axios";
 
           console.log(uploadResult.message);
           res.render('apply-success.njk');
-        } else {
-          console.log(uploadResult.message)
-        }       
+        }
       } catch (e){
         console.log(e);
         res.locals.errormessage = e.message;

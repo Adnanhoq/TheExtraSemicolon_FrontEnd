@@ -1,5 +1,5 @@
 import { createRequest, createResponse } from 'node-mocks-http';
-import { initBucket } from "../../../src/controllers/ApplicationController"
+import { getUploadForm, initBucket } from "../../../src/controllers/ApplicationController"
 import { expect } from 'chai';
 
 describe('Application Controller', function() {
@@ -24,17 +24,17 @@ describe('Application Controller', function() {
         })
 
     }),
-    describe('getUploadForm', function() {
-        const httpMocks = require('node-mocks-http');
-        const request = httpMocks.createRequest({
-            method: 'GET',
-            url: '/apply.njk',
-            params: {
-                id: 42
-            }
-        });
+    // describe('getUploadForm', function() {
+    //     it('should return no error', async () => {
+    //         try {
+    //             await getUploadForm(placegolder);
+    //         } catch (e) {
+    //             assert.fail("Expected no error message")
+    //         }
+
+
+    //     })
     
-        const response = httpMocks.createResponse();
 
     })
 
