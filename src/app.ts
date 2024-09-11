@@ -43,7 +43,6 @@ app.use((req, res, next) => {
       req.session.theme = process.env.THEME ?? 'default';
   }  
   res.locals.theme = req.session.theme;
-  console.log(res.locals.theme);
   next();
 });
 
