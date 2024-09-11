@@ -2,7 +2,10 @@ import express from "express";
 import nunjucks from "nunjucks";
 import bodyParser from "body-parser";
 import session from "express-session";
-import { getAllDatabases } from "./controllers/TestController";
+import { dateFilter } from "./filters/DateFilter";
+import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter";
+import { userRouter } from "./routes/UserRouter";
+import { setRoleInLocals } from "./middleware/SetLocalRoleMiddleware";
 
 import { multerConfig} from "./multerConfig";
 import multer from "multer";
@@ -11,10 +14,12 @@ import { postCSVUpload } from "./controllers/FileUploadController";
 const app = express();
 const upload = multer(multerConfig);
 
-nunjucks.configure('views', {
+const env = nunjucks.configure('views', {
     autoescape: true,
     express: app
 });
+
+env.addFilter('date', dateFilter);
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -26,7 +31,7 @@ app.use(express.static("views"));
 // Specifying folder from where to fetch images
 app.use('/assets', express.static('./assets')); 
 
-app.use(session({ secret: 'SUPER_SECRET', cookie: { maxAge: 28800000 }}));
+app.use(session({ name:'kainos-job-roles', secret: 'SUPER_SECRET', cookie: { maxAge: 28800000 }}));
 
 declare module "express-session" {
   interface SessionData {
@@ -38,12 +43,10 @@ app.listen(3000, () => {
     console.log('Server started on port 3000');
 });
 
-app.get('/', (req: express.Request, res: express.Response) =>  {
-  res.render('index.njk');
-});
+app.use(setRoleInLocals);
+app.use('/', userRouter);
+app.use('/', unauthenticatedRouter);
 
-
-app.get('/test', (() => getAllDatabases));
 app.post('/uploadCSV',upload.array('files'), postCSVUpload);
 app.get('/uploadCSV', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('csvFileUpload.html');
@@ -51,3 +54,4 @@ app.get('/uploadCSV', async (req: express.Request, res: express.Response): Promi
 app.get('/upload-success', async (req: express.Request, res: express.Response): Promise<void> => {
   res.render('upload-success.html');
 });
+

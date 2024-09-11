@@ -32,5 +32,26 @@
 3. To run the accessibility tests, run `pa11y-ci`
 These tests should all pass
 
+## Run Performance Testing for Job Roles Page (Ensure backend and frontend are both running)
+1. Download and install JMeter at this link [text](https://jmeter.apache.org/download_jmeter.cgi)
+2. Click and drag all files in the performanceTesting file in the project directory to your desktop.
+3. Open JMeter, navigate to File -> Open, then open the LocalTest.jmx file.
+4. Run the test by clicking the green play button at the top of the page.
+5. Click save table data on both 'Summary Report' and 'Aggregate Report', and name the files appropriately.
+6. Open the Excel spreadsheet that was part of the performanceTesting file, and open the 'Summary Report' file you saved in step 5. 
+7. Remove all rows that do not say 'log in and navigate'.
+8. Remove the last 3 columns. 
+9. Copy and Paste remaining information into the relevant boxes in the table on the right of the Excel file.
+10. Open the 'Aggregate Report' and repeat step 8 here.
+11. Copy and Paste '95% Line' and '99% Line'into the relevant boxes in the table on the right of the Excel file.
+12. The cells in the table should go red or green depending on how they compare to the performance test baseline.
+
 ## Link to the AWS 
 To see the frontend on cloud, go to: https://fqq3vg4qpt.eu-west-1.awsapprunner.com
+
+## User Credentials
+
+| Email | Password | Role |
+| ----- | -------- | ---- |
+| admin@kainos.com | admin | admin |
+| user@kainos.com | user | user
