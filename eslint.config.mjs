@@ -12,6 +12,6 @@ export default tseslint.config(
     }
   },
   {
-    ignores: ["dist/", "node_modules/", "eslint.config.mjs", "test/", ".github/CODEOWNERS"]
+    ignores: ["dist/", "node_modules/", "eslint.config.mjs", "test/", ".github/CODEOWNERS", "src/scripts"]
   }
 );

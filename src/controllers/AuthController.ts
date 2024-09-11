@@ -13,9 +13,7 @@ export const postLoginForm = async (req: express.Request, res: express.Response)
         req.session.token = await getToken(req.body as LoginRequest);
         const profile: ProfileResponse = await getProfilePicture(req.session.token);
         if(profile.profilePicture) {
-            //req.session.profilePicture = JSDOM.fragment(profile.profilePicture);
             req.session.profilePicture = profile.profilePicture;
-            //req.session.profilePicture = new window.DOMParser().parseFromString(profile.profilePicture, 'text/html');
         }
         
         res.redirect('/');
