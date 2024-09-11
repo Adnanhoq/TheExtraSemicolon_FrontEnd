@@ -12,10 +12,18 @@
             "actions": [
                 "set field #email to admin@kainos.com",
                 "set field #password to admin",
+<<<<<<< HEAD
                 "click element #login"            ]
+=======
+                "click element #login",
+                "wait for path to be /"
+            ]
+>>>>>>> main
         },
         "http://localhost:3000/login",
         "http://localhost:3000/job-roles",
         "http://localhost:3000/job-roles/2"
     ]
 }
+ 
+ 
