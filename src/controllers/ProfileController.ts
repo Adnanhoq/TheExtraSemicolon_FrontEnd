@@ -20,6 +20,10 @@ export const putProfilePicture = async (req: express.Request, res: express.Respo
     const profileUpdate: ProfileResponse = await getProfilePicture(req.session.token ?? '');
 
     if (profileUpdate.profilePicture) {
+        var scriptRegex = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+        while (scriptRegex.test(profileUpdate.profilePicture)) {
+            profileUpdate.profilePicture = profileUpdate.profilePicture.replace(scriptRegex, "");
+        }
         req.session.profilePicture = profileUpdate.profilePicture;
     }
     res.redirect('/profile');
