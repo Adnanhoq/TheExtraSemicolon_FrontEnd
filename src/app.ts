@@ -56,10 +56,9 @@ app.use('/', userRouter);
 
 app.use('/', unauthenticatedRouter);
 
-// Changing the on any page
+// Changing theme
 app.use("/theme/:theme", (req, res) => {
   req.session.theme = req.params.theme;
-  console.log(req.session.theme);
   
   res.redirect('back');
 })
