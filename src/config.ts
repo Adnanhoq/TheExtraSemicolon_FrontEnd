@@ -1,8 +1,11 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 export type Config = {
     API_URL: string | undefined,
     AWS_ACCESS_KEY_ID: string | undefined,
     AWS_SECRET_ACCESS_KEY: string | undefined,
-    BUCKET_NAME: string | undefined
+    BUCKET_NAME: string| undefined,
     FOLDER: string | undefined
    }
    

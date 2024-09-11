@@ -10,6 +10,11 @@ import { setRoleInLocals } from "./middleware/SetLocalRoleMiddleware";
 import { multerConfig} from "./multerConfig";
 import multer from "multer";
 import { postCSVUpload } from "./controllers/FileUploadController";
+import { adminRouter } from "./routes/AdminRouter";
+
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 const app = express();
 const upload = multer(multerConfig);
@@ -46,12 +51,6 @@ app.listen(3000, () => {
 app.use(setRoleInLocals);
 app.use('/', userRouter);
 app.use('/', unauthenticatedRouter);
+app.use('/', adminRouter);
 
-app.post('/uploadCSV',upload.array('files'), postCSVUpload);
-app.get('/uploadCSV', async (req: express.Request, res: express.Response): Promise<void> => {
-  res.render('csvFileUpload.html');
-});
-app.get('/upload-success', async (req: express.Request, res: express.Response): Promise<void> => {
-  res.render('upload-success.html');
-});
 

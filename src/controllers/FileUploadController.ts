@@ -9,7 +9,7 @@ import axios, { AxiosResponse } from 'axios';
 
 export const postCSVUpload = async (req: express.Request, res: express.Response) => {
   const files = req.files as Express.Multer.File[];
-
+  const locations: string[] = [];
   try {
 
     const s3 = new S3({
@@ -27,32 +27,19 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
         for (const file of files) {
           try{
             const location = await uploadToS3(s3, file);
-          console.log("File uploaded succesfully to: ", location)
-          res.render("/upload-success")
+            locations.push(location);
+            console.log("File uploaded succesfully to: ", location)       
           } catch (error) {
             console.log("Upload failed:", error.message)
-            res.render('/upload')
+            throw new Error
           }
         }
-      // try {
-      //   for (const file of files) {
+        console.log(locations);
+        res.render('uploadSuccess.njk',{locations: locations});
 
-      //     const uploadRes = await uploadToS3(s3, file);
-
-      //     if (uploadRes.success) {
-      //       res.render("/upload-success")
-      //       console.log(uploadRes.message);
-            
-      //     } else {
-      //       console.log(uploadRes.message)
-      //       res.render('/upload')
-      //     }
-
-      //   }
-
-      } catch (validationErrors) {
-        console.log("Validation failed:", validationErrors);
-        return res.status(400).json({ success: false, message: "Validation failed.", errors: validationErrors });
+      } catch (error) {
+        console.log(error);
+        res.render('/csvFileUpload.njk', {errormessage: error.message})
       }
     }
 
