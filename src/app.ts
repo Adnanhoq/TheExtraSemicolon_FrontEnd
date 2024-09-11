@@ -32,6 +32,7 @@ app.use(session({ name:'kainos-job-roles', secret: 'SUPER_SECRET', cookie: { max
 declare module "express-session" {
   interface SessionData {
     token: string;
+    profilePicture: string;
   }
 }
 

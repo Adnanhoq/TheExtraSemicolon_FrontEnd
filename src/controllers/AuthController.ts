@@ -1,6 +1,8 @@
 import express from "express";
 import { getToken } from "../services/AuthService";
 import { LoginRequest } from "../models/LoginRequest";
+import { ProfileResponse } from "../models/ProfileResponse";
+import { getProfilePicture } from "../services/ProfileService";
 
 export const getLoginForm = (req: express.Request, res: express.Response) => {
     res.render('loginForm.njk', { token: req.session.token});
@@ -9,6 +11,13 @@ export const getLoginForm = (req: express.Request, res: express.Response) => {
 export const postLoginForm = async (req: express.Request, res: express.Response): Promise<void> => {
     try {
         req.session.token = await getToken(req.body as LoginRequest);
+        const profile: ProfileResponse = await getProfilePicture(req.session.token);
+        if(profile.profilePicture) {
+            //req.session.profilePicture = JSDOM.fragment(profile.profilePicture);
+            req.session.profilePicture = profile.profilePicture;
+            //req.session.profilePicture = new window.DOMParser().parseFromString(profile.profilePicture, 'text/html');
+        }
+        
         res.redirect('/');
     } catch (e) {
         res.locals.errormessage = (e as Error).message;
