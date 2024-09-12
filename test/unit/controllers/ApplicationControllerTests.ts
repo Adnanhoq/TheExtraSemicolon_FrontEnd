@@ -105,17 +105,40 @@ describe('ApplicationController', function() {
             sinon.stub(JWTDecode, 'jwtDecode').returns({sub: 'test@kainos.com'});
             sinon.stub(ApplicationController, 'checkApplicationExists').resolves(true);
 
-            try {
-                await ApplicationController.postUpload(req as any, res as any);
-            } catch (e) {
-                expect(e.message).to.equal('Application Exists');
-                return;
-            }
-            assert.fail('Expected error message');
+            await ApplicationController.postUpload(req as any, res as any);
+
+            expect(res.render.calledOnce).to.be.true;
+            expect(res.render.calledWith('apply.njk')).to.be.true;
         }),
+        it("should throw a error if the bucket is undefined", async () => {
+            const req = { session: {token: 'test'}, params: {id: 1}, file: ''};
+            const res = { render: sinon.spy(), locals: {role: 0}};
 
-        it("should log an error if uploadResult is not a success", async () => {
+            sinon.stub(JWTDecode, 'jwtDecode').returns({sub: 'test@kainos.com'});
+            sinon.stub(ApplicationController, 'checkApplicationExists').resolves(false);
+            sinon.stub(ApplicationController, 'initBucket').throws(new Error('Error'));
 
+            await ApplicationController.postUpload(req as any, res as any);
+            expect(res.render.calledOnce).to.be.true;
+            expect(res.render.calledWith('apply.njk')).to.be.true;
+        }),
+        it("should render apply-success when successful application", async () => {
+            const req = { session: {token: 'test'}, params: {id: 1}, file: ''};
+            const res = { render: sinon.spy(), locals: {role: 0}};
+ 
+            sinon.stub(JWTDecode, 'jwtDecode').returns({sub: 'test@kainos.com'});
+ 
+            sinon.stub(ApplicationController, 'checkApplicationExists').resolves(false);
+            sinon.stub(ApplicationController, 'initBucket').resolves();
+ 
+            sinon.stub(ApplicationService, 'uploadToS3').resolves({success: true, data: '', message: ''});
+            sinon.stub(ApplicationService, 'createApplication').resolves();
+ 
+            await ApplicationController.postUpload(req as any, res as any);
+ 
+            expect(res.render.calledOnce).to.be.true;
+            expect(res.render.calledWith('apply-success.njk')).to.be.true;
+ 
         })
 
     });
