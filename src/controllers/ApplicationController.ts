@@ -27,18 +27,18 @@ import axios from "axios";
     res.render('apply.njk', {id: req.params.id});
   }
 
-  export const checkApplicationDoesNotExist = async (id: number, email: string, token: string) => {
+  export const checkApplicationExists = async (id: number, email: string, token: string) => {
     // This checks to see if an application for this role from this email exists
     // If this doesn't return a 404 error, an error is thrown
     try {
       await getApplicationById(id, email, token);
-      throw new Error('Application Exists');
+      return true;
     } catch(e) {
-      if (!(axios.isAxiosError(e) && e.response && e.response.status == 404))
+      if (axios.isAxiosError(e) && e.response && e.response.status == 404)
       {
-        throw new Error(e.message as string);
+        return false;
       }
-
+      throw new Error(e.message);
     }
   }
 
@@ -50,7 +50,10 @@ import axios from "axios";
 
       try{
         const decodedToken: JwtToken = jwtDecode(req.session.token ?? '');
-        await checkApplicationDoesNotExist(Number(req.params.id),decodedToken.sub, req.session.token ?? '');
+        const applicationExists = await checkApplicationExists(Number(req.params.id),decodedToken.sub, req.session.token ?? '');
+        if (applicationExists) {
+          throw new Error('Application Exists');
+        }
         const s3 = new S3({
           accessKeyId: config.AWS_ACCESS_KEY_ID,
           secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
