@@ -18,4 +18,4 @@ function resizedataURL(datas, wantedWidth, wantedHeight){
         img.src = datas;
 
     })
-}// 
+}
