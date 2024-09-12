@@ -5,12 +5,6 @@ import { getSingleJobRole, getAllJobRoles } from "../controllers/JobRoleControll
 import { allowRoles } from "../middleware/AuthMiddleware";
 import { UserRole } from "../models/JwtToken";
 
-import { multerConfig} from "../multerConfig";
-import multer from "multer";
-import { postCSVUpload } from "../controllers/FileUploadController";
-
-const upload = multer(multerConfig);
-
 export const userRouter = express.Router();
 
 userRouter.get('/job-roles/:id', allowRoles([UserRole.Admin, UserRole.User]), getSingleJobRole);

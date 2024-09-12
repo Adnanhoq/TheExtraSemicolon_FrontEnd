@@ -1,4 +1,3 @@
-import fs from 'fs';
 import { parse } from 'csv-parse';
 
 import { Writable } from 'stream';
@@ -6,6 +5,7 @@ import { Capability } from '../enums/Capability';
 import { Location } from '../enums/Location';
 
 export const validateFileUpload = (file: Buffer): Promise<string[]> => {
+
     function isCapability(value: string): value is Capability {
         return Object.values(Capability).includes(value as Capability);
     }
@@ -13,12 +13,10 @@ export const validateFileUpload = (file: Buffer): Promise<string[]> => {
         return Object.values(Location).includes(value as Location);
     }
     function isValidDate(dateString: string): boolean {
-        const regex = /^\d{4}-\d{2}-\d{2}$/;
-        if (!regex.test(dateString)) {
-            return false;
-        }
-        const date = new Date(dateString);
-        return !isNaN(date.getTime());
+
+        const regex = /^\d{2}\/\d{2}\/\d{4}$/;
+        return !regex.test(dateString);
+
     }
 
     return new Promise((resolve, reject) => {
@@ -43,6 +41,7 @@ export const validateFileUpload = (file: Buffer): Promise<string[]> => {
 
                 if (!row.roleName) rowErrors.push(`Row ${rowCount}: 'roleName' is required`);
                 if (!row.description) rowErrors.push(`Row ${rowCount}: 'description' is required`);
+
                 if (!row.responsibilities) rowErrors.push(`Row ${rowCount}: 'responsibilities' is required`);
                 if (!row.linkToJobSpec) {
                     rowErrors.push(`Row ${rowCount}: 'link to job role' is required`)

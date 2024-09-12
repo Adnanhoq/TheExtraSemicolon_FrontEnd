@@ -6,10 +6,6 @@ import { dateFilter } from "./filters/DateFilter";
 import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter";
 import { userRouter } from "./routes/UserRouter";
 import { setRoleInLocals } from "./middleware/SetLocalRoleMiddleware";
-
-import { multerConfig} from "./multerConfig";
-import multer from "multer";
-import { postCSVUpload } from "./controllers/FileUploadController";
 import { adminRouter } from "./routes/AdminRouter";
 
 import dotenv from 'dotenv';
@@ -17,7 +13,6 @@ dotenv.config();
 
 
 const app = express();
-const upload = multer(multerConfig);
 
 const env = nunjucks.configure('views', {
     autoescape: true,

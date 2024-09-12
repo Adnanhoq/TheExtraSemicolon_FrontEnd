@@ -12,8 +12,13 @@ const upload = multer(multerConfig);
 export const adminRouter = express.Router();
 
 
-adminRouter.get('/upload-CSV', allowRoles([UserRole.Admin]),async (req: express.Request, res: express.Response): Promise<void> => {
+adminRouter.get('/upload-CSV', allowRoles([UserRole.Admin]), (req: express.Request, res: express.Response): void => {
     res.render('csvFileUpload.njk');
  });
 
-adminRouter.post('/upload-CSV', allowRoles([UserRole.Admin]), upload.array('files'), postCSVUpload);
+adminRouter.post('/upload-CSV', allowRoles([UserRole.Admin]), upload.array('files'),  (req: express.Request, res: express.Response): void => {
+    postCSVUpload(req, res).then(() => {
+    }).catch((error) => {
+        res.status(500).send(error.message);
+    });
+ });

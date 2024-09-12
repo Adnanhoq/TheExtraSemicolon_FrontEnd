@@ -24,13 +24,15 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
             const location = await uploadToS3(s3, file);
             locations.push(location);
           } catch (error) {
-            throw new Error(`Failed to upload file:${file.originalname} due to ${error.message}`);
+            const typedError = error as {message: string, originalname?: string }
+            throw new Error(`Failed to upload file:${file.originalname} due to ${typedError.message}`);
           }
         }
         res.render('uploadSuccess.njk', { locations: locations });
 
       } catch (error) {
-        res.render('csvFileUpload.njk', { errormessage: error.message })
+        const typedError = error as { message: string };
+        res.render('csvFileUpload.njk', { errormessage: typedError.message });
       }
     }
 
