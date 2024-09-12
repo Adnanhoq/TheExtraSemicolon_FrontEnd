@@ -2,7 +2,7 @@ import axios from "axios";
 import sinon from 'sinon';
 import { assert, expect } from 'chai';
 import MockAdapter from "axios-mock-adapter";
-import { checkBucket, createApplication, getApplicationById, uploadToS3 } from "../../../src/services/ApplicationService";
+import { checkBucketExists, createApplication, getApplicationById, uploadToS3 } from "../../../src/services/ApplicationService";
 import { S3 } from "aws-sdk";
 import * as Crypto from "crypto";
 import { config } from "../../../src/config";
@@ -22,27 +22,24 @@ describe('ApplicationService', function() {
             const s3 = undefined;
             const bucket = undefined;
 
-            const res = await checkBucket(s3 as any, bucket);
+            const res = await checkBucketExists(s3 as any, bucket);
 
-            expect(res.success).to.be.false;
-            expect(res.message).to.equal("Error, bucket is undefined");
+            expect(res).to.be.false;
         }),
         it('should return true if bucket already exists', async () => {
             const s3 = {headBucket : sinon.stub().returns({promise: sinon.spy()})};
             const bucket = '';
             
-            const res = await checkBucket(s3 as any, bucket as any);
-            expect(res.success).to.be.true;
-            expect(res.message).to.equal("Bucket already exists");
+            const res = await checkBucketExists(s3 as any, bucket as any);
+            expect(res).to.be.true;
         }),
         it('should return false success if bucket does not exist', async () => {
             const s3 = {headBucket : sinon.spy()}
             const bucket = '';
 
-            const res = await checkBucket(s3 as any, bucket as any);
+            const res = await checkBucketExists(s3 as any, bucket as any);
 
-            expect(res.success).to.be.false;
-            expect(res.message).to.equal("Error! Bucket does not exist");
+            expect(res).to.be.false;
         });        
     }),
     describe('uploadToS3', function() {
@@ -52,7 +49,7 @@ describe('ApplicationService', function() {
 
             const res = await uploadToS3(s3 as any, fileData as any);
             expect(res.success).to.be.false;
-            expect(res.message).to.equal("Unable to access this file");
+            expect(res.message).to.equal("Unable to Upload the file");
 
         }),
         it('should return with successful response when S3 and FileData configured', async () => {
@@ -87,7 +84,7 @@ describe('ApplicationService', function() {
 
             const res = await uploadToS3(s3 as any, fileData as any);
             expect(res.success).to.be.false;
-            expect(res.message).to.equal("Error, bucket is undefined");
+            expect(res.message).to.equal("Unable to Upload the file");
         })
     }),
     describe('getApplicationById', function() {
@@ -147,28 +144,27 @@ describe('ApplicationService', function() {
                 s3Link: 'testlink',
               }
 
-            mock.onPost(URL+`/${application.roleId}`).reply(201, 'Created'); // How to mock CV upload?
+            mock.onPost(URL).reply(201, {});
 
             try {
                 await createApplication(application, token);
             } catch(e) {
                 assert.fail("Expected no error message");
-            }
-
-            
+            }            
         })
 
         it('should return error of the response data when unsuccessful', async () => {
             const token = '';
             let application = { 
                 email: 'test', 
-                roleId: 0,
+                roleId: 1,
                 s3Link: 'testlink',
-              }
+            }
+            mock.onPost(URL).reply(500, "Failed");
             try {
                 await createApplication(application, token);
             } catch(e) {
-                expect(e.status).to.equal(500);
+                expect(e.message).to.equal("Failed");
                 return
             }
             assert.fail("Expected error message");

@@ -73,7 +73,8 @@ export const checkBucketExists = async (s3: S3, bucket:string | undefined) => { 
         const response: AxiosResponse = await axios.post(config.API_URL+"apply", application, getHeader(token)); 
         return response.data;
     } catch (e) {
-        throw new Error(e.response.data);
+      console.log(e);
+      throw new Error(e.response.data);
     }
 
     

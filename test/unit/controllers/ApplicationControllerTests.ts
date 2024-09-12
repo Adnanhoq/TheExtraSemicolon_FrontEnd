@@ -2,6 +2,13 @@ import { createRequest, createResponse } from 'node-mocks-http';
 import { getUploadForm, initBucket } from "../../../src/controllers/ApplicationController"
 import { expect } from 'chai';
 
+declare module "express-session" {
+    interface SessionData {
+      token: string;
+    }
+  }
+
+
 describe('Application Controller', function() {
     describe('initBucket', function() {
         
@@ -22,8 +29,7 @@ describe('Application Controller', function() {
             expect(res.success).to.be.false;
             expect(res.message).to.equal("Bucket does not exist");
         })
-
-    }),
+    })
     // describe('getUploadForm', function() {
     //     it('should return no error', async () => {
     //         try {
@@ -34,8 +40,5 @@ describe('Application Controller', function() {
 
 
     //     })
-    
-
-    })
 
 })

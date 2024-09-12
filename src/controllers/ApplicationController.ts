@@ -1,6 +1,6 @@
 import { S3 } from 'aws-sdk';
 import express from "express";
-import {checkBucket, createApplication, getApplicationById, uploadToS3 } from '../services/ApplicationService'
+import {checkBucketExists, createApplication, getApplicationById, uploadToS3 } from '../services/ApplicationService'
 import config from "../config";
 import  multer from 'multer';
 import { JwtToken } from '../models/JwtToken';
@@ -13,7 +13,7 @@ import axios from "axios";
 - @returns {void}
 */
   export const initBucket = async (s3: S3) => {
-  const bucketStatus = await checkBucket(s3, config.BUCKET_NAME);
+  const bucketStatus = await checkBucketExists(s3, config.BUCKET_NAME);
 
     if( !bucketStatus ) { // Check the bucket's existance
       return {success : false, message: "Bucket does not exist"}
