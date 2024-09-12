@@ -240,7 +240,7 @@ describe('JobRoleService', function () {
         try {
           await getJobRoleById('5', token);
         } catch (e) {
-          expect((e as Error).message).to.equal('Failed to get Job Role');
+          expect(e.message).to.equal('Failed to get Job Role');
           return;
         }
       })
@@ -252,7 +252,7 @@ describe('JobRoleService', function () {
         try {
           await getJobRoleById('555555', token);
         } catch (e) {
-          expect((e as Error).message).to.equal('Failed to get Job Role');
+          expect(e.message).to.equal('Failed to get Job Role');
           return;
         }
       })

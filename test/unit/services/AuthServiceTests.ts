@@ -49,7 +49,7 @@ describe('AuthService', function () {
                 try {
                     await getToken(loginRequest);
                 } catch (e) {
-                    expect((e as Error).message).to.equal(expectedError);
+                    expect(e.message).to.equal(expectedError);
                     return;
                 }
                 assert.fail("Expected error message");
@@ -65,7 +65,7 @@ describe('AuthService', function () {
                 try {
                     await getToken(loginRequest);
                 } catch (e) {
-                    expect((e as Error).message).to.equal(expectedError);
+                    expect(e.message).to.equal(expectedError);
                     return;
                 }
                 assert.fail("Expected error message");
@@ -83,7 +83,7 @@ describe('AuthService', function () {
                 await getToken(loginRequest);
 
             } catch (e) {
-                expect((e as Error).message).to.equal("Invalid Data Format");
+                expect(e.message).to.equal("Invalid Data Format");
                 return;
             }
             assert.fail("Expected error message");
@@ -102,7 +102,7 @@ describe('AuthService', function () {
                 await getToken(loginRequest);
 
             } catch (e) {
-                expect((e as Error).message).to.equal("Something went wrong during log in");
+                expect(e.message).to.equal("Something went wrong during log in");
                 return;
             }
             assert.fail("Expected error message");
@@ -120,7 +120,7 @@ describe('AuthService', function () {
                 await getToken(loginRequest);
 
             } catch (e) {
-                expect((e as Error).message).to.equal("Something went wrong during log in");
+                expect(e.message).to.equal("Something went wrong during log in");
                 return;
             }
             assert.fail("Expected error message");
