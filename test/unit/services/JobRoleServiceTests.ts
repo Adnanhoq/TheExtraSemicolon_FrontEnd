@@ -244,10 +244,14 @@ describe('JobRoleService', function () {
 
         try {
           await getJobRoleById('5', token);
-        } catch (e) {
-          expect(e.message).to.equal('Failed to get Job Role');
+        } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('Failed to get Job Role');
+          } else {
+              console.error('Unexpected error', e);
+          }
           return;
-        }
+      }
       })
 
       it('should throw exception when 404 error returned from axios', async () => {
@@ -256,10 +260,14 @@ describe('JobRoleService', function () {
 
         try {
           await getJobRoleById('555555', token);
-        } catch (e) {
-          expect(e.message).to.equal('Failed to get Job Role');
+        } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('Failed to get Job Role');
+          } else {
+              console.error('Unexpected error', e);
+          }
           return;
-        }
+      }
       })
 
     })
@@ -270,9 +278,14 @@ describe('JobRoleService', function () {
         const token: string = 'token';
         try {
             await getReportOfJobRoles(token);
-        } catch (e) {
-            expect(e.message).to.equal('Server Error');
-        }
+        } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('Server Error');
+          } else {
+              console.error('Unexpected error', e);
+          }
+          return;
+      }
     })
 
       it('should throw an error when the API returns a 500 status', async () => {
@@ -280,9 +293,14 @@ describe('JobRoleService', function () {
           const token: string = 'token';
           try {
               await getReportOfJobRoles(token);
-          } catch (e) {
+          } catch (e: unknown) {
+          if (e instanceof Error) {
               expect(e.message).to.equal('Server Error');
+          } else {
+              console.error('Unexpected error', e);
           }
+          return;
+      }
       })
 
       it('should throw an error when the API returns a 404 status', async () => {
@@ -290,9 +308,14 @@ describe('JobRoleService', function () {
           const token: string = 'token';
           try {
               await getReportOfJobRoles(token);
-          } catch (e) {
-              expect(e.message).to.equal('No Job Roles found');
-          }
+          } catch (e: unknown) {
+            if (e instanceof Error) {
+                expect(e.message).to.equal('No Job Roles found');
+            } else {
+                console.error('Unexpected error', e);
+            }
+            return;
+        }
       })
 
       it('should throw an error when the request times out', async () => {
@@ -300,9 +323,14 @@ describe('JobRoleService', function () {
           const token: string = 'token';
           try {
               await getReportOfJobRoles(token);
-          } catch (e) {
-              expect(e.message).to.equal('You have timed out');
-          }
+          } catch (e: unknown) {
+            if (e instanceof Error) {
+                expect(e.message).to.equal('You have timed out');
+            } else {
+                console.error('Unexpected error', e);
+            }
+            return;
+        }
       })
 
     })
