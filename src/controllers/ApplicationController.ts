@@ -24,7 +24,7 @@ import axios from "axios";
 }
 
   export const getUploadForm = async (req: express.Request, res: express.Response) => {
-    res.render('apply.njk', {id: req.params.id, token: req.session.token});
+    res.render('apply.njk', {id: req.params.id});
   }
 
   export const checkApplicationDoesNotExist = async (id: number, email: string, token: string) => {
@@ -43,6 +43,11 @@ import axios from "axios";
   }
 
     export const postUpload = async (req: express.Request, res: express.Response) => {
+
+      if (req.file == null){
+        throw new Error('Invalid File Type Uploaded');
+      }
+
       try{
         const decodedToken: JwtToken = jwtDecode(req.session.token ?? '');
         await checkApplicationDoesNotExist(Number(req.params.id),decodedToken.sub, req.session.token ?? '');
@@ -50,17 +55,9 @@ import axios from "axios";
           accessKeyId: config.AWS_ACCESS_KEY_ID,
           secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
         });
-    
-        // Bucket initilization - I know I spelt it wrong
-        await initBucket(s3);
+        
+        await initBucket(s3); // Bucket initilization - I know I spelt it wrong
 
-
-        if (req.file == null){
-          throw new Error('Invalid File Type Uploaded');
-        }
-
-        const upload = multer({dest: 'uploads/'});
-        upload.single
         const uploadResult = await uploadToS3(s3, (req.file as Express.Multer.File));        
         if (uploadResult.success) {
 
@@ -76,7 +73,6 @@ import axios from "axios";
         }
       } catch (e){
         console.log(e);
-        res.locals.errormessage = e.message;
         res.render('apply.njk', {id: req.params.id});
       }
     }

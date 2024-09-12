@@ -18,7 +18,3 @@ userRouter.get('/job-roles/:id', allowRoles([UserRole.Admin, UserRole.User]), ge
 userRouter.get('/apply/:id', allowRoles([UserRole.Admin, UserRole.User]),getUploadForm);
 userRouter.post('/apply/:id',allowRoles([UserRole.Admin, UserRole.User]),upload.single('file'), postUpload);
 
-userRouter.get('/upload-success', allowRoles([UserRole.Admin, UserRole.User]),async (req: express.Request, res: express.Response): Promise<void> => {
-  res.render('apply-succesful.njk');
-});
-
