@@ -41,6 +41,6 @@ export const downloadJobRolesReport = async (req: express.Request, res: express.
         
     } catch (e) {
         console.error('Error generating report: ', e);
-        res.status(500).send('Failed to generate report, Please try again');
+        res.render('errorPage.njk', {error: e as Error, token: req.session.token});
     }
 };
