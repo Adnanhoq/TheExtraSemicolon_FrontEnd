@@ -21,7 +21,6 @@ async function takePicture() {
     var image = webcam.snap();
 
     var scaledImg = await resizedataURL(image, 32, 32);
-    console.log(scaledImg);
     var thumbnail = document.getElementById('thumbnail');
     let child = thumbnail.lastElementChild;
     while (child) {
