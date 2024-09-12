@@ -19,6 +19,8 @@
         },
         "http://localhost:3000/job-roles",
         "http://localhost:3000/job-roles/2",
+        "http://localhost:3000/profile",
+        "http://localhost:3000/profile/picture",
         {
             "url": "http://localhost:3000/",
             "description": "Testing the Halloween themed home-page",
@@ -39,6 +41,14 @@
             "description": "Testing the Halloween themed job-roles details page"
         },
         {
+            "url": "http://localhost:3000/profile",
+            "description": "Testing the Halloween themed profile page"
+        },
+        {
+            "url": "http://localhost:3000/profile/picture",
+            "description": "Testing the Halloween themed profile picture page"
+        },
+        {
             "url": "http://localhost:3000/",
             "description": "Testing the Christmas themed home-page",
             "actions": [
@@ -56,6 +66,14 @@
         {
             "url": "http://localhost:3000/job-roles/2",
             "description": "Testing the Christmas themed job-roles details page"
+        },
+        {
+            "url": "http://localhost:3000/profile",
+            "description": "Testing the Christmas themed profile page"
+        },
+        {
+            "url": "http://localhost:3000/profile/picture",
+            "description": "Testing the Christmas themed profile picture page"
         }
     ]
 }

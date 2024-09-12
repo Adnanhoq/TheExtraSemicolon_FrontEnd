@@ -1,0 +1,17 @@
+{% extends "./layouts/main.njk" %}
+
+
+    {% block pageTitle %}
+        Profile
+    {% endblock %}
+
+{% block content %}
+    {% if theme == 'christmas' %}
+        {% include 'components/profile/christmasProfile.njk' %}
+    {% elif theme == 'halloween' %}
+        {% include 'components/profile/halloweenProfile.njk' %}
+    {% else %}
+        {% include 'components/profile/defaultProfile.njk' %}
+    {% endif %}
+
+{% endblock %}

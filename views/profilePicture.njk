@@ -1,0 +1,22 @@
+{% extends "./layouts/main.njk" %}
+
+    {% block pageTitle %}
+        Update Profile Picture
+    {% endblock %}
+
+    {% block scripts %}
+    <script src="/scripts/imagetracer_v1.2.6.js"></script>
+    <script src="/scripts/imageScaling.js"></script>
+    <script type="module" src="/scripts/takePicture.js"></script>
+    {% endblock %}
+
+{% block content %}
+
+    {% if theme == 'christmas' %}
+        {% include 'components/profilePicture/christmasProfilePicture.njk' %}
+    {% elif theme == 'halloween' %}
+        {% include 'components/profilePicture/halloweenProfilePicture.njk' %}
+    {% else %}
+        {% include 'components/profilePicture/defaultProfilePicture.njk' %}
+    {% endif %}
+{% endblock %}
