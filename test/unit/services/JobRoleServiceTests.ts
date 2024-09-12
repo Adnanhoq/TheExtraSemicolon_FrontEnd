@@ -9,6 +9,7 @@ import { JobRole } from "../../../src/models/JobRole";
 import { Location } from "../../../src/enums/Location";
 import { Capability } from "../../../src/enums/Capability";
 import { JobBand } from "../../../src/enums/JobBand";
+import { getReportOfJobRoles } from "../../../src/services/JobRoleService";
 
 
 const jobRoleResponseWrapper: JobRoleResponseWrapper = {
@@ -51,6 +52,10 @@ describe('JobRoleService', function () {
     this.beforeEach(() => {
         mock = new MockAdapter(axios);
     });
+
+    this.afterEach(() => {
+      mock.restore;
+    })
 
     describe('getAllJobRoles', function () {
       it('should return all Job Roles from response', async () => {
@@ -239,10 +244,19 @@ describe('JobRoleService', function () {
 
         try {
           await getJobRoleById('5', token);
+<<<<<<< HEAD
         } catch (e) {
           expect((e as Error).message).to.equal('Failed to get Job Role');
+=======
+        } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('Failed to get Job Role');
+          } else {
+              console.error('Unexpected error', e);
+          }
+>>>>>>> main
           return;
-        }
+      }
       })
 
       it('should throw exception when 404 error returned from axios', async () => {
@@ -251,12 +265,85 @@ describe('JobRoleService', function () {
 
         try {
           await getJobRoleById('555555', token);
+<<<<<<< HEAD
         } catch (e) {
           expect((e as Error).message).to.equal('Failed to get Job Role');
+=======
+        } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('Failed to get Job Role');
+          } else {
+              console.error('Unexpected error', e);
+          }
+>>>>>>> main
           return;
+      }
+      })
+
+    })
+    describe('Generate A Report of All Job Roles', function () {
+
+      it('should return a 200 status when successful', async () => {
+        mock.onGet(`${config.API_URL}job-roles/report`).reply(200);
+        const token: string = 'token';
+        try {
+            await getReportOfJobRoles(token);
+        } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('Server Error');
+          } else {
+              console.error('Unexpected error', e);
+          }
+          return;
+      }
+    })
+
+      it('should throw an error when the API returns a 500 status', async () => {
+          mock.onGet(`${config.API_URL}job-roles/report`).reply(500);
+          const token: string = 'token';
+          try {
+              await getReportOfJobRoles(token);
+          } catch (e: unknown) {
+          if (e instanceof Error) {
+              expect(e.message).to.equal('Server Error');
+          } else {
+              console.error('Unexpected error', e);
+          }
+          return;
+      }
+      })
+
+      it('should throw an error when the API returns a 404 status', async () => {
+          mock.onGet(`${config.API_URL}job-roles/report`).reply(404);
+          const token: string = 'token';
+          try {
+              await getReportOfJobRoles(token);
+          } catch (e: unknown) {
+            if (e instanceof Error) {
+                expect(e.message).to.equal('No Job Roles found');
+            } else {
+                console.error('Unexpected error', e);
+            }
+            return;
+        }
+      })
+
+      it('should throw an error when the request times out', async () => {
+          mock.onGet(`${config.API_URL}job-roles/report`).timeout();
+          const token: string = 'token';
+          try {
+              await getReportOfJobRoles(token);
+          } catch (e: unknown) {
+            if (e instanceof Error) {
+                expect(e.message).to.equal('You have timed out');
+            } else {
+                console.error('Unexpected error', e);
+            }
+            return;
         }
       })
 
     })
+
 
 });

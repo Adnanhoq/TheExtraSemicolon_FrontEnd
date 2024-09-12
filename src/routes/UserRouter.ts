@@ -5,6 +5,7 @@ import { getSingleJobRole, getAllJobRoles } from "../controllers/JobRoleControll
 import { allowRoles } from "../middleware/AuthMiddleware";
 import { UserRole } from "../models/JwtToken";
 
+
 export const userRouter = express.Router();
 
 userRouter.get('/job-roles/:id', allowRoles([UserRole.Admin, UserRole.User]), getSingleJobRole);
