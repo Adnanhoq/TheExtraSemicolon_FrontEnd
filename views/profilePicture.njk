@@ -20,7 +20,7 @@
     <input type="hidden" name="profilePicture" id="profilePicture"/>
     <div class="mt-4">
     <button class="btn btn-danger" type="button" id="cancel">Cancel</button>
-    <button class="btn btn-success" type="submit">Accept</button>
+    <button class="btn btn-success" type="submit" id="accept">Accept</button>
     <div>
     </form>
     </div>
@@ -28,17 +28,19 @@
 
 <div class="d-flex justify-content-center">
 <div class="d-flex flex-column justify-content-center">
-<h2 class="mb-4">Update your profile picture:</h2>
-<video id="webcam" autoplay playsinline class="rounded-circle" width="500" height="500"></video>
-<canvas id="canvas" class="d-none"></canvas>
-<div class="d-flex w-100 justify-content-center">
-<button class="mt-3 btn btn-secondary w-50 mb-5" id="takePicture">Take Picture</button>
-</div>
+        {% if errormessage %}
+            <h3 class="error-message">{{ errormessage }}</h3>
+        {% endif %}
+        <h2 class="mb-4">Update your profile picture:</h2>
+        <video id="webcam" autoplay playsinline class="rounded-circle" width="500" height="500"></video>
+        <canvas id="canvas" class="d-none"></canvas>
+        <div class="d-flex w-100 justify-content-center">
+            <button class="mt-3 btn btn-secondary w-50 mb-5" id="takePicture">Take Picture</button>
+        </div>
 </div>
 </div>
 
 <script>
-
 const webcamElement = document.getElementById('webcam');
 const canvasElement = document.getElementById('canvas');
 const dialog = document.getElementById("dialog");
@@ -89,6 +91,8 @@ async function takePicture() {
 }
 
 document.getElementById('cancel').addEventListener('click',
+() => dialog.close());
+document.getElementById('accept').addEventListener('click',
 () => dialog.close());
 
 webcam.stop();

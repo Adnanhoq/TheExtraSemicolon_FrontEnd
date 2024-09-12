@@ -30,7 +30,7 @@ export const putProfilePicture = async (req: express.Request, res: express.Respo
         res.redirect('/profile');
     } catch (e) {
         res.locals.errormessage = "Something went wrong when updating your profile";
-        res.redirect('/profile');
+        res.render('profilePicture.njk', {token: req.session.token, profile: req.session.profilePicture})
     }
 
 }
