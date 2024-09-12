@@ -13,7 +13,7 @@ export const postLoginForm = async (req: express.Request, res: express.Response)
         req.session.token = await getToken(req.body as LoginRequest);
         const profile: ProfileResponse = await getProfilePicture(req.session.token);
         if(profile.profilePicture) {
-            var scriptRegex = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+            const scriptRegex = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
             while (scriptRegex.test(profile.profilePicture)) {
                 profile.profilePicture = profile.profilePicture.replace(scriptRegex, "");
             }
