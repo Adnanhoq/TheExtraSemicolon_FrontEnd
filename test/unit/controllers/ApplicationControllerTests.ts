@@ -86,6 +86,8 @@ describe('ApplicationController', function() {
         it("should throw an invalid file type error if the file type is null", async () => {
             const req = { session: {token: 'test'}, params: {id: 1}};
             const res = { render: sinon.spy(), locals: {role: 0}};
+
+            sinon.stub(ApplicationController.postUpload(req,res))
             
         }),
 

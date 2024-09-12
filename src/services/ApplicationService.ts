@@ -3,7 +3,6 @@ import config from "../config";
 import axios, { AxiosResponse } from "axios";
 import { Application } from "../models/application";
 import { randomUUID } from "crypto";
-import { validateApplicationObject } from "../validators/ApplicationValidator";
 import { getHeader } from "./AuthUtil";
 
 /**
@@ -45,7 +44,7 @@ export const checkBucketExists = async (s3: S3, bucket:string | undefined) => { 
     }
     const fileContent = fileData.buffer;
     const guid = randomUUID();
-    const folderData = "the_extra_semicolon/" + guid + fileData!.originalname
+    const folderData = config.BUCKET_URL + guid + fileData!.originalname
       const params = {
         Bucket: config.BUCKET_NAME ?? '',
         Key: folderData,
@@ -69,7 +68,6 @@ export const checkBucketExists = async (s3: S3, bucket:string | undefined) => { 
 
   export const createApplication = async (application: Application, token: string): Promise<void> => {
     try {
-        validateApplicationObject(application);
         const response: AxiosResponse = await axios.post(config.API_URL+"apply", application, getHeader(token)); 
         return response.data;
     } catch (e) {
