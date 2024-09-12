@@ -1,6 +1,10 @@
 body {
     color: #252D4F;
 }
+
+.apply-button { 
+  padding-bottom: 100px; 
+}
 /* --- Navbar Styling --- */
 
 .nav-logo-container {
@@ -138,6 +142,11 @@ footer {
   .marquee--4 .marquee__item:nth-of-type(4) {
     --marquee-item-index: 4;
   }
+
+  a.applyLink {
+    width: 100%;
+    text-align: center;
+}
   
   
   @keyframes go {

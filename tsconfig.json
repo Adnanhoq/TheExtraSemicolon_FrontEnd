@@ -8,6 +8,9 @@
         "moduleResolution": "node",
         "sourceMap": true,
         "outDir": "./dist",
+        "types": ["node", "express", "multer", "mocha", "jest", "express-session"],
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
         "strictNullChecks": true
     },
     "include": [
