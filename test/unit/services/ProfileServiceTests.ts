@@ -66,20 +66,16 @@ describe('ProfileService', function () {
             }
             const token: string = "token";
             sinon.stub(JWTDecode, 'jwtDecode').returns({sub: "test@kainos.com"});
-
-            mock.onPost(URL).reply(200);
+            mock.onPost(URL).reply(200, profileResponse);
 
             try {
                 const results = await getProfilePicture(token);
-                expect(results.profilePicture).to.Arguments.equal(profileResponse.profilePicture);
+                expect(results.profilePicture).to.equal(profileResponse.profilePicture);
             } catch (e) {
                 assert.fail('Expected no error message');
             }
         }),
         it('should throw error when 500 response returned', async () => {
-            const profileResponse: ProfileResponse = {
-                profilePicture: 'profilePicture'
-            }
             const token: string = "token";
             sinon.stub(JWTDecode, 'jwtDecode').returns({sub: "test@kainos.com"});
 
@@ -94,9 +90,6 @@ describe('ProfileService', function () {
             assert.fail('Expected error message');
         }),
         it('should throw error when 404 response returned', async () => {
-            const profileResponse: ProfileResponse = {
-                profilePicture: 'profilePicture'
-            }
             const token: string = "token";
             sinon.stub(JWTDecode, 'jwtDecode').returns({sub: "test@kainos.com"});
 
