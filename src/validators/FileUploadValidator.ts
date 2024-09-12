@@ -13,9 +13,9 @@ export const validateFileUpload = (file: Buffer): Promise<string[]> => {
         return Object.values(Location).includes(value as Location);
     }
     function isValidDate(dateString: string): boolean {
-
-        const regex = /^\d{2}\/\d{2}\/\d{4}$/;
-        return !regex.test(dateString);
+        console.log(dateString);
+        const regex = /^\d{4}\-\d{2}\-\d{2}$/;
+        return regex.test(dateString);
 
     }
 
