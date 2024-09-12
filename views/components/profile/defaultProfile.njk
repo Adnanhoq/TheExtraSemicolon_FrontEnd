@@ -1,0 +1,16 @@
+
+    <div class="d-flex justify-content-center mt-4">
+        <div class="d-flex flex-column justify-content-center w-25">
+
+        {% if errormessage %}
+            <h3 class="error-message mb-4">{{ errormessage }}</h3>
+        {% endif %}
+        <h1 class="mb-4">Your Profile</h1>
+        <h3 class="mb-2">
+        Email:
+        </h3>
+        <p>{{ email }}</p>
+        <a class="mt-3" href="/profile/picture">Update Profile Picture</a>
+        </div>
+
+    </div>
