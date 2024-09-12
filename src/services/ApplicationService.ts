@@ -15,17 +15,16 @@ import { getHeader } from "./AuthUtil";
  - @returns {Promise<{success: boolean; message: string; data: object;}>} The result of the check operation.
  */
 
-export const checkBucket = async (s3: S3, bucket:string | undefined) => { // This may not be needed as bucket will always exist
+export const checkBucketExists = async (s3: S3, bucket:string | undefined) => { // This may not be needed as bucket will always exist
     try{
       if (bucket == undefined) 
       {
-        console.log("Error, bucket is undefined")
-        return false;
+        throw new Error("Bucket is undefined");
       }
         const res = await s3.headBucket({Bucket:bucket}).promise()
         return true;
     } catch (error) {
-        console.log("Error bucket doesn't exist", error);
+        console.log(error.message);
         return false;        
     }
 };
@@ -42,8 +41,7 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
     }
     if (config.BUCKET_NAME == undefined)
     {
-      console.log("Error, bucket is undefined")
-      return {success: false, message: "Error, bucket is undefined"}
+      throw new Error("Bucket is undefined");
     }
     const fileContent = fileData.buffer;
     const guid = randomUUID();
