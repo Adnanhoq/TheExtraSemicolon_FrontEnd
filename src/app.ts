@@ -6,6 +6,7 @@ import { dateFilter } from "./filters/DateFilter";
 import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter";
 import { userRouter } from "./routes/UserRouter";
 import { setRoleInLocals } from "./middleware/SetLocalRoleMiddleware";
+import { adminRouter } from "./routes/AdminRouter";
 
 const app = express();
 
@@ -44,3 +45,4 @@ app.use(setRoleInLocals);
 app.use('/', userRouter);
 
 app.use('/', unauthenticatedRouter);
+app.use('/', adminRouter);
