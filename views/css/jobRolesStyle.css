@@ -20,6 +20,17 @@ h1{
     filter: contrast(0.9);
 }
 
+
+@keyframes spinCursor {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .spinning-cursor {
+    cursor: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgdmlld0JveD0iMCAwIDEwIDEwIj4KICA8Y2lyY2xlIGN4PSI1IiBjeT0iNSIgcj0iNCIgc3R5bGU9ImZpbGw6bm9uZTtzdHJva2U6IzAwMDtzdHJva2Utd2lkdGg6MCIvPgogIDxwYXRoIGQ9Ik01IDBBNSA1IDAgMCAwIDAgNWE1IDUgMCAwIDAgNSA1IDUgNSAwIDAgMCA1LTVBNSA1IDAgMCAwIDUgMFoiIHN0eWxlPSJmaWxsOm5vbmU7c3Ryb2tlOiMwMDA7c3Ryb2tlLXdpZHRoOjIiLz4KPC9zdmc+Cg==') 5 5, auto;
+    animation: spinCursor 1s linear infinite;
+  }
+
 .active{
     filter: contrast(0.8);
 }
@@ -36,5 +47,6 @@ a:hover{
     text-decoration: none;
 }
 a:active{
+    cursor: progress;
     text-decoration: none;
 }
