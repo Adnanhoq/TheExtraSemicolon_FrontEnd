@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "strict": true,
         "esModuleInterop": true,
         "allowSyntheticDefaultImports": true,
         "target": "es6",
@@ -13,7 +12,7 @@
     },
     "include": [
         "src/**/*",
-        "./.env"
+        "./.env",
     ],
     "exclude": [
         "./node_modules/**/*",
