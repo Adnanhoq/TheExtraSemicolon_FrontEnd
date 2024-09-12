@@ -1,8 +1,9 @@
 import { createRequest, createResponse } from 'node-mocks-http';
 import * as ApplicationController from "../../../src/controllers/ApplicationController"
-import { expect } from 'chai';
+import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import * as ApplicationService from  '../../../src/services/ApplicationService';
+import * as JWTDecode from 'jwt-decode';
 import { AxiosError } from 'axios';
 import { AxiosResponse } from 'axios';
 
@@ -87,12 +88,30 @@ describe('ApplicationController', function() {
             const req = { session: {token: 'test'}, params: {id: 1}};
             const res = { render: sinon.spy(), locals: {role: 0}};
 
-            sinon.stub(ApplicationController.postUpload(req,res))
+            try {
+                await ApplicationController.postUpload(req as any, res as any);
+            } catch (e) {
+                expect(e.message).to.equal('Invalid File Type Uploaded');
+                return;
+            }
+            assert.fail('Expected error message');
             
         }),
 
         it("should throw a error if the application already exists", async () => {
+            const req = { session: {token: 'test'}, params: {id: 1}, file: ''};
+            const res = { render: sinon.spy(), locals: {role: 0}};
 
+            sinon.stub(JWTDecode, 'jwtDecode').returns({sub: 'test@kainos.com'});
+            sinon.stub(ApplicationController, 'checkApplicationExists').resolves(true);
+
+            try {
+                await ApplicationController.postUpload(req as any, res as any);
+            } catch (e) {
+                expect(e.message).to.equal('Application Exists');
+                return;
+            }
+            assert.fail('Expected error message');
         }),
 
         it("should log an error if uploadResult is not a success", async () => {
