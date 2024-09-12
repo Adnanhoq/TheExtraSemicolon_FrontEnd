@@ -6,13 +6,13 @@ import { dateFilter } from "./filters/DateFilter";
 import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter";
 import { userRouter } from "./routes/UserRouter";
 import { setRoleInLocals } from "./middleware/SetLocalRoleMiddleware";
+import { adminRouter } from "./routes/AdminRouter";
 
-import { multerConfig} from "./multerConfig";
-import multer from "multer";
-import { postCSVUpload } from "./controllers/FileUploadController";
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 const app = express();
-const upload = multer(multerConfig);
 
 const env = nunjucks.configure('views', {
     autoescape: true,
@@ -44,12 +44,8 @@ app.listen(3000, () => {
 });
 
 app.use(setRoleInLocals);
-// app.use('/', userRouter);
-
-
-app.get('/test', (() => getAllDatabases));
-app.post('/uploadCSV',upload.single('file'), postCSVUpload);
-app.get('/uploadCSV', async (req: express.Request, res: express.Response): Promise<void> => {
-  res.render('csvFileUpload.html');
-});
+app.use('/', userRouter);
 app.use('/', unauthenticatedRouter);
+app.use('/', adminRouter);
+
+

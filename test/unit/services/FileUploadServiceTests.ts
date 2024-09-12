@@ -12,11 +12,12 @@ describe('uploadToS3', () => {
     sinon.restore();
   });
 
-  it('should return error if no file data is provided', async () => {
-    const result = await uploadToS3(new S3());
-
-    expect(result.success).to.be.false;
-    expect(result.message).to.equal('No file data provided');
+  it('should throw an error if no file data is provided', async () => {
+    try {
+      await uploadToS3(new S3());
+    } catch (error) {
+      expect(error.message).to.equal('Unable to process this file: No file data provided');
+    }
   });
 
 });

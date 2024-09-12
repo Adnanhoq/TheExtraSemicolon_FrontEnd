@@ -1,0 +1,17 @@
+{% extends "./layouts/main.njk" %}
+
+  {% block pageTitle %}
+        Upload Successful!
+    {% endblock %}
+
+    {% block content %}
+        <div class="container">
+            <h1>Files Uploaded</h1>
+            {% for location in locations %}
+            <p>{{ location }}</p>
+            {% endfor %}       
+            <p><a href="/">Go back to Home</a></p>
+            <p><a href="upload-CSV">Import more jobs</a></p>
+        </div>
+{% endblock %}
+

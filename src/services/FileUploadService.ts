@@ -1,10 +1,8 @@
-import axios, { AxiosResponse } from "axios";
-import multer from "multer";
-import express from "express";
-import { S3 } from "aws-sdk";
-import fs from 'fs';
 
+import { S3 } from "aws-sdk";
 import config from "../config";
+import { validateFileUpload } from "../validators/FileUploadValidator";
+import { randomUUID } from "crypto";
 
 
 export const uploadToS3 = async (s3: S3, fileData?: Express.Multer.File) => {
@@ -13,29 +11,24 @@ export const uploadToS3 = async (s3: S3, fileData?: Express.Multer.File) => {
     if (!fileData) {
       throw new Error('No file data provided');
     }
-    const filePath = fileData.path;
-    const fileContent = fs.readFileSync(filePath);
-
+    const fileContent = fileData.buffer;
+    const guid = randomUUID();
+    const folderData ="the_extra_semicolon/imports/" + guid + fileData.originalname;
 
       const params = {
-        Bucket: config.BUCKET_NAME || 'academy-job-portal-cvs',
-        Key: fileData!.originalname,
+        Bucket: config.BUCKET_NAME,
+        Key: folderData,
         Body: fileContent,
         ContentType: fileData.mimetype
       };
-
-      try {
+        console.log(fileContent);
+        await validateFileUpload(fileContent);
+        
         const res = await s3.upload(params).promise();
-
-        console.log("File Uploaded Successfully", res.Location);
-
-        return {success: true, message: "File Uploaded with Successful", data: res.Location};
-      } catch (error) {
-        return {success: false, message: "Unable to Upload the file", data: error};
-      }
+        return res.Location;
 
   } catch (error) {
-  console.log(error);
-  return {success:false, message: "Unable to access this file", data: {}};
+  const typedError = error as { message: string };
+  throw new Error(`Unable to process this file: ${typedError.message }`);
   }
   }

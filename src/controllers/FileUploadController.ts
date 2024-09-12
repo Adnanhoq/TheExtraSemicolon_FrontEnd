@@ -2,11 +2,11 @@ import { S3 } from 'aws-sdk';
 import express from "express";
 import { uploadToS3 } from '../services/FileUploadService'
 import config from "../config";
-import multer from 'multer';
-import { validateFileUpload } from '../validators/FileUploadValidator';
 
 
 export const postCSVUpload = async (req: express.Request, res: express.Response) => {
+  const files = req.files as Express.Multer.File[];
+  const locations: string[] = [];
   try {
 
     const s3 = new S3({
@@ -14,40 +14,31 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
       secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
     });
 
-    const file = req.file;
-    if (file == null) {
-      console.log("File is not defined")
+
+    if (!files || files.length === 0) {
+      return res.status(400).send("No files uploaded");
     } else {
-      console.log(file);
-      const filePath = file.path;
       try {
-        const validationErrors = await validateFileUpload(filePath);
-
-        if (validationErrors.length > 0) {
-          console.log("Validation errors found:", validationErrors);
-          return res.status(400).json({ success: false, message: "Validation failed.", errors: validationErrors });
+        for (const file of files) {
+          try {
+            const location = await uploadToS3(s3, file);
+            locations.push(location);
+          } catch (error) {
+            const typedError = error as {message: string, originalname?: string }
+            throw new Error(`Failed to upload file:${file.originalname} due to ${typedError.message}`);
+          }
         }
+        res.render('uploadSuccess.njk', { locations: locations });
 
-        const uploadRes = await uploadToS3(s3, file);
-
-
-        if (uploadRes.success) {
-          console.log(uploadRes.message);
-          res.redirect('/upload-success');
-        } else {
-          console.log(uploadRes.message)
-        }
-      } catch (validationErrors) {
-        console.log("Validation failed:", validationErrors);
-        return res.status(400).json({ success: false, message: "Validation failed.", errors: validationErrors });
+      } catch (error) {
+        const typedError = error as { message: string };
+        res.render('csvFileUpload.njk', { errormessage: typedError.message });
       }
-
-
     }
 
   } catch (e) {
-    console.log(e);
-    res.render('/upload');
+    res.locals.errormessage = (e as Error).message;
+    res.render('errorPage.njk', { error: e as Error, token: req.session.token });
   }
 }
 

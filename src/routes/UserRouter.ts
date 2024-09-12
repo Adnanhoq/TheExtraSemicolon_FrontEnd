@@ -10,3 +10,4 @@ export const userRouter = express.Router();
 userRouter.get('/job-roles/:id', allowRoles([UserRole.Admin, UserRole.User]), getSingleJobRole);
 
 userRouter.get('/job-roles', allowRoles([UserRole.Admin, UserRole.User]), getAllJobRoles);
+

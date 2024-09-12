@@ -1,0 +1,28 @@
+{% extends "./layouts/main.njk" %}
+
+{% block pageTitle %}
+  Import Job Roles
+{% endblock %}
+
+{% block content %}
+
+
+<form action="/upload-CSV" method="post" enctype="multipart/form-data">
+        <h3><label for="file">
+        Upload your CSV file:
+        </label></h3>
+
+        <input class="import-input" type="file" id="file" name="files" accept=".csv" multiple>
+        
+        <input type="submit">    
+    </form>
+    {% if errormessage %}
+            <p class="error-message">{{ errormessage }}</p>
+    {% endif %}
+
+    {% if location %}
+     <h3 class="success-message">File uploaded succesfully to: {{location}}</h3>
+     {% endif %}
+
+
+{% endblock %}
