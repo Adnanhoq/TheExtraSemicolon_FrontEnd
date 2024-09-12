@@ -18,9 +18,9 @@ import axios from "axios";
     if( !bucketStatus ) { // Check the bucket's existance
       return {success : false, message: "Bucket does not exist"}
       }
-      else {
-        return {success: true, message: "Bucket exists" }
-      }
+    else {
+      return {success: true, message: "Bucket exists" }
+    }
 }
 
   export const getUploadForm = async (req: express.Request, res: express.Response) => {
@@ -59,7 +59,7 @@ import axios from "axios";
           secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
         });
         
-        await initBucket(s3); // Bucket initilization - I know I spelt it wrong
+        await initBucket(s3);
 
         const uploadResult = await uploadToS3(s3, (req.file as Express.Multer.File));        
         if (uploadResult.success) {
