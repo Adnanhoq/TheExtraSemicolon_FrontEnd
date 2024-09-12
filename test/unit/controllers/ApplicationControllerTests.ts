@@ -83,6 +83,19 @@ describe('ApplicationController', function() {
         })
     }),
     describe('postUpload', async () => {
+        it("should throw an invalid file type error if the file type is null", async () => {
+            const req = { session: {token: 'test'}, params: {id: 1}};
+            const res = { render: sinon.spy(), locals: {role: 0}};
+            
+        }),
+
+        it("should throw a error if the application already exists", async () => {
+
+        }),
+
+        it("should log an error if uploadResult is not a success", async () => {
+
+        })
 
     });
 
