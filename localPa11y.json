@@ -3,12 +3,23 @@
         "chromeLaunchConfig": {
             "ignoreHTTPSErrors": true,
             "args": ["--disable-dev-shm-usage", "--no-sandbox"]
-    }
-},
+        },
+        "useIncognitoBrowserContext": false
+    },
     "urls": [
-        "http://localhost:3000/",
+        {
+            "url": "http://localhost:3000/login",
+            "actions": [
+                "set field #email to admin@kainos.com",
+                "set field #password to admin",
+                "click element #login",
+                "wait for path to be /"
+            ]
+        },
+        "http://localhost:3000/login",
         "http://localhost:3000/job-roles",
-        "http://localhost:3000/job-roles/2",
-        "http://localhost:3000/login"
+        "http://localhost:3000/job-roles/2"
     ]
 }
+ 
+ 
