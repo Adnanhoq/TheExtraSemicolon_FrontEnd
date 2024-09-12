@@ -30,6 +30,7 @@ jobs:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: employee_demo
         IMAGE_TAG: the_extra_semicolon_fe
+        THEME: ${{ secrets.THEME }}
       run: |
-        docker build --build-arg API_URL=${API_URL} -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker build --build-arg API_URL=${API_URL} --build-arg THEME=${THEME} -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG

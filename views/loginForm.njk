@@ -5,30 +5,16 @@
 {% endblock %}
 
 {% block content %}
-
-        <div class="d-flex justify-content-center">
-
-            <div class="login-container">
-
-
-        {% if errormessage %}
-            <h3 class="error-message">{{ errormessage }}</h3>
-        {% endif %}
-
-        <form class="form login-form" action="/login" method="post">
-            <h3><label for="email">
-                Email:
-            </label></h3>
-            <input class="login-input" id="email" name="email" value="{{email}}" type="text" aria-label="password">
-            
-            <h3><label for="password">
-                Password:
-            </label></h3>
-            <input class="login-input" id="password" name="password" type="password" aria-label="password">
-
-        </br></br>
-        <button class="login-button" id="login">Log In</button>
-        </form>
-    </div>
-</div>
+    {% if theme == 'christmas' %}
+        {% include 'components/loginForms/christmasLoginForm.njk' %}
+    {% elif theme == 'halloween' %}
+        {% include 'components/loginForms/halloweenLoginForm.njk' %}
+    {% else %}
+        {% include 'components/loginForms/defaultLoginForm.njk' %}
+    {% endif %}
+    {% if errormessage %}
+        <div>
+          <h3 class="error-message text-center text-wrap">{{ errormessage }}</h3>
+        </div>
+    {% endif %}
 {% endblock %}

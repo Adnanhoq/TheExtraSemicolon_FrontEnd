@@ -1,0 +1,23 @@
+<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    {% if role != '0' %}
+    <div class="navbar-nav">
+        <a class="nav-item nav-link fw-medium halloween-nav-or-footer-text" href="/job-roles">Job Roles</a>
+    </div>
+    {% endif %}
+</div>
+<div class="d-flex justify-content-center align-items-center">
+    <div>
+        <p class="fw-medium log-in-role-text halloween-nav-or-footer-text">
+            {% if role == '1' %}
+                Logged in as Admin
+            {% endif %}
+            {% if role == '2' %}
+                Logged in as Applicant
+            {% endif %}
+        </p>
+    </div>
+</div>
+

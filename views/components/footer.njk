@@ -1,12 +1,12 @@
-<footer class="d-flex fixed-bottom flex-wrap justify-content-between align-items-center py-3 border-top" style="background-color:white">
-    <p class="col-md-4 mb-0">© 2024 Kainos</p>
-    
-    <div class="nav-logo-container">
-        <img src="../assets/index/kainos-logo.png" alt="transparent kainos logo for the navbar" class="img-fluid">
-    </div>
-    
+{% if theme == 'halloween' %}
+    {% include 'components/footers/halloweenFooter.njk' %}
+{% elif theme == 'christmas' %}
+    {% include 'components/footers/christmasFooter.njk' %}
+{% else %}
+    {% include 'components/footers/defaultFooter.njk' %}
+{% endif %}
     <ul class="nav col-md-4 justify-content-end gap-4">
-        <li class="nav-item">2 Cornwall St, Birmingham B3 2DX</li>
-        <li class="nav-item">028 9057 1100</li>
+        <li class="nav-item christmas-nav-or-footer-text">2 Cornwall St, Birmingham B3 2DX</li>
+        <li class="nav-item christmas-nav-or-footer-text">028 9057 1100</li>
     </ul>
 </footer>
