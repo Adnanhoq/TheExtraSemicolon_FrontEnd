@@ -6,6 +6,7 @@ import  multer from 'multer';
 import { JwtToken } from '../models/JwtToken';
 import { jwtDecode } from 'jwt-decode';
 import axios from "axios";
+import { Application } from '../models/application';
 
 /**
 
@@ -15,11 +16,11 @@ import axios from "axios";
   export const initBucket = async (s3: S3) => {
   const bucketStatus = await checkBucketExists(s3, config.BUCKET_NAME);
 
-    if( !bucketStatus ) { // Check the bucket's existance
-      return {success : false, message: "Bucket does not exist"}
+    if( !bucketStatus ) {
+      throw new Error("Bucket does not exist")
       }
     else {
-      return {success: true, message: "Bucket exists" }
+      return true;
     }
 }
 
@@ -61,13 +62,13 @@ import axios from "axios";
         
         await initBucket(s3);
 
-        const uploadResult = await uploadToS3(s3, (req.file as Express.Multer.File));        
-        if (uploadResult.success) {
+        const uploadLocation = await uploadToS3(s3, (req.file as Express.Multer.File));        
+        if (uploadLocation) {
 
-          const ApplicationReq = { 
+          const ApplicationReq : Application = { 
             email: decodedToken.sub, 
             roleId: Number(req.params.id),
-            s3Link: uploadResult.data,
+            s3Link: uploadLocation,
           }
           await createApplication(ApplicationReq, req.session.token ?? '');
           res.render('apply-success.njk');

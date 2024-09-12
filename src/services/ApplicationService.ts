@@ -52,11 +52,10 @@ export const checkBucketExists = async (s3: S3, bucket:string | undefined) => { 
         ContentType: fileData.mimetype
       };
       const res = await s3.upload(params).promise();
-      return {success: true, message: "File Uploaded with Successful", data: res.Location};
+      return res.Location;
 
   } catch (error) {
-  console.log(error);
-  return {success: false, message: "Unable to Upload the file", data: error};
+  throw new Error(error)
 }
   }
 
