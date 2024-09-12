@@ -60,8 +60,9 @@ describe('ApplicationService', function() {
             const testMimetype = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             const fileData = {originalname : "testFile", buffer: '', mimetype: testMimetype};
             config.BUCKET_NAME = '';
-            const s3 = {upload: sinon.stub().returns({promise: sinon.stub().returns({})})};
             const location = 'testlocation'
+            const s3 = {upload: sinon.stub().returns({promise: sinon.stub().returns({Location: location})})};
+
 
             const res = await uploadToS3(s3 as any, fileData as any);
             expect(res).to.be.equal(location);
