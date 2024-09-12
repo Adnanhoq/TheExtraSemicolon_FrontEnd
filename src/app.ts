@@ -6,8 +6,8 @@ import { dateFilter } from "./filters/DateFilter";
 import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter";
 import { userRouter } from "./routes/UserRouter";
 import { setRoleInLocals } from "./middleware/SetLocalRoleMiddleware";
-import dotenv from "dotenv";
-dotenv.config();
+import { Theme } from "./enums/Theme";
+import { setThemeMiddleware } from "./middleware/SetThemeMiddleware";
 
 const app = express();
 
@@ -32,19 +32,12 @@ app.use(session({ name:'kainos-job-roles', secret: 'SUPER_SECRET', cookie: { max
 
 declare module "express-session" {
   interface SessionData {
-    token: string,
-    theme: string;
+    token: string;
+    theme: Theme;
   }
 }
 
-// Setting the theme in the session
-app.use((req, res, next) => {
-  if (!req.session.theme) {
-      req.session.theme = process.env.THEME ?? 'default';
-  }  
-  res.locals.theme = req.session.theme;
-  next();
-});
+app.use(setThemeMiddleware);
 
 app.listen(3000, () => {
     console.log('Server started on port 3000');
@@ -54,10 +47,3 @@ app.use(setRoleInLocals);
 app.use('/', userRouter);
 
 app.use('/', unauthenticatedRouter);
-
-// Changing theme
-app.use("/theme/:theme", (req, res) => {
-  req.session.theme = req.params.theme;
-  
-  res.redirect('back');
-})

@@ -24,7 +24,7 @@
             "url": "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/",
             "description": "Testing the Halloween themed home-page",
             "actions": [
-                "navigate to https://fqq3vg4qpt.eu-west-1.awsapprunner.com/theme/halloween"
+                "navigate to https://fqq3vg4qpt.eu-west-1.awsapprunner.com/?theme=halloween"
             ]
         },
         {
@@ -43,7 +43,7 @@
             "url": "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/",
             "description": "Testing the Christmas themed home-page",
             "actions": [
-                "navigate to https://fqq3vg4qpt.eu-west-1.awsapprunner.com/theme/christmas"
+                "navigate to https://fqq3vg4qpt.eu-west-1.awsapprunner.com/?theme=christmas"
             ]
         },
         {

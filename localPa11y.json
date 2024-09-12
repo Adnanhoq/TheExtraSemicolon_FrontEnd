@@ -23,7 +23,7 @@
             "url": "http://localhost:3000/",
             "description": "Testing the Halloween themed home-page",
             "actions": [
-                "navigate to http://localhost:3000/theme/halloween"
+                "navigate to http://localhost:3000/?theme=halloween"
             ]
         },
         {
@@ -42,7 +42,7 @@
             "url": "http://localhost:3000/",
             "description": "Testing the Christmas themed home-page",
             "actions": [
-                "navigate to http://localhost:3000/theme/christmas"
+                "navigate to http://localhost:3000/?theme=christmas"
             ]
         },
         {

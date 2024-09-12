@@ -1,0 +1,48 @@
+{% extends "../../layouts/main.njk" %}
+
+{% block pageTitle %}
+    Job Roles
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="/css/jobRolesStyle.css">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="mainBody">
+            <div class="d-flex justify-content-center w-25 mx-auto gap-2 align-items-center">
+                <h1 class="m-0 p-0 d-flex flex-row justify-content-center mb-3 halloween-text text-nowrap">Job Roles List</h1>
+            </div>
+            <div class="d-flex flex-row justify-content-between m-0 p-0">
+                <h3 class="mx-2 mb-2 align-items-center halloween-text">{{ pagination.total }} positions available</h3>
+                <div class="d-flex flex-row-reverse align-items-center gap-1 mb-2">
+                    <p class="halloween-text">Items per page</p>
+                    <form method="GET" action="" label="aria-label" class="mb-3">
+                        <label for="itemsPerPage" style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; clip: rect(0, 0, 0, 0); overflow: hidden;">Items per Page</label>
+                        <select id="itemsPerPage" name="limit" onchange="this.form.submit()">
+                            <option value="10" {% if pagination.limit == 10 %}selected{% endif %}>10</option>
+                            <option value="25" {% if pagination.limit == 25 %}selected{% endif %}>25</option>
+                            <option value="50" {% if pagination.limit == 50 %}selected{% endif %}>50</option>
+                            <option value="100" {% if pagination.limit == 100 %}selected{% endif %}>100</option>
+                        </select>
+                        <button type="submit" style="position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0; clip: rect(0, 0, 0, 0); overflow: hidden;">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                {% for role in jobRoles | sort(attribute='roleId') %}
+                    <a href="job-roles/{{role.roleId}}" class="jobCard col-md-4 mb-4">
+                        <div id="card{{loop.index}}" class="card w-100 h-100">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ role.roleName }}</h5>
+                                <p class="card-text"><strong>Locations:</strong> {{ role.formattedLocations }}</p>
+                                <p class="card-text"><strong>Capability:</strong> {{ role.capability }}</p>
+                                <p class="card-text"><strong>Band:</strong> {{ role.band }}</p>
+                                <p class="card-text"><strong>Closing Date:</strong> {{ role.closingDate | date }}</p>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+                {% include './pagination.njk' %}
+{% endblock %}
