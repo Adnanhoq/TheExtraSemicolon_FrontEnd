@@ -7,6 +7,7 @@
         "useIncognitoBrowserContext": false
     },
     "urls": [
+        "http://localhost:3000/login",
         {
             "url": "http://localhost:3000/login",
             "actions": [
@@ -16,10 +17,45 @@
                 "wait for path to be /"
             ]
         },
-        "http://localhost:3000/login",
         "http://localhost:3000/job-roles",
-        "http://localhost:3000/job-roles/2"
+        "http://localhost:3000/job-roles/2",
+        {
+            "url": "http://localhost:3000/",
+            "description": "Testing the Halloween themed home-page",
+            "actions": [
+                "navigate to http://localhost:3000/?theme=halloween"
+            ]
+        },
+        {
+            "url": "http://localhost:3000/login",
+            "description": "Testing the Halloween themed home-page"
+        },
+        {
+            "url": "http://localhost:3000/job-roles",
+            "description": "Testing the Halloween themed job-roles page"
+        },
+        {
+            "url": "http://localhost:3000/job-roles/2",
+            "description": "Testing the Halloween themed job-roles details page"
+        },
+        {
+            "url": "http://localhost:3000/",
+            "description": "Testing the Christmas themed home-page",
+            "actions": [
+                "navigate to http://localhost:3000/?theme=christmas"
+            ]
+        },
+        {
+            "url": "http://localhost:3000/login",
+            "description": "Testing the Christmas themed login page"
+        },
+        {
+            "url": "http://localhost:3000/job-roles",
+            "description": "Testing the Christmas themed job-roles page"
+        },
+        {
+            "url": "http://localhost:3000/job-roles/2",
+            "description": "Testing the Christmas themed job-roles details page"
+        }
     ]
 }
- 
- 

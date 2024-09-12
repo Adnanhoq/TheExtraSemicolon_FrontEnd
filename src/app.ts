@@ -6,6 +6,8 @@ import { dateFilter } from "./filters/DateFilter";
 import { unauthenticatedRouter } from "./routes/UnauthenticatedRouter";
 import { userRouter } from "./routes/UserRouter";
 import { setRoleInLocals } from "./middleware/SetLocalRoleMiddleware";
+import { Theme } from "./enums/Theme";
+import { setThemeMiddleware } from "./middleware/SetThemeMiddleware";
 import { adminRouter } from "./routes/AdminRouter";
 
 const app = express();
@@ -32,8 +34,11 @@ app.use(session({ name:'kainos-job-roles', secret: 'SUPER_SECRET', cookie: { max
 declare module "express-session" {
   interface SessionData {
     token: string;
+    theme: Theme;
   }
 }
+
+app.use(setThemeMiddleware);
 
 app.listen(3000, () => {
     console.log('Server started on port 3000');

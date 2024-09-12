@@ -1,0 +1,17 @@
+<section class="d-flex justify-content-center align-items-center" style="height: 75vh;">
+  <div class="d-flex gap-5">
+    <div class="w-50">
+      <h2 class="login-page-header text-center">Enter, if you are brave enough</h2>
+      <div class="d-flex justify-content-center">
+        <img class="img-fluid w-50" src="/assets/index/pumpkin-round.png" alt="image of a round threatening pumpkin">
+      </div>
+    </div>
+    <form class="form login-form d-flex flex-column gap-2" action="/login" method="post">
+      <h3 class="halloween-text"><label class="m-0 p-0" for="email">Email:</label></h3>
+      <input class="login-input" id="email" name="email" value="{{email}}" type="text" aria-label="email">
+      <h3 class="halloween-text"><label class="m-0 p-0" for="password">Password:</label></h3>
+      <input class="login-input mb-2" id="password" name="password" type="password" aria-label="password">
+      <button class="btn btn-danger" id="login">Log In</button>
+    </form>
+  </div>
+</section>

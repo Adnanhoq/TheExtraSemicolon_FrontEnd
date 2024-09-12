@@ -1,0 +1,106 @@
+/* ------ Christmas Theme Styling ------ */
+.christmas .christmas-hero-img {
+    background-image: url('/assets/index/christmas-bg-big.jpg');
+    position: relative;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .christmas .christmas-hero-text {
+    position: relative;
+    padding-top: 6.5rem;
+  }
+  
+  .christmas .christmas-main-title {
+    font-family: "Festive", cursive;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 10rem;
+    width: fit-content;
+  }
+  
+  .snow_wrap{
+      height: 100vh;
+      width: 100%;
+      background:url('/assets/index/christmas-bg-big.jpg');
+      background-size: cover;
+      background-position: center bottom; 
+      overflow: hidden;
+      position: relative;
+  }
+  
+  .snow, .snow:before, .snow:after {
+    position: absolute;
+    top: -650px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-image: 
+    radial-gradient(4px 4px at 100px 50px, #fff , transparent), 
+    radial-gradient(6px 6px at 200px 150px, #fff, transparent), 
+    radial-gradient(3px 3px at 300px 250px, #fff 50%, transparent), 
+    radial-gradient(4px 4px at 400px 350px, #fff 50%, transparent), 
+    radial-gradient(6px 6px at 500px 100px, #fff 50%, transparent), 
+    radial-gradient(3px 3px at 50px 200px, #fff 50%, transparent), 
+    radial-gradient(4px 4px at 150px 300px, #fff 50%, transparent), 
+    radial-gradient(6px 6px at 250px 400px, #fff 50%, transparent), 
+    radial-gradient(3px 3px at 350px 500px, #fff 50%, transparent);
+    background-size: 650px 650px;
+    animation: snow 3s linear infinite;
+    content: "";
+  }
+  
+  .snow:after {
+    margin-left: -250px;
+    opacity: 0.5;
+    filter: blur(2px);
+    animation-duration: 6s;
+    animation-direction: reverse;
+  }
+  
+  .snow:before {
+      margin-left: -350px;
+    opacity: 0.7;
+    filter: blur(1px);
+    animation-duration: 9s;
+    animation-direction: reverse;
+  }
+  
+  @keyframes snow {
+    to {
+      transform: translateY(650px);
+    }
+  }
+  
+  .christmas .logo-with-hat-container {
+    position: relative;
+  }
+  
+  .christmas .christmas-hat {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 2rem;
+    transform: rotate(45deg);
+  }
+  
+  .christmas-hat {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 2rem;
+    transform: rotate(45deg);
+  }
+  
+  .christmas .button-ribbon {
+    position: absolute;
+    top: 10px;
+    right: -105px;
+    width: 2rem;
+  }
+  
+  .christmas .christmas-reindeer {
+    width: 2.25rem;
+  }
+  
