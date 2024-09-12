@@ -52,7 +52,7 @@ describe('ProfileService', function () {
             try {
                 await updateProfilePicture(profileRequest, token);
             } catch (e) {
-                expect(e.message).to.equal('Failed to update Profile Picture');
+                expect((e as Error).message).to.equal('Failed to update Profile Picture');
                 return;
             }
 
@@ -84,7 +84,7 @@ describe('ProfileService', function () {
             try {
                 await getProfilePicture(token);
             } catch(e) {
-                expect(e.message).to.equal('Failed to get Profile Picture');
+                expect((e as Error).message).to.equal('Failed to get Profile Picture');
                 return;
             }
             assert.fail('Expected error message');
@@ -98,7 +98,7 @@ describe('ProfileService', function () {
             try {
                 await getProfilePicture(token);
             } catch(e) {
-                expect(e.message).to.equal('Failed to get Profile Picture');
+                expect((e as Error).message).to.equal('Failed to get Profile Picture');
                 return;
             }
             assert.fail('Expected error message');
