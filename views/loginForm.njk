@@ -12,4 +12,9 @@
     {% else %}
         {% include 'components/loginForms/defaultLoginForm.njk' %}
     {% endif %}
+    {% if errormessage %}
+        <div>
+          <h3 class="error-message text-center text-wrap">{{ errormessage }}</h3>
+        </div>
+    {% endif %}
 {% endblock %}

@@ -1,18 +1,5 @@
-{% extends "../../layouts/main.njk" %}
-
-{% block pageTitle %}
-    Job Roles
-{% endblock %}
-
-{% block links %}
-    <link rel="stylesheet" href="/css/jobRolesStyle.css">
-{% endblock %}
-
-{% block content %}
     <div class="container">
         <div class="mainBody">
             <h1 class="m-0 p-0 d-flex flex-row justify-content-center mb-3">Job Roles List</h1>
             <div class="d-flex flex-row justify-content-between m-0 p-0">
                 <h3 class="mx-2 mb-2 align-items-center">{{ pagination.total }} positions available</h3>
-                {% include './jobRoleCardSection.njk' %}
-{% endblock %}

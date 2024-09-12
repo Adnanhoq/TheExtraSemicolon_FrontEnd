@@ -154,4 +154,7 @@ footer {
       inset-inline-start: calc(var(--marquee-item-width) * -1);
     }
   }
-  
+
+.christmas-nav-or-footer-text {
+  color: #000418;
+}

@@ -1,7 +1,20 @@
-{% if theme == 'christmas' %}
-    {% include 'components/jobRoles/christmasJobRoles.njk' %}
-{% elif theme == 'halloween' %}
-    {% include 'components/jobRoles/halloweenJobRoles.njk' %}
-{% else %}
-    {% include 'components/jobRoles/defaultJobRoles.njk' %}
-{% endif %}
+{% extends "./layouts/main.njk" %}
+
+{% block pageTitle %}
+    Job Roles
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="/css/jobRolesStyle.css">
+{% endblock %}
+
+{% block content %}
+    {% if theme == 'christmas' %}
+        {% include 'components/jobRoles/christmasJobRoles.njk' %}
+    {% elif theme == 'halloween' %}
+        {% include 'components/jobRoles/halloweenJobRoles.njk' %}
+    {% else %}
+        {% include 'components/jobRoles/defaultJobRoles.njk' %}
+    {% endif %}
+    {% include 'components/jobRoles/jobRoleCardSection.njk' %}
+{% endblock %}
