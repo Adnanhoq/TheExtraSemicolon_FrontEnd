@@ -39,12 +39,13 @@ export const getJobRoleById = async (id: string, token: string): Promise<JobRole
     }
 }
 
-export const getReportOfJobRoles = async (): Promise<Buffer> => {
+export const getReportOfJobRoles = async (token: string): Promise<Buffer> => {
     try {
 
         const response: AxiosResponse<Readable> = await axios.get(`${config.API_URL}job-roles/report`, {
             responseType: 'stream',
-            timeout: 20000
+            timeout: 20000,
+            ... getHeader(token)
         });
 
         const chunks: Uint8Array[] = [];

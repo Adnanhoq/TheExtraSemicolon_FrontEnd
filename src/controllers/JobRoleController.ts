@@ -33,15 +33,14 @@ export const getSingleJobRole = async (req: express.Request, res: express.Respon
 
 export const downloadJobRolesReport = async (req: express.Request, res: express.Response): Promise<void> => {
     try {
-        const jobRolesReport = await getReportOfJobRoles();
+        const jobRolesReport = await getReportOfJobRoles( req.session.token ?? '');
 
-        // Send the CSV data as a downloadable response
         res.setHeader('Content-Disposition', 'attachment; filename=job_roles_report.csv');
         res.setHeader('Content-Type', 'text/csv');
         res.send(jobRolesReport);
         
     } catch (e) {
-        console.error('Error generating report:', e);
-        res.status(500).send('Failed to generate report');
+        console.error('Error generating report: ', e);
+        res.status(500).send('Failed to generate report, Please try again');
     }
 };

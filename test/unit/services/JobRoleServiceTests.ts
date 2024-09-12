@@ -265,11 +265,11 @@ describe('JobRoleService', function () {
     })
     describe('Generate A Report of All Job Roles', function () {
 
-      it('should throw an error when the API returns a 200 status', async () => {
+      it('should return a 200 status when successful', async () => {
         mock.onGet(`${config.API_URL}job-roles/report`).reply(200);
-    
+        const token: string = 'token';
         try {
-            await getReportOfJobRoles();
+            await getReportOfJobRoles(token);
         } catch (e) {
             expect(e.message).to.equal('Server Error');
         }
@@ -277,9 +277,9 @@ describe('JobRoleService', function () {
 
       it('should throw an error when the API returns a 500 status', async () => {
           mock.onGet(`${config.API_URL}job-roles/report`).reply(500);
-      
+          const token: string = 'token';
           try {
-              await getReportOfJobRoles();
+              await getReportOfJobRoles(token);
           } catch (e) {
               expect(e.message).to.equal('Server Error');
           }
@@ -287,9 +287,9 @@ describe('JobRoleService', function () {
 
       it('should throw an error when the API returns a 404 status', async () => {
           mock.onGet(`${config.API_URL}job-roles/report`).reply(404);
-      
+          const token: string = 'token';
           try {
-              await getReportOfJobRoles();
+              await getReportOfJobRoles(token);
           } catch (e) {
               expect(e.message).to.equal('No Job Roles found');
           }
@@ -297,9 +297,9 @@ describe('JobRoleService', function () {
 
       it('should throw an error when the request times out', async () => {
           mock.onGet(`${config.API_URL}job-roles/report`).timeout();
-      
+          const token: string = 'token';
           try {
-              await getReportOfJobRoles();
+              await getReportOfJobRoles(token);
           } catch (e) {
               expect(e.message).to.equal('You have timed out');
           }
