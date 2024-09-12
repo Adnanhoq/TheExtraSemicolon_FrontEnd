@@ -7,7 +7,7 @@ import config from "../config";
 export const postCSVUpload = async (req: express.Request, res: express.Response) => {
   const files = req.files as Express.Multer.File[];
   const locations: string[] = [];
-  try {
+  
 
     const s3 = new S3({
       accessKeyId: config.AWS_ACCESS_KEY_ID,
@@ -15,10 +15,12 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
     });
 
 
-    if (!files || files.length === 0) {
-      return res.status(400).send("No files uploaded");
-    } else {
+    
       try {
+        if (!files || files.length === 0) {
+          // return res.status(400).send("No files uploaded");
+          throw new Error("No file found");
+        }
         for (const file of files) {
           try {
             const location = await uploadToS3(s3, file);
@@ -34,11 +36,6 @@ export const postCSVUpload = async (req: express.Request, res: express.Response)
         const typedError = error as { message: string };
         res.render('csvFileUpload.njk', { errormessage: typedError.message });
       }
-    }
-
-  } catch (e) {
-    res.locals.errormessage = (e as Error).message;
-    res.render('errorPage.njk', { error: e as Error, token: req.session.token });
-  }
+    
 }
 
