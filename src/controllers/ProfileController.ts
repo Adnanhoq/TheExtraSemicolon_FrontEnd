@@ -16,16 +16,21 @@ export const getProfilePage = (req: express.Request, res: express.Response) => {
 
 export const putProfilePicture = async (req: express.Request, res: express.Response) => {
     
-    await updateProfilePicture(req.body as ProfileRequest, req.session.token ?? '');
-    const profileUpdate: ProfileResponse = await getProfilePicture(req.session.token ?? '');
-
-    if (profileUpdate.profilePicture) {
-        var scriptRegex = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
-        while (scriptRegex.test(profileUpdate.profilePicture)) {
-            profileUpdate.profilePicture = profileUpdate.profilePicture.replace(scriptRegex, "");
+    try {
+        await updateProfilePicture(req.body as ProfileRequest, req.session.token ?? '');
+        const profileUpdate: ProfileResponse = await getProfilePicture(req.session.token ?? '');
+    
+        if (profileUpdate.profilePicture) {
+            var scriptRegex = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi;
+            while (scriptRegex.test(profileUpdate.profilePicture)) {
+                profileUpdate.profilePicture = profileUpdate.profilePicture.replace(scriptRegex, "");
+            }
+            req.session.profilePicture = profileUpdate.profilePicture;
         }
-        req.session.profilePicture = profileUpdate.profilePicture;
+        res.redirect('/profile');
+    } catch (e) {
+        res.locals.errormessage = "Something went wrong when updating your profile";
+        res.redirect('/profile');
     }
-    res.redirect('/profile');
 
 }
