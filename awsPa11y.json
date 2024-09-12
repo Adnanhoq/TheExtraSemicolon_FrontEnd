@@ -20,6 +20,8 @@
         "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/job-roles",
         "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/job-roles/2",
         "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/login",
+        "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/profile",
+        "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/profile/picture"
         {
             "url": "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/",
             "description": "Testing the Halloween themed home-page",
@@ -40,6 +42,14 @@
             "description": "Testing the Halloween themed job-roles details page"
         },
         {
+            "url": "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/profile",
+            "description": "Testing the Halloween themed Profile page"
+        },
+        {
+            "url": "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/profile/picture",
+            "description": "Testing the Halloween themed Profile Picture page"
+        }
+        {
             "url": "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/",
             "description": "Testing the Christmas themed home-page",
             "actions": [
@@ -57,6 +67,15 @@
         {
             "url": "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/job-roles/2",
             "description": "Testing the Christmas themed job-roles details page"
+        },
+        {
+            "url": "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/profile",
+            "description": "Testing the Christmas themed Profile page"
+        },
+        {
+            "url": "https://fqq3vg4qpt.eu-west-1.awsapprunner.com/profile/picture",
+            "description": "Testing the Christmas themed Profile Picture page"
         }
+        
     ]
 }

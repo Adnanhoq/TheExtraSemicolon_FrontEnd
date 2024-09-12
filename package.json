@@ -20,8 +20,12 @@
     "body-parser": "^1.20.2",
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "imagetracerjs": "^1.2.6",
+    "jwt-decode": "^4.0.0",
     "nunjucks": "^3.2.4",
-    "jwt-decode": "^4.0.0"
+    "webcam-easy": "^1.1.1",
+    "jwt-decode": "^4.0.0",
+    "nunjucks": "^3.2.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

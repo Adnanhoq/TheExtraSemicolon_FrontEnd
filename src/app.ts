@@ -28,13 +28,16 @@ app.use(bodyParser.urlencoded({
 app.use(express.static("views"));
 // Specifying folder from where to fetch images
 app.use('/assets', express.static('./assets')); 
+app.use('/scripts', express.static('./src/scripts'))
 
 app.use(session({ name:'kainos-job-roles', secret: 'SUPER_SECRET', cookie: { maxAge: 28800000 }}));
 
 declare module "express-session" {
   interface SessionData {
     token: string;
+    profilePicture: string;
     theme: Theme;
+
   }
 }
 

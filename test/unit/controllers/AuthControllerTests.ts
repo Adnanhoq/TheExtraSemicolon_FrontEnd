@@ -1,12 +1,15 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
 import * as AuthService from "../../../src/services/AuthService"
+import * as ProfileService from "../../../src/services/ProfileService";
 import * as AuthController from "../../../src/controllers/AuthController"
 import * as AxiosRequest from 'axios';
+import { ProfileResponse } from '../../../src/models/ProfileResponse';
 
 declare module "express-session" {
     interface SessionData {
       token: string;
+      profilePicture: string;
     }
   }
 
@@ -29,7 +32,11 @@ describe('AuthController', function () {
     describe('postLoginForm', function () {
         it('should redirect to home when login successful', async () => {
             const token = '';
+            const profilePicture: ProfileResponse = {
+                profilePicture: ''
+            }
             sinon.stub(AuthService, 'getToken').resolves(token);
+            sinon.stub(ProfileService, 'getProfilePicture').resolves(profilePicture);
 
             const req = { session: {token: ''}};
             const res = { render: sinon.spy(), redirect: sinon.spy() };
