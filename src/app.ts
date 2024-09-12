@@ -8,6 +8,7 @@ import { userRouter } from "./routes/UserRouter";
 import { setRoleInLocals } from "./middleware/SetLocalRoleMiddleware";
 import { Theme } from "./enums/Theme";
 import { setThemeMiddleware } from "./middleware/SetThemeMiddleware";
+import { adminRouter } from "./routes/AdminRouter";
 
 const app = express();
 
@@ -47,3 +48,4 @@ app.use(setRoleInLocals);
 app.use('/', userRouter);
 
 app.use('/', unauthenticatedRouter);
+app.use('/', adminRouter);

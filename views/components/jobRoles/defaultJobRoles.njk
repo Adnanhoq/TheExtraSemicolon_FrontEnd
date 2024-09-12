@@ -1,5 +1,12 @@
     <div class="container">
         <div class="mainBody">
-            <h1 class="m-0 p-0 d-flex flex-row justify-content-center mb-3">Job Roles List</h1>
+            <div class="d-flex justify-content-center mb-3 position-relative align-items-center">
+                <h1 class="mb-1 pb-2">Job Roles List</h1>
+                {% if role == '1' %}
+                    <a href="/jobroles/report" class="btn btn-outline-dark position-absolute end-0">
+                        Generate Report
+                    </a>
+                {% endif %}
+            </div>
             <div class="d-flex flex-row justify-content-between m-0 p-0">
                 <h3 class="mx-2 mb-2 align-items-center">{{ pagination.total }} positions available</h3>
