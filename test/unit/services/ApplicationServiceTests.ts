@@ -2,10 +2,11 @@ import axios from "axios";
 import sinon from 'sinon';
 import { assert, expect } from 'chai';
 import MockAdapter from "axios-mock-adapter";
-import { checkBucketExists, createApplication, getApplicationById, uploadToS3 } from "../../../src/services/ApplicationService";
+import * as ApplicationService from  '../../../src/services/ApplicationService';
 import { S3 } from "aws-sdk";
 import * as Crypto from "crypto";
 import { config } from "../../../src/config";
+import { checkBucketExists, createApplication, getApplicationById, uploadToS3 } from "../../../src/services/ApplicationService";
 
 let mock : MockAdapter
 
@@ -47,44 +48,51 @@ describe('ApplicationService', function() {
             const s3 = {};
             const fileData = null;
 
-            const res = await uploadToS3(s3 as any, fileData as any);
-            expect(res.success).to.be.false;
-            expect(res.message).to.equal("Unable to Upload the file");
-
+            try {
+                await ApplicationService.uploadToS3(s3 as any, fileData as any);
+            } catch (e) {
+                expect(e.message).to.equal('Upload to S3 was unsuccessful: No file data provided');
+                return;
+            }
+            assert.fail('Expected error message');
         }),
         it('should return with successful response when S3 and FileData configured', async () => {
             const testMimetype = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             const fileData = {originalname : "testFile", buffer: '', mimetype: testMimetype};
             config.BUCKET_NAME = '';
             const s3 = {upload: sinon.stub().returns({promise: sinon.stub().returns({})})};
-
+            const location = 'testlocation'
 
             const res = await uploadToS3(s3 as any, fileData as any);
-            expect(res.success).to.be.true;
-            expect(res.message).to.equal("File Uploaded with Successful");
-
+            expect(res).to.be.equal(location);
         }),
         it('should return with failed response when file fails to upload', async () => {
             const testMimetype = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             const fileData = {originalname : "testFile", buffer: '', mimetype: testMimetype};
             config.BUCKET_NAME = '';
-            const s3 = {upload: sinon.stub().returns({})};
+            const s3 = {upload: sinon.stub().throws(new Error())};
+            try {
+                const res = await uploadToS3(s3 as any, fileData as any);
+            } catch(e) {
+                expect(e.message).to.equal('Upload to S3 was unsuccessful: ');
+                return;
+            }
+            assert.fail('Expected error message');
 
-
-            const res = await uploadToS3(s3 as any, fileData as any);
-            expect(res.success).to.be.false;
-            expect(res.message).to.equal("Unable to Upload the file");
         }),
         it('should return with failed response when Bucket Name undefined', async () => {
             const testMimetype = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
             const fileData = {originalname : "testFile", buffer: '', mimetype: testMimetype};
             config.BUCKET_NAME = undefined;
             const s3 = {upload: sinon.stub().returns({})};
-
-
-            const res = await uploadToS3(s3 as any, fileData as any);
-            expect(res.success).to.be.false;
-            expect(res.message).to.equal("Unable to Upload the file");
+            
+            try {
+                const res = await uploadToS3(s3 as any, fileData as any);
+            } catch (e) {
+                expect(e.message).to.be.equal("Upload to S3 was unsuccessful: Bucket is undefined");
+                return;
+            }
+            assert.fail("Expected an error");
         })
     }),
     describe('getApplicationById', function() {

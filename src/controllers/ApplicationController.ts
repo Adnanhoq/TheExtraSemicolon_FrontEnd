@@ -2,7 +2,6 @@ import { S3 } from 'aws-sdk';
 import express from "express";
 import {checkBucketExists, createApplication, getApplicationById, uploadToS3 } from '../services/ApplicationService'
 import config from "../config";
-import  multer from 'multer';
 import { JwtToken } from '../models/JwtToken';
 import { jwtDecode } from 'jwt-decode';
 import axios from "axios";
@@ -19,13 +18,10 @@ import { Application } from '../models/application';
     if( !bucketStatus ) {
       throw new Error("Bucket does not exist")
       }
-    else {
-      return true;
-    }
 }
 
   export const getUploadForm = async (req: express.Request, res: express.Response) => {
-    res.render('apply.njk', {id: req.params.id});
+    await res.render('apply.njk', {id: req.params.id});
   }
 
   export const checkApplicationExists = async (id: number, email: string, token: string) => {

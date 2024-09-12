@@ -1,6 +1,5 @@
 import { Request } from "express";
 import multer, { FileFilterCallback } from "multer";
-import path from "path"; // For generating unique filenames
 
 export const multerConfig = {
     storage: multer.memoryStorage(),

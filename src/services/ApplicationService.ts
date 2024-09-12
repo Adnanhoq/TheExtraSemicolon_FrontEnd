@@ -14,15 +14,15 @@ import { getHeader } from "./AuthUtil";
  - @returns {Promise<{success: boolean; message: string; data: object;}>} The result of the check operation.
  */
 
-export const checkBucketExists = async (s3: S3, bucket:string | undefined) => { // This may not be needed as bucket will always exist
+export const checkBucketExists = async (s3: S3, bucket:string | undefined) => { 
     try{
       if (bucket == undefined) 
       {
         throw new Error("Bucket is undefined");
       }
-        const res = await s3.headBucket({Bucket:bucket}).promise()
+        await s3.headBucket({Bucket:bucket}).promise()
         return true;
-    } catch (error) {
+    } catch (error ) {
         console.log(error.message);
         return false;        
     }
@@ -44,7 +44,7 @@ export const checkBucketExists = async (s3: S3, bucket:string | undefined) => { 
     }
     const fileContent = fileData.buffer;
     const guid = randomUUID();
-    const folderData = config.BUCKET_URL + guid + fileData!.originalname
+    const folderData = config.BUCKET_FOLDERNAME + guid + fileData!.originalname
       const params = {
         Bucket: config.BUCKET_NAME ?? '',
         Key: folderData,
@@ -55,14 +55,12 @@ export const checkBucketExists = async (s3: S3, bucket:string | undefined) => { 
       return res.Location;
 
   } catch (error) {
-  throw new Error(error)
+  throw new Error("Upload to S3 was unsuccessful: " + error.message)
 }
   }
 
   export const getApplicationById = async (id: number, email: string, token: string) => {
     const response: AxiosResponse = await axios.post(config.API_URL+`apply/${id}`, email, getHeader(token));
-    return response.data;
-
   }
 
   export const createApplication = async (application: Application, token: string): Promise<void> => {

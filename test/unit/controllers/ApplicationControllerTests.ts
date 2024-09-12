@@ -20,27 +20,20 @@ describe('ApplicationController', function() {
     });
 
     describe('initBucket', function() {
-        
-        it('should return true as bucket exists', async () => { // Needs token but unsure how to pass it in
-            const s3 = undefined;
-
-            sinon.stub(ApplicationService, 'checkBucketExists').resolves(true);
-        
-            const res = await ApplicationController.initBucket(s3 as any);
-
-            expect(res.success).to.be.true;
-            expect(res.message).to.equal("Bucket exists");
-        }),
 
         it('should return false as bucket does not exist', async () => { // Needs token but unsure how to pass it in
             const s3 = undefined;
 
             sinon.stub(ApplicationService, 'checkBucketExists').resolves(false);
-        
-            const res = await ApplicationController.initBucket(s3 as any);
+            try {
+                const res = await ApplicationController.initBucket(s3 as any);
+            } catch (e) {
+                console.log("HERE"+e)
+                expect(e.message).to.equal("Bucket does not exist");
+                return;
+            }
+            assert.fail("Expected error message");
 
-            expect(res.success).to.be.false;
-            expect(res.message).to.equal("Bucket does not exist");
         })
     }),
     
@@ -125,13 +118,14 @@ describe('ApplicationController', function() {
         it("should render apply-success when successful application", async () => {
             const req = { session: {token: 'test'}, params: {id: 1}, file: ''};
             const res = { render: sinon.spy(), locals: {role: 0}};
+            const location = 'testlocation';
  
             sinon.stub(JWTDecode, 'jwtDecode').returns({sub: 'test@kainos.com'});
  
             sinon.stub(ApplicationController, 'checkApplicationExists').resolves(false);
             sinon.stub(ApplicationController, 'initBucket').resolves();
  
-            sinon.stub(ApplicationService, 'uploadToS3').resolves({success: true, data: '', message: ''});
+            sinon.stub(ApplicationService, 'uploadToS3').resolves(location);
             sinon.stub(ApplicationService, 'createApplication').resolves();
  
             await ApplicationController.postUpload(req as any, res as any);

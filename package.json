@@ -7,7 +7,7 @@
     "start": "tsc && node -r dotenv/config dist/app.js",
     "dev": "nodemon -r dotenv/config src/app.ts",
     "linter": "npx eslint .",
-    "test": "mocha --require ts-node/register test/unit/**/*.ts -g 'ApplicationController'",
+    "test": "mocha --require ts-node/register test/unit/**/*.ts",
     "test-ui": "mocha --require ts-node/register --timeout 10000 test/ui/**/*.ts",
     "build": "tsc --build"
   },
