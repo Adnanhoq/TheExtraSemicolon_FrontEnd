@@ -1,7 +1,15 @@
-{% if theme == 'christmas' %}
-    {% include 'components/landingPages/christmasIndex.njk' %}
-{% elif theme == 'halloween' %}
-    {% include 'components/landingPages/halloweenIndex.njk' %}
-{% else %}
-    {% include 'components/landingPages/defaultIndex.njk' %}
-{% endif %}
+{% extends "./layouts/main.njk" %}
+
+{% block pageTitle %}
+  Home
+{% endblock %}
+
+{% block content %}
+    {% if theme == 'christmas' %}
+        {% include 'components/landingPages/christmasIndex.njk' %}
+    {% elif theme == 'halloween' %}
+        {% include 'components/landingPages/halloweenIndex.njk' %}
+    {% else %}
+        {% include 'components/landingPages/defaultIndex.njk' %}
+    {% endif %}
+{% endblock %}

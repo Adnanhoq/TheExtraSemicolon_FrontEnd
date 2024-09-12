@@ -1,7 +1,15 @@
-{% if theme == 'christmas' %}
-    {% include 'components/loginForms/christmasLoginForm.njk' %}
-{% elif theme == 'halloween' %}
-    {% include 'components/loginForms/halloweenLoginForm.njk' %}
-{% else %}
-    {% include 'components/loginForms/defaultLoginForm.njk' %}
-{% endif %}
+{% extends "./layouts/main.njk" %}
+
+{% block pageTitle %}
+  Log In
+{% endblock %}
+
+{% block content %}
+    {% if theme == 'christmas' %}
+        {% include 'components/loginForms/christmasLoginForm.njk' %}
+    {% elif theme == 'halloween' %}
+        {% include 'components/loginForms/halloweenLoginForm.njk' %}
+    {% else %}
+        {% include 'components/loginForms/defaultLoginForm.njk' %}
+    {% endif %}
+{% endblock %}
