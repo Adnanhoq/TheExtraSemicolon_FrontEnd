@@ -20,17 +20,13 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
       if (bucket == undefined) 
       {
         console.log("Error, bucket is undefined")
-        return {success: false, message: "Error, bucket is undefined"}
+        return false;
       }
         const res = await s3.headBucket({Bucket:bucket}).promise()
-        
-        
-        return {success: true, message: "Bucket already exists", data: {}};
+        return true;
     } catch (error) {
-        console.log("Error bucket don't exist", error);
-
-        return {success: false, message: "Error! Bucket does not exist", data: error}
-        
+        console.log("Error bucket doesn't exist", error);
+        return false;        
     }
 };
 /**
@@ -44,12 +40,12 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
     if (!fileData) {
       throw new Error('No file data provided');
     }
-    const fileContent = fileData.buffer;
     if (config.BUCKET_NAME == undefined)
     {
       console.log("Error, bucket is undefined")
       return {success: false, message: "Error, bucket is undefined"}
     }
+    const fileContent = fileData.buffer;
     const guid = randomUUID();
     const folderData = "the_extra_semicolon/" + guid + fileData!.originalname
       const params = {
@@ -58,19 +54,13 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
         Body: fileContent,
         ContentType: fileData.mimetype
       };
-      
-      try {
-        const res = await s3.upload(params).promise();
-
-        return {success: true, message: "File Uploaded with Successful", data: res.Location};
-      } catch (error) {
-        return {success: false, message: "Unable to Upload the file", data: error};
-      }
+      const res = await s3.upload(params).promise();
+      return {success: true, message: "File Uploaded with Successful", data: res.Location};
 
   } catch (error) {
   console.log(error);
-  return {success:false, message: "Unable to access this file", data: {}};
-  }
+  return {success: false, message: "Unable to Upload the file", data: error};
+}
   }
 
   export const getApplicationById = async (id: number, email: string, token: string) => {
@@ -83,7 +73,6 @@ export const checkBucket = async (s3: S3, bucket:string | undefined) => { // Thi
     try {
         validateApplicationObject(application);
         const response: AxiosResponse = await axios.post(config.API_URL+"apply", application, getHeader(token)); 
-        console.log(response.data)
         return response.data;
     } catch (e) {
         throw new Error(e.response.data);

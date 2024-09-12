@@ -15,7 +15,7 @@ import axios from "axios";
   export const initBucket = async (s3: S3) => {
   const bucketStatus = await checkBucket(s3, config.BUCKET_NAME);
 
-    if( !bucketStatus.success ) { // Check the bucket's existance
+    if( !bucketStatus ) { // Check the bucket's existance
       return {success : false, message: "Bucket does not exist"}
       }
       else {
@@ -67,8 +67,6 @@ import axios from "axios";
             s3Link: uploadResult.data,
           }
           await createApplication(ApplicationReq, req.session.token ?? '');
-
-          console.log(uploadResult.message);
           res.render('apply-success.njk');
         }
       } catch (e){
